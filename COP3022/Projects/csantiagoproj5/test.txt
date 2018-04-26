@@ -1,0 +1,15 @@
+H
+House
+G
+140
+30
+F
+Carrots
+O
+35
+A
+Toyota
+Yaris
+2010
+55
+32

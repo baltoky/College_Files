@@ -1,0 +1,16 @@
+-3Cellphone provider options:
+1000 minutes $29,99
+5000 minutes $49,99
+Unlimited $69,99
+-3Provider cellphone options:
+Model 100 $39,95
+Model 200 $49,95
+Model 300 $59,95
+-3Monthly data options:
+500MB $50,00
+2.5GB $60,00
+Unlimited $70,00
+-3Shipping cost information:
+Within 325XX $00,00
+Continental United States $05,00
+Alaska (995XX => 999XX) or Hawaii (967XX => 968XX) $10,00
