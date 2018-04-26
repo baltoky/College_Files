@@ -12,58 +12,78 @@
  * */
 int* LCS(char* x, char* y, int sizeX, int sizeY){
 	int m = sizeX, n = sizeY; // m - rows, n - collumns.
-	int i, j; // loop variables.
-	int* c = (int*)malloc(sizeof(int) * m * n); // pointer to store the LCS matrix.
+	int i, j, k; // loop variables.
+	int* c = (int*)malloc(sizeof(int) * (m + 1) * (n + 1)); // pointer to store the LCS matrix.
 	int* pc = c;
 
-	for(i = 1; i <= m; i++) // sets the first column to 0s.
-		pc[i * n] = 0;
-	for(j = 1; j <= n; j++) // sets the first row to 0s.
-		pc[j] = 0;
+	for(k = 0; k < 2; k++){ // initializing the first two rows and cols to 0s.
+		for(i = 0; i <= m; i++) // sets the column to 0s.
+			pc[i * n + k] = 0;
+		for(j = 0; j <= n; j++) // sets the row to 0s.
+			pc[k * n + j] = 0;
+	}
 
 	for(i = 1; i <= m; i++){
 		for(j = 1; j <= n; j++){
 			// if the sequence letters are equal then add one to the matrix.
-			if(x[i - 1] == y[j - 1]) 
-				pc[i * n + j] = pc[(i - 1) * n + (j - 1)] + 1;
+			if(x[i - 1] == y[j - 1]) {
+				pc[i * n + j] = 1 + pc[(i - 1) * n + (j - 1)];
+			}
 			// else if the top index is greater or equal to the left index, make current index equal to 
 			// 	top index.
-			else if(pc[(i - 1) * n + j] >= pc[i * n + (j - 1)]) 
+			else if(pc[(i - 1) * n + j] >= pc[i * n + (j - 1)]) {
 				pc[i * n + j] = pc[(i - 1) * n + j];
+			}
 			// else make the current index equal to the left index.
-			else
+			else{
 				pc[i * n + j] = pc[i * n + (j - 1)];
+			}
 		}
+		pc[i * n] = 0;
 	}
 	// return the pointer to the LCS matrix.
 	return c;
 }
 
-void readLCSstrings(char** x, char** y, int* a, int* b){
+void printLCS(int* c, char* x, char* y, int m, int n){
+
+}
+
+void readLCSstrings(char** x, char** y, int* m, int* n){
 	FILE *fp = fopen("twoSequences.txt", "r");
 
 	// allocation and reading of the first string in the file.
-	fscanf(fp, "%d", a); // reads the size of the string first.
-	(*x) = (char*) malloc((*a) + 1); // allocation of memory to prepare for recieving the string, + 1 for the string end char.
+	fscanf(fp, "%d", m); // reads the size of the string first.
+	(*x) = (char*) malloc((*m) + 1); // allocation of memory to prepare for recieving the string, + 1 for the string end char.
 	fscanf(fp, "%s", (*x)); // reads the string from the file.
-	(*x)[(*a)] = '\0'; // initializes the string end char.
+	(*x)[(*m)] = '\0'; // initializes the string end char.
 
 	// allocation and reading of the second string.
-	fscanf(fp, "%d", b); // reads the size of the string first.
-	(*y) = (char*) malloc((*b) + 1); // allocation of memory to prepare for recieving the string, + 1 for the string end char.
+	fscanf(fp, "%d", n); // reads the size of the string first.
+	(*y) = (char*) malloc((*n) + 1); // allocation of memory to prepare for recieving the string, + 1 for the string end char.
 	fscanf(fp, "%s", (*y)); // reads the string from the file.
-	printf("%s\n", (*y)); 
-	(*y)[(*b)] = '\0'; // initializes the string end char.
-	printf("%s\n", (*y));
+	(*y)[(*n)] = '\0'; // initializes the string end char.
 
 	fclose(fp); // closes the file.
 }
 
-void printLCS(int* c, int m, int n){
+void printLCSMatrix(int* c, char* x, char* y, int m, int n){
 	int i, j;
-	for(i = 1; i <= m; i++){
-		for(j = 0; j < n; j++)
-			printf("[%i]", c[i * n + j]);
+	int* pc = c;
+	char* a = x, *b = y;
+
+	printf("   [0]");
+	for(i = 0; i < n; i++)
+		printf("[%c]", a[i]);
+	for(i = 0; i <= m; i++){
+		if(i == 0){
+			printf("\n[0]");
+		}
+		else
+			printf("[%c]", b[i-1]);
+
+		for(j = 0; j <= n; j++)
+			printf("[%d]", pc[i * n + j]);
 		printf("\n");
 	}
 
@@ -76,15 +96,13 @@ int main(int argc, char** argv){
 	readLCSstrings(&x, &y, &a, &b);
 
 	int* c = LCS(x, y, a, b);
-	printLCS(c, a, b);
-
-	printf("\n");
+	printLCSMatrix(c, x, y, a, b);
 
 	char h[] = {'r', 't', 's', '\0'};
 	char k[] = {'r', 'p', 'g', '\0'};
 
 	int* t = LCS(h, k, 3, 3);
-	printLCS(t, 3, 3);
+	printLCSMatrix(t, h, k, 3, 3);
 
 	return 0;
 }
