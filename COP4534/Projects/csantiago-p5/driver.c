@@ -16,12 +16,9 @@ int* LCS(char* x, char* y, int sizeX, int sizeY){
 	int* c = (int*)malloc(sizeof(int) * (m + 1) * (n + 1)); // pointer to store the LCS matrix.
 	int* pc = c;
 
-	for(k = 0; k < 2; k++){ // initializing the first two rows and cols to 0s.
-		for(i = 0; i <= m; i++) // sets the column to 0s.
-			pc[i * n + k] = 0;
-		for(j = 0; j <= n; j++) // sets the row to 0s.
-			pc[k * n + j] = 0;
-	}
+	for(i = 0; i <= m; i++)
+		for(j = 0; j <= n; j++)
+			pc[i * n + j] = 0;
 
 	for(i = 1; i <= m; i++){
 		for(j = 1; j <= n; j++){
@@ -39,7 +36,7 @@ int* LCS(char* x, char* y, int sizeX, int sizeY){
 				pc[i * n + j] = pc[i * n + (j - 1)];
 			}
 		}
-		pc[i * n] = 0;
+		//pc[i * n] = 0;
 	}
 	// return the pointer to the LCS matrix.
 	return c;
