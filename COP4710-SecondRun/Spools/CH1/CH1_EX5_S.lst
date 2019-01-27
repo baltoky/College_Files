@@ -1,0 +1,19 @@
+SQL> SELECT sysdate, user
+  2  FROM dual;
+
+SYSDATE                                                                         
+---------------                                                                 
+USER                                                                            
+--------------------------------------------------------------------------------
+27-JAN-19                                                                       
+CAS156                                                                          
+                                                                                
+
+SQL> SELECT TO_CHAR (sysdate, 'dd-Mon-yyyy hh24:mm:ss')
+  2  FROM dual;
+
+TO_CHAR(SYSDATE,'DD-MON-YYYYHH24:MM:SS')                                        
+------------------------------------------------------------                    
+27-Jan-2019 12:01:29                                                            
+
+SQL> SPOOL OFF

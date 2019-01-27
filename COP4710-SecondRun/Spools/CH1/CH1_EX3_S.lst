@@ -1,0 +1,220 @@
+SQL> CREATE SyNONYM Course FOR rearp.Course;
+
+Synonym created.
+
+SQL> EDIT
+Wrote file afiedt.buf
+
+  1* CREATE SYNONYM Section FOR rearp.Section
+SQL> /
+
+Synonym created.
+
+SQL> EDIT
+Wrote file afiedt.buf
+
+  1* CREATE SYNONYM Prereq FOR rearp.Prereq
+SQL> /
+
+Synonym created.
+
+SQL> EDIT
+Wrote file afiedt.buf
+
+  1* CREATE SYNONYM Grade FOR rearp.Grade_report
+SQL> /
+
+Synonym created.
+
+SQL> EDIT
+Wrote file afiedt.buf
+
+  1* CREATE SYNONYM Department FOR rearp.Department_to_major
+SQL> /
+
+Synonym created.
+
+SQL> EDIT
+Wrote file afiedt.buf
+
+  1* CREATE SYNONYM Room FOR rearp.Room
+SQL> /
+
+Synonym created.
+
+SQL> EDIT
+Wrote file afiedt.buf
+
+  1* DESC Student
+SQL> /
+DESC Student
+*
+ERROR at line 1:
+ORA-00900: invalid SQL statement 
+
+
+SQL> CREATE SYNONYM Student FOR rearp.Student;
+CREATE SYNONYM Student FOR rearp.Student
+               *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object 
+
+
+SQL> SELECT * FROM user_synonyms;
+
+SYNONYM_NAME                                                                    
+--------------------------------------------------------------------------------
+TABLE_OWNER                                                                     
+--------------------------------------------------------------------------------
+TABLE_NAME                                                                      
+--------------------------------------------------------------------------------
+DB_LINK                                                                         
+--------------------------------------------------------------------------------
+STUDENT                                                                         
+REARP                                                                           
+STUDENT                                                                         
+                                                                                
+                                                                                
+
+SYNONYM_NAME                                                                    
+--------------------------------------------------------------------------------
+TABLE_OWNER                                                                     
+--------------------------------------------------------------------------------
+TABLE_NAME                                                                      
+--------------------------------------------------------------------------------
+DB_LINK                                                                         
+--------------------------------------------------------------------------------
+SECTION                                                                         
+REARP                                                                           
+SECTION                                                                         
+                                                                                
+                                                                                
+
+SYNONYM_NAME                                                                    
+--------------------------------------------------------------------------------
+TABLE_OWNER                                                                     
+--------------------------------------------------------------------------------
+TABLE_NAME                                                                      
+--------------------------------------------------------------------------------
+DB_LINK                                                                         
+--------------------------------------------------------------------------------
+ROOM                                                                            
+REARP                                                                           
+ROOM                                                                            
+                                                                                
+                                                                                
+
+SYNONYM_NAME                                                                    
+--------------------------------------------------------------------------------
+TABLE_OWNER                                                                     
+--------------------------------------------------------------------------------
+TABLE_NAME                                                                      
+--------------------------------------------------------------------------------
+DB_LINK                                                                         
+--------------------------------------------------------------------------------
+PREREQ                                                                          
+REARP                                                                           
+PREREQ                                                                          
+                                                                                
+                                                                                
+
+SYNONYM_NAME                                                                    
+--------------------------------------------------------------------------------
+TABLE_OWNER                                                                     
+--------------------------------------------------------------------------------
+TABLE_NAME                                                                      
+--------------------------------------------------------------------------------
+DB_LINK                                                                         
+--------------------------------------------------------------------------------
+GRADE                                                                           
+REARP                                                                           
+GRADE_REPORT                                                                    
+                                                                                
+                                                                                
+
+SYNONYM_NAME                                                                    
+--------------------------------------------------------------------------------
+TABLE_OWNER                                                                     
+--------------------------------------------------------------------------------
+TABLE_NAME                                                                      
+--------------------------------------------------------------------------------
+DB_LINK                                                                         
+--------------------------------------------------------------------------------
+DEPARTMENT                                                                      
+REARP                                                                           
+DEPARTMENT_TO_MAJOR                                                             
+                                                                                
+                                                                                
+
+SYNONYM_NAME                                                                    
+--------------------------------------------------------------------------------
+TABLE_OWNER                                                                     
+--------------------------------------------------------------------------------
+TABLE_NAME                                                                      
+--------------------------------------------------------------------------------
+DB_LINK                                                                         
+--------------------------------------------------------------------------------
+COURSE                                                                          
+REARP                                                                           
+COURSE                                                                          
+                                                                                
+                                                                                
+
+7 rows selected.
+
+SQL> DESC Student
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ STNO                                      NOT NULL NUMBER(38)
+ SNAME                                              VARCHAR2(20)
+ MAJOR                                              VARCHAR2(4)
+ CLASS                                              NUMBER(38)
+ BDATE                                              DATE
+
+SQL> DESC Course
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ COURSE_NAME                                        VARCHAR2(20)
+ COURSE_NUMBER                             NOT NULL VARCHAR2(8)
+ CREDIT_HOURS                                       NUMBER(38)
+ OFFERING_DEPT                                      VARCHAR2(4)
+
+SQL> DESC SECTION
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ SECTION_ID                                NOT NULL NUMBER(38)
+ COURSE_NUM                                         VARCHAR2(8)
+ SEMESTER                                           VARCHAR2(6)
+ YEAR                                               CHAR(2)
+ INSTRUCTOR                                         VARCHAR2(10)
+ BLDG                                               NUMBER(38)
+ ROOM                                               NUMBER(38)
+
+SQL> DESC Prereq
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ COURSE_NUMBER                             NOT NULL VARCHAR2(8)
+ PREREQ                                    NOT NULL VARCHAR2(8)
+
+SQL> DESC Grade
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ STUDENT_NUMBER                            NOT NULL NUMBER(38)
+ SECTION_ID                                NOT NULL NUMBER(38)
+ GRADE                                              CHAR(1)
+
+SQL> DESC Department
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ DCODE                                     NOT NULL VARCHAR2(4)
+ DNAME                                              VARCHAR2(20)
+
+SQL> DESC Room
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ BLDG                                      NOT NULL NUMBER(38)
+ ROOM                                      NOT NULL NUMBER(38)
+ CAPACITY                                           NUMBER(38)
+ OHEAD                                              VARCHAR2(1)
+
+SQL> SPOOL OFF

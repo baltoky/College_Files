@@ -1,0 +1,4 @@
+SELECT *
+FROM Course
+WHERE offering_dept = 'COSC'
+/

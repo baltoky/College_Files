@@ -1,0 +1,12 @@
+SQL> HELP SAVE
+
+ SAVE
+ ----
+
+ Saves the contents of the SQL buffer in a script. The
+ buffer has no command history list and does not record SQL*Plus commands.
+
+ SAV[E] [FILE] file_name[.ext] [CRE[ATE] | REP[LACE] | APP[END]]
+
+
+SQL> SPOOL OFF

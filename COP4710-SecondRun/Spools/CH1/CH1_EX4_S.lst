@@ -1,0 +1,105 @@
+SQL> SELECT *
+  2  FROM Prereq;
+
+COURSE_NUMBER            PREREQ                                                 
+------------------------ ------------------------                               
+ACCT3333                 ACCT2220                                               
+CHEM3001                 CHEM2001                                               
+COSC3320                 COSC1310                                               
+COSC3380                 COSC3320                                               
+COSC3380                 MATH2410                                               
+COSC5234                 COSC3320                                               
+ENGL1011                 ENGL1010                                               
+ENGL3401                 ENGL1011                                               
+ENGL3520                 ENGL1011                                               
+MATH5501                 MATH2333                                               
+POLY2103                 POLY1201                                               
+
+COURSE_NUMBER            PREREQ                                                 
+------------------------ ------------------------                               
+POLY5501                 POLY4103                                               
+
+12 rows selected.
+
+SQL> c /Prereq/Course
+  2* FROM Course
+SQL> i
+  3  WHERE offering_dept = 'COSC';
+
+COURSE_NAME                                                                     
+------------------------------------------------------------                    
+COURSE_NUMBER            CREDIT_HOURS OFFERING_DEP                              
+------------------------ ------------ ------------                              
+INTRO TO COMPUTER SC                                                            
+COSC1310                            4 COSC                                      
+                                                                                
+TURBO PASCAL                                                                    
+COSC2025                            3 COSC                                      
+                                                                                
+ADVANCED COBOL                                                                  
+COSC2303                            3 COSC                                      
+                                                                                
+
+COURSE_NAME                                                                     
+------------------------------------------------------------                    
+COURSE_NUMBER            CREDIT_HOURS OFFERING_DEP                              
+------------------------ ------------ ------------                              
+DATA STRUCTURES                                                                 
+COSC3320                            4 COSC                                      
+                                                                                
+DATABASE                                                                        
+COSC3380                            3 COSC                                      
+                                                                                
+OPERATIONS RESEARCH                                                             
+COSC3701                            3 COSC                                      
+                                                                                
+
+COURSE_NAME                                                                     
+------------------------------------------------------------                    
+COURSE_NUMBER            CREDIT_HOURS OFFERING_DEP                              
+------------------------ ------------ ------------                              
+ADVANCED ASSEMBLER                                                              
+COSC4301                            3 COSC                                      
+                                                                                
+SYSTEM PROJECT                                                                  
+COSC4309                            3 COSC                                      
+                                                                                
+ADA - INTRODUCTION                                                              
+COSC5234                            4 COSC                                      
+                                                                                
+
+COURSE_NAME                                                                     
+------------------------------------------------------------                    
+COURSE_NUMBER            CREDIT_HOURS OFFERING_DEP                              
+------------------------ ------------ ------------                              
+NETWORKS                                                                        
+COSC5920                            3 COSC                                      
+                                                                                
+
+10 rows selected.
+
+SQL> 1
+  1* SELECT *
+SQL> c /*/course_name
+  1* SELECT course_name
+SQL> 3
+  3* WHERE offering_dept = 'COSC'
+SQL> del 3
+SQL> l
+  1  SELECT course_name
+  2* FROM Course
+SQL> i
+  3  WHERE offering_dept = 'MATH';
+
+COURSE_NAME                                                                     
+------------------------------------------------------------                    
+ALGEBRA                                                                         
+DISCRETE MATHEMATICS                                                            
+CALCULUS 1                                                                      
+CALCULUS 2                                                                      
+CALCULUS 3                                                                      
+MATH ANALYSIS                                                                   
+
+6 rows selected.
+
+SQL> SPOOL OFF

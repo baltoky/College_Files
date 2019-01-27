@@ -1,0 +1,163 @@
+SQL> @CH1_EX1_Q
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ COURSE_NAME                                        VARCHAR2(20)
+ COURSE_NUMBER                             NOT NULL VARCHAR2(8)
+ CREDIT_HOURS                                       NUMBER(38)
+ OFFERING_DEPT                                      VARCHAR2(4)
+
+
+COURSE_NAME                                                                     
+------------------------------------------------------------                    
+COURSE_NUMBER            CREDIT_HOURS OFFERING_DEP                              
+------------------------ ------------ ------------                              
+ACCOUNTING I                                                                    
+ACCT2020                            3 ACCT                                      
+                                                                                
+ACCOUNTING II                                                                   
+ACCT2220                            3 ACCT                                      
+                                                                                
+MANAGERIAL FINANCE                                                              
+ACCT3333                            3 ACCT                                      
+                                                                                
+
+COURSE_NAME                                                                     
+------------------------------------------------------------                    
+COURSE_NUMBER            CREDIT_HOURS OFFERING_DEP                              
+------------------------ ------------ ------------                              
+ACCOUNTING INFO SYST                                                            
+ACCT3464                            3 ACCT                                      
+                                                                                
+INTRO TO COMPUTER SC                                                            
+COSC1310                            4 COSC                                      
+                                                                                
+TURBO PASCAL                                                                    
+COSC2025                            3 COSC                                      
+                                                                                
+
+COURSE_NAME                                                                     
+------------------------------------------------------------                    
+COURSE_NUMBER            CREDIT_HOURS OFFERING_DEP                              
+------------------------ ------------ ------------                              
+ADVANCED COBOL                                                                  
+COSC2303                            3 COSC                                      
+                                                                                
+DATA STRUCTURES                                                                 
+COSC3320                            4 COSC                                      
+                                                                                
+DATABASE                                                                        
+COSC3380                            3 COSC                                      
+                                                                                
+
+COURSE_NAME                                                                     
+------------------------------------------------------------                    
+COURSE_NUMBER            CREDIT_HOURS OFFERING_DEP                              
+------------------------ ------------ ------------                              
+OPERATIONS RESEARCH                                                             
+COSC3701                            3 COSC                                      
+                                                                                
+ADVANCED ASSEMBLER                                                              
+COSC4301                            3 COSC                                      
+                                                                                
+SYSTEM PROJECT                                                                  
+COSC4309                            3 COSC                                      
+                                                                                
+
+COURSE_NAME                                                                     
+------------------------------------------------------------                    
+COURSE_NUMBER            CREDIT_HOURS OFFERING_DEP                              
+------------------------ ------------ ------------                              
+ADA - INTRODUCTION                                                              
+COSC5234                            4 COSC                                      
+                                                                                
+NETWORKS                                                                        
+COSC5920                            3 COSC                                      
+                                                                                
+ENGLISH COMP I                                                                  
+ENGL1010                            3 ENGL                                      
+                                                                                
+
+COURSE_NAME                                                                     
+------------------------------------------------------------                    
+COURSE_NUMBER            CREDIT_HOURS OFFERING_DEP                              
+------------------------ ------------ ------------                              
+ENGLISH COMP II                                                                 
+ENGL1011                            3 ENGL                                      
+                                                                                
+WRITING FOR NON MAJO                                                            
+ENGL3520                            2 ENGL                                      
+                                                                                
+ALGEBRA                                                                         
+MATH2333                            3 MATH                                      
+                                                                                
+
+COURSE_NAME                                                                     
+------------------------------------------------------------                    
+COURSE_NUMBER            CREDIT_HOURS OFFERING_DEP                              
+------------------------ ------------ ------------                              
+DISCRETE MATHEMATICS                                                            
+MATH2410                            3 MATH                                      
+                                                                                
+CALCULUS 1                                                                      
+MATH1501                            4 MATH                                      
+                                                                                
+AMERICAN CONSTITUTIO                                                            
+POLY1201                            1 POLY                                      
+                                                                                
+
+COURSE_NAME                                                                     
+------------------------------------------------------------                    
+COURSE_NUMBER            CREDIT_HOURS OFFERING_DEP                              
+------------------------ ------------ ------------                              
+INTRO TO POLITICAL S                                                            
+POLY2001                            3 POLY                                      
+                                                                                
+AMERICAN GOVERNMENT                                                             
+POLY2103                            2 POLY                                      
+                                                                                
+SOCIALISM AND COMMUN                                                            
+POLY4103                            4 POLY                                      
+                                                                                
+
+COURSE_NAME                                                                     
+------------------------------------------------------------                    
+COURSE_NUMBER            CREDIT_HOURS OFFERING_DEP                              
+------------------------ ------------ ------------                              
+POLITICS OF CUBA                                                                
+POLY5501                            4 POLY                                      
+                                                                                
+TECHNICAL WRITING                                                               
+ENGL3402                            2 ENGL                                      
+                                                                                
+FUND. TECH. WRITING                                                             
+ENGL3401                            3 ENGL                                      
+                                                                                
+
+COURSE_NAME                                                                     
+------------------------------------------------------------                    
+COURSE_NUMBER            CREDIT_HOURS OFFERING_DEP                              
+------------------------ ------------ ------------                              
+INTRO TO CHEMISTRY                                                              
+CHEM2001                            3 CHEM                                      
+                                                                                
+ORGANIC CHEMISTRY                                                               
+CHEM3001                            3 CHEM                                      
+                                                                                
+CALCULUS 2                                                                      
+MATH1502                            3 MATH                                      
+                                                                                
+
+COURSE_NAME                                                                     
+------------------------------------------------------------                    
+COURSE_NUMBER            CREDIT_HOURS OFFERING_DEP                              
+------------------------ ------------ ------------                              
+CALCULUS 3                                                                      
+MATH1503                            3 MATH                                      
+                                                                                
+MATH ANALYSIS                                                                   
+MATH5501                            3 MATH                                      
+                                                                                
+
+32 rows selected.
+
+SQL> SPOOL OFF

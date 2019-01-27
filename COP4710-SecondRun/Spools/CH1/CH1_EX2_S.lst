@@ -1,0 +1,233 @@
+SQL> @CH1_EX2_Q
+
+Synonym created.
+
+SQL> SELECT * FROM Student;
+
+      STNO SNAME                                                                
+---------- ------------------------------------------------------------         
+MAJOR             CLASS BDATE                                                   
+------------ ---------- ---------------                                         
+         2 Lineas                                                               
+ENGL                  1 15-APR-01                                               
+                                                                                
+         3 Mary                                                                 
+COSC                  4 16-JUL-98                                               
+                                                                                
+         8 Brenda                                                               
+COSC                  2 13-AUG-97                                               
+                                                                                
+
+      STNO SNAME                                                                
+---------- ------------------------------------------------------------         
+MAJOR             CLASS BDATE                                                   
+------------ ---------- ---------------                                         
+        10 Richard                                                              
+ENGL                  1 13-MAY-01                                               
+                                                                                
+        13 Kelly                                                                
+MATH                  4 12-AUG-01                                               
+                                                                                
+        14 Lujack                                                               
+COSC                  1 12-FEB-97                                               
+                                                                                
+
+      STNO SNAME                                                                
+---------- ------------------------------------------------------------         
+MAJOR             CLASS BDATE                                                   
+------------ ---------- ---------------                                         
+        15 Reva                                                                 
+MATH                  2 10-JUN-01                                               
+                                                                                
+        17 Elainie                                                              
+COSC                  1 12-AUG-96                                               
+                                                                                
+        19 Harley                                                               
+POLY                  2 16-APR-02                                               
+                                                                                
+
+      STNO SNAME                                                                
+---------- ------------------------------------------------------------         
+MAJOR             CLASS BDATE                                                   
+------------ ---------- ---------------                                         
+        20 Donald                                                               
+ACCT                  4 15-OCT-97                                               
+                                                                                
+        24 Chris                                                                
+ACCT                  4 12-FEB-98                                               
+                                                                                
+        34 Lynette                                                              
+POLY                  1 16-JUL-02                                               
+                                                                                
+
+      STNO SNAME                                                                
+---------- ------------------------------------------------------------         
+MAJOR             CLASS BDATE                                                   
+------------ ---------- ---------------                                         
+        49 Susan                                                                
+ENGL                  3 11-MAR-01                                               
+                                                                                
+        62 Monica                                                               
+MATH                  3 14-OCT-01                                               
+                                                                                
+        70 Bill                                                                 
+POLY                    14-OCT-01                                               
+                                                                                
+
+      STNO SNAME                                                                
+---------- ------------------------------------------------------------         
+MAJOR             CLASS BDATE                                                   
+------------ ---------- ---------------                                         
+       121 Hillary1                                                             
+COSC                  1 16-JUL-97                                               
+                                                                                
+       122 Phoebe                                                               
+ENGL                  3 15-APR-01                                               
+                                                                                
+       123 Holly                                                                
+POLY                  4 15-JAN-02                                               
+                                                                                
+
+      STNO SNAME                                                                
+---------- ------------------------------------------------------------         
+MAJOR             CLASS BDATE                                                   
+------------ ---------- ---------------                                         
+       125 Sadie                                                                
+MATH                  2 12-AUG-01                                               
+                                                                                
+       126 Jessica                                                              
+POLY                  2 16-JUL-02                                               
+                                                                                
+       127 Steve                                                                
+ENGL                  1 11-MAR-01                                               
+                                                                                
+
+      STNO SNAME                                                                
+---------- ------------------------------------------------------------         
+MAJOR             CLASS BDATE                                                   
+------------ ---------- ---------------                                         
+       128 Brad                                                                 
+COSC                  1 10-SEP-97                                               
+                                                                                
+       129 Cedric                                                               
+ENGL                  2 15-APR-01                                               
+                                                                                
+       130 Alan                                                                 
+COSC                  2 16-JUL-97                                               
+                                                                                
+
+      STNO SNAME                                                                
+---------- ------------------------------------------------------------         
+MAJOR             CLASS BDATE                                                   
+------------ ---------- ---------------                                         
+       131 Rachel                                                               
+ENGL                  3 15-APR-01                                               
+                                                                                
+       132 George                                                               
+POLY                  1 16-APR-02                                               
+                                                                                
+       142 Jerry                                                                
+COSC                  4 12-MAR-98                                               
+                                                                                
+
+      STNO SNAME                                                                
+---------- ------------------------------------------------------------         
+MAJOR             CLASS BDATE                                                   
+------------ ---------- ---------------                                         
+       143 Cramer                                                               
+ENGL                  3 15-APR-01                                               
+                                                                                
+       144 Fraiser                                                              
+POLY                  1 16-JUL-02                                               
+                                                                                
+       145 Harrison                                                             
+ACCT                  4 12-FEB-97                                               
+                                                                                
+
+      STNO SNAME                                                                
+---------- ------------------------------------------------------------         
+MAJOR             CLASS BDATE                                                   
+------------ ---------- ---------------                                         
+       146 Francis                                                              
+ACCT                  4 11-JUN-97                                               
+                                                                                
+       147 Smithly                                                              
+ENGL                  2 13-MAY-01                                               
+                                                                                
+       148 Sebastian                                                            
+ACCT                  2 14-OCT-96                                               
+                                                                                
+
+      STNO SNAME                                                                
+---------- ------------------------------------------------------------         
+MAJOR             CLASS BDATE                                                   
+------------ ---------- ---------------                                         
+        31 Jake                                                                 
+COSC                  4 12-FEB-98                                               
+                                                                                
+       151 Losmith                                                              
+CHEM                  3 15-JAN-02                                               
+                                                                                
+       153 Genevieve                                                            
+UNKN                    15-OCT-96                                               
+                                                                                
+
+      STNO SNAME                                                                
+---------- ------------------------------------------------------------         
+MAJOR             CLASS BDATE                                                   
+------------ ---------- ---------------                                         
+       155 Lindsay                                                              
+UNKN                  1 15-OCT-98                                               
+                                                                                
+       157 Stephanie                                                            
+MATH                    16-APR-02                                               
+                                                                                
+       158 Thornton                                                             
+                        15-OCT-89                                               
+                                                                                
+
+      STNO SNAME                                                                
+---------- ------------------------------------------------------------         
+MAJOR             CLASS BDATE                                                   
+------------ ---------- ---------------                                         
+       163 Lionel                                                               
+                        15-OCT-89                                               
+                                                                                
+       161 Benny                                                                
+CHEM                  4 10-JUN-01                                               
+                                                                                
+       160 Gus                                                                  
+ART                   3 15-OCT-98                                               
+                                                                                
+
+      STNO SNAME                                                                
+---------- ------------------------------------------------------------         
+MAJOR             CLASS BDATE                                                   
+------------ ---------- ---------------                                         
+         5 Zelda                                                                
+COSC                    12-FEB-98                                               
+                                                                                
+         7 Mario                                                                
+MATH                    12-AUG-01                                               
+                                                                                
+         9 Romona                                                               
+ENGL                    15-APR-01                                               
+                                                                                
+
+      STNO SNAME                                                                
+---------- ------------------------------------------------------------         
+MAJOR             CLASS BDATE                                                   
+------------ ---------- ---------------                                         
+         6 Ken                                                                  
+POLY                    15-JUL-01                                               
+                                                                                
+        88 Smith                                                                
+                        15-OCT-93                                               
+                                                                                
+       191 Jake                                                                 
+MATH                  2 10-JUN-01                                               
+                                                                                
+
+48 rows selected.
+
+SQL> SPOOL OFF
