@@ -1,4 +1,7 @@
-SQL> @CH1_EX1_Q
+@CH1_EX1_Q
+
+SQL> DESC rearp.Course
+
  Name                                      Null?    Type
  ----------------------------------------- -------- ----------------------------
  COURSE_NAME                                        VARCHAR2(20)
@@ -6,6 +9,7 @@ SQL> @CH1_EX1_Q
  CREDIT_HOURS                                       NUMBER(38)
  OFFERING_DEPT                                      VARCHAR2(4)
 
+SQL> SELECT * FROM rearp.Course;
 
 COURSE_NAME                                                                     
 ------------------------------------------------------------                    

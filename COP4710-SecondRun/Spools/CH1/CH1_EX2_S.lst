@@ -1,4 +1,4 @@
-SQL> @CH1_EX2_Q
+SQL> CREATE SYNONYM Student FOR rearp.Student
 
 Synonym created.
 
