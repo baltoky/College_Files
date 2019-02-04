@@ -1,0 +1,60 @@
+SQL> SELECT sname, major, class
+  2  FROM Student
+  3  WHERE major = 'ART'
+  4  AND class = 3;
+
+no rows selected
+
+SQL> DESC Student;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ STNO                                      NOT NULL NUMBER(38)
+ SNAME                                              VARCHAR2(20)
+ MAJOR                                              VARCHAR2(4)
+ CLASS                                              NUMBER(38)
+ BDATE                                              DATE
+
+SQL> SELECT sname, major, class
+  2  FROM Student
+  3  WHERE major = 'ART'
+  4  OR class = 3;
+
+SNAME                                                        MAJOR              
+------------------------------------------------------------ ------------       
+     CLASS                                                                      
+----------                                                                      
+Susan                                                        ENGL               
+         3                                                                      
+                                                                                
+Monica                                                       MATH               
+         3                                                                      
+                                                                                
+Phoebe                                                       ENGL               
+         3                                                                      
+                                                                                
+
+SNAME                                                        MAJOR              
+------------------------------------------------------------ ------------       
+     CLASS                                                                      
+----------                                                                      
+Rachel                                                       ENGL               
+         3                                                                      
+                                                                                
+Cramer                                                       ENGL               
+         3                                                                      
+                                                                                
+Losmith                                                      CHEM               
+         3                                                                      
+                                                                                
+
+SNAME                                                        MAJOR              
+------------------------------------------------------------ ------------       
+     CLASS                                                                      
+----------                                                                      
+Gus                                                          ART                
+         3                                                                      
+                                                                                
+
+7 rows selected.
+
+SQL> SPOOL OFF

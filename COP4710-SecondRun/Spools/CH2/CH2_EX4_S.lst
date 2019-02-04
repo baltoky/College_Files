@@ -1,0 +1,41 @@
+SQL> SELECT balance
+  2  FROM Cust
+  3  ORDER BY balance
+  4  WHERE balance > 400;
+WHERE balance > 400
+*
+ERROR at line 4:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  SELECT balance
+  2  FROM Cust
+  3  ORDER BY balance
+  4* WHERE balance >= 400
+SQL> /
+WHERE balance >= 400
+*
+ERROR at line 4:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  SELECT balance
+  2  FROM Cust
+  3  WHERE balance >= 400
+  4* ORDER BY balance
+SQL> /
+
+   BALANCE                                                                      
+----------                                                                      
+       400                                                                      
+       750                                                                      
+      1000                                                                      
+      1500                                                                      
+
+SQL> SPOOL OFF

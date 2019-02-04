@@ -1,0 +1,134 @@
+SQL> SELECT sname, major, class
+  2  FROM Student
+  3  WHERE class
+  4  BETWEEN 2 AND 4;
+
+SNAME                                                        MAJOR              
+------------------------------------------------------------ ------------       
+     CLASS                                                                      
+----------                                                                      
+Mary                                                         COSC               
+         4                                                                      
+                                                                                
+Brenda                                                       COSC               
+         2                                                                      
+                                                                                
+Kelly                                                        MATH               
+         4                                                                      
+                                                                                
+
+SNAME                                                        MAJOR              
+------------------------------------------------------------ ------------       
+     CLASS                                                                      
+----------                                                                      
+Reva                                                         MATH               
+         2                                                                      
+                                                                                
+Harley                                                       POLY               
+         2                                                                      
+                                                                                
+Donald                                                       ACCT               
+         4                                                                      
+                                                                                
+
+SNAME                                                        MAJOR              
+------------------------------------------------------------ ------------       
+     CLASS                                                                      
+----------                                                                      
+Chris                                                        ACCT               
+         4                                                                      
+                                                                                
+Susan                                                        ENGL               
+         3                                                                      
+                                                                                
+Monica                                                       MATH               
+         3                                                                      
+                                                                                
+
+SNAME                                                        MAJOR              
+------------------------------------------------------------ ------------       
+     CLASS                                                                      
+----------                                                                      
+Phoebe                                                       ENGL               
+         3                                                                      
+                                                                                
+Holly                                                        POLY               
+         4                                                                      
+                                                                                
+Sadie                                                        MATH               
+         2                                                                      
+                                                                                
+
+SNAME                                                        MAJOR              
+------------------------------------------------------------ ------------       
+     CLASS                                                                      
+----------                                                                      
+Jessica                                                      POLY               
+         2                                                                      
+                                                                                
+Cedric                                                       ENGL               
+         2                                                                      
+                                                                                
+Alan                                                         COSC               
+         2                                                                      
+                                                                                
+
+SNAME                                                        MAJOR              
+------------------------------------------------------------ ------------       
+     CLASS                                                                      
+----------                                                                      
+Rachel                                                       ENGL               
+         3                                                                      
+                                                                                
+Jerry                                                        COSC               
+         4                                                                      
+                                                                                
+Cramer                                                       ENGL               
+         3                                                                      
+                                                                                
+
+SNAME                                                        MAJOR              
+------------------------------------------------------------ ------------       
+     CLASS                                                                      
+----------                                                                      
+Harrison                                                     ACCT               
+         4                                                                      
+                                                                                
+Francis                                                      ACCT               
+         4                                                                      
+                                                                                
+Smithly                                                      ENGL               
+         2                                                                      
+                                                                                
+
+SNAME                                                        MAJOR              
+------------------------------------------------------------ ------------       
+     CLASS                                                                      
+----------                                                                      
+Sebastian                                                    ACCT               
+         2                                                                      
+                                                                                
+Jake                                                         COSC               
+         4                                                                      
+                                                                                
+Losmith                                                      CHEM               
+         3                                                                      
+                                                                                
+
+SNAME                                                        MAJOR              
+------------------------------------------------------------ ------------       
+     CLASS                                                                      
+----------                                                                      
+Benny                                                        CHEM               
+         4                                                                      
+                                                                                
+Gus                                                          ART                
+         3                                                                      
+                                                                                
+Jake                                                         MATH               
+         2                                                                      
+                                                                                
+
+27 rows selected.
+
+SQL> SPOOL OFF

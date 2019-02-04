@@ -1,0 +1,30 @@
+SQL> SELECT *
+  2  FROM Cust
+  3  ORDER BY balance;
+
+CNO       ADDRESS                                                               
+--------- ------------------------------------------------------------          
+   BALANCE                                                                      
+----------                                                                      
+101       600 Angelina Rd.                                                      
+       200                                                                      
+                                                                                
+102       10 Shades Dr.                                                         
+       400                                                                      
+                                                                                
+103       456 Oriole Ave.                                                       
+       750                                                                      
+                                                                                
+
+CNO       ADDRESS                                                               
+--------- ------------------------------------------------------------          
+   BALANCE                                                                      
+----------                                                                      
+104       401 Futura Dr.                                                        
+      1000                                                                      
+                                                                                
+105       340 Bonway Dr.                                                        
+      1500                                                                      
+                                                                                
+
+SQL> SPOOL OFF

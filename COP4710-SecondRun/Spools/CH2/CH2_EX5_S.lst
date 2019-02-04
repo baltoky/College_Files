@@ -1,0 +1,123 @@
+SQL> CREATE TABLE Cust1 (cnum CHAR(3), bal NUMBER(5));
+
+Table created.
+
+SQL> INSERT INTO Cust1
+  2  SELECT cno, bal
+  3  FROM Cust
+  4  WHERE rownum <=4;
+SELECT cno, bal
+            *
+ERROR at line 2:
+ORA-00904: "BAL": invalid identifier 
+
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  INSERT INTO Cust1
+  2  SELECT cno, balance
+  3  FROM Cust
+  4* WHERE rownum <=4
+SQL> /
+
+4 rows created.
+
+SQL> SELECT * FROM Cust1;
+
+CNUM             BAL                                                            
+--------- ----------                                                            
+101              200                                                            
+102              400                                                            
+103              750                                                            
+104             1000                                                            
+
+SQL> COMMIT
+  2  ;
+
+Commit complete.
+
+SQL> DELETE FROM Cust1
+  2  WHERE rownum > 3;
+
+0 rows deleted.
+
+SQL> DELETE FROM Cust1
+  2  WHERE bal > 500;
+
+2 rows deleted.
+
+SQL> SELECT * FROM Cust1;
+
+CNUM             BAL                                                            
+--------- ----------                                                            
+101              200                                                            
+102              400                                                            
+
+SQL> ROLLBACK
+  2  ;
+
+Rollback complete.
+
+SQL> SELECT * FROM Cust1;
+
+CNUM             BAL                                                            
+--------- ----------                                                            
+101              200                                                            
+102              400                                                            
+103              750                                                            
+104             1000                                                            
+
+SQL> DELETE FROM Cust1
+  2  WHERE bal = 400;
+
+1 row deleted.
+
+SQL> SAVEPOINT point1;
+
+Savepoint created.
+
+SQL> SELECT * FROM Cust1;
+
+CNUM             BAL                                                            
+--------- ----------                                                            
+101              200                                                            
+103              750                                                            
+104             1000                                                            
+
+SQL> DELETE FROM Cust1
+  2  WHERE bal = 200;
+
+1 row deleted.
+
+SQL> SAVEPOINT point2;
+
+Savepoint created.
+
+SQL> SELECT * FROM Cust1;
+
+CNUM             BAL                                                            
+--------- ----------                                                            
+103              750                                                            
+104             1000                                                            
+
+SQL> ROLLBACK TO point1;
+
+Rollback complete.
+
+SQL> SELECT * FROM Cust1;
+
+CNUM             BAL                                                            
+--------- ----------                                                            
+101              200                                                            
+103              750                                                            
+104             1000                                                            
+
+SQL> ROLLBACK TO point2;
+ROLLBACK TO point2
+*
+ERROR at line 1:
+ORA-01086: savepoint 'POINT2' never established in this session or is invalid 
+
+
+SQL> SPOOL OFF

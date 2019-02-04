@@ -1,0 +1,80 @@
+SQL> CREATE TABLE Cust (cno CHAR(3), address VARCHAR2(20), balance NUMBER(5));
+
+Table created.
+
+SQL> INSERT INTO Cust
+  2  VALUES ('101', '600 Angelina Rd.', 200);
+
+1 row created.
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  INSERT INTO Cust
+  2* VALUES ('101', '600 Angelina Rd.', 200)
+SQL> define_editor = vi
+SQL> edit
+Wrote file afiedt.buf
+
+  1  INSERT INTO Cust
+  2* VALUES ('102', '10 Shades Dr.', 400)
+SQL> /
+
+1 row created.
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  INSERT INTO Cust
+  2* VALUES ('103', '456 Oriole Ave.', 750)
+SQL> /
+
+1 row created.
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  INSERT INTO Cust
+  2* VALUES ('104', '401 Futura Dr.', 1000)
+SQL> /
+
+1 row created.
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  INSERT INTO Cust
+  2* VALUES ('105', '340 Bonway Dr.', 1500)
+SQL> /
+
+1 row created.
+
+SQL> SELECT *
+  2  FROM Cust;
+
+CNO       ADDRESS                                                               
+--------- ------------------------------------------------------------          
+   BALANCE                                                                      
+----------                                                                      
+101       600 Angelina Rd.                                                      
+       200                                                                      
+                                                                                
+102       10 Shades Dr.                                                         
+       400                                                                      
+                                                                                
+103       456 Oriole Ave.                                                       
+       750                                                                      
+                                                                                
+
+CNO       ADDRESS                                                               
+--------- ------------------------------------------------------------          
+   BALANCE                                                                      
+----------                                                                      
+104       401 Futura Dr.                                                        
+      1000                                                                      
+                                                                                
+105       340 Bonway Dr.                                                        
+      1500                                                                      
+                                                                                
+
+SQL> SPOOL OFF

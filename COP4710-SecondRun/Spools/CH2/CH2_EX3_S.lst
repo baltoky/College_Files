@@ -1,0 +1,105 @@
+SQL> SELECT sname, class, major
+  2  FROM Student
+  3  WHERE class <= 2;
+
+SNAME                                                             CLASS         
+------------------------------------------------------------ ----------         
+MAJOR                                                                           
+------------                                                                    
+Lineas                                                                1         
+ENGL                                                                            
+                                                                                
+Brenda                                                                2         
+COSC                                                                            
+                                                                                
+Richard                                                               1         
+ENGL                                                                            
+                                                                                
+
+SNAME                                                             CLASS         
+------------------------------------------------------------ ----------         
+MAJOR                                                                           
+------------                                                                    
+Lujack                                                                1         
+COSC                                                                            
+                                                                                
+Reva                                                                  2         
+MATH                                                                            
+                                                                                
+Elainie                                                               1         
+COSC                                                                            
+                                                                                
+
+SNAME                                                             CLASS         
+------------------------------------------------------------ ----------         
+MAJOR                                                                           
+------------                                                                    
+Harley                                                                2         
+POLY                                                                            
+                                                                                
+Lynette                                                               1         
+POLY                                                                            
+                                                                                
+Hillary1                                                              1         
+COSC                                                                            
+                                                                                
+
+SNAME                                                             CLASS         
+------------------------------------------------------------ ----------         
+MAJOR                                                                           
+------------                                                                    
+Sadie                                                                 2         
+MATH                                                                            
+                                                                                
+Jessica                                                               2         
+POLY                                                                            
+                                                                                
+Steve                                                                 1         
+ENGL                                                                            
+                                                                                
+
+SNAME                                                             CLASS         
+------------------------------------------------------------ ----------         
+MAJOR                                                                           
+------------                                                                    
+Brad                                                                  1         
+COSC                                                                            
+                                                                                
+Cedric                                                                2         
+ENGL                                                                            
+                                                                                
+Alan                                                                  2         
+COSC                                                                            
+                                                                                
+
+SNAME                                                             CLASS         
+------------------------------------------------------------ ----------         
+MAJOR                                                                           
+------------                                                                    
+George                                                                1         
+POLY                                                                            
+                                                                                
+Fraiser                                                               1         
+POLY                                                                            
+                                                                                
+Smithly                                                               2         
+ENGL                                                                            
+                                                                                
+
+SNAME                                                             CLASS         
+------------------------------------------------------------ ----------         
+MAJOR                                                                           
+------------                                                                    
+Sebastian                                                             2         
+ACCT                                                                            
+                                                                                
+Lindsay                                                               1         
+UNKN                                                                            
+                                                                                
+Jake                                                                  2         
+MATH                                                                            
+                                                                                
+
+21 rows selected.
+
+SQL> SPOOL OFF
