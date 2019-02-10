@@ -2,16 +2,6 @@ SQL> CREATE TABLE Cust1 (cnum CHAR(3), bal NUMBER(5));
 
 Table created.
 
-SQL> INSERT INTO Cust1
-  2  SELECT cno, bal
-  3  FROM Cust
-  4  WHERE rownum <=4;
-SELECT cno, bal
-            *
-ERROR at line 2:
-ORA-00904: "BAL": invalid identifier 
-
-
 SQL> edit
 Wrote file afiedt.buf
 

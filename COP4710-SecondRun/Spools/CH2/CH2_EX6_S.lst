@@ -8,14 +8,6 @@ SQL> ALTER TABLE Cust1
 
 Table altered.
 
-SQL> UPDATE Cust1
-  2  SET date = '01-JAN-19';
-SET date = '01-JAN-19'
-    *
-ERROR at line 2:
-ORA-01747: invalid user.table.column, table.column, or column specification 
-
-
 SQL> edit
 Wrote file afiedt.buf
 
@@ -62,12 +54,6 @@ CNUM             BAL DATE_OPENED
 101              200 01-JAN-19                                                  
 103              750 01-JAN-19                                                  
 104             1000 01-JAN-19                                                  
-
-SQL> UPDATE Cust1
-  2  SET date_opened = '21-OCT-20'
-  3  WHERE rownum = 2;
-
-0 rows updated.
 
 SQL> edit
 Wrote file afiedt.buf

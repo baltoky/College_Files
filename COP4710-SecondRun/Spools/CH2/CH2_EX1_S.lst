@@ -11,12 +11,6 @@ SQL> edit
 Wrote file afiedt.buf
 
   1  INSERT INTO Cust
-  2* VALUES ('101', '600 Angelina Rd.', 200)
-SQL> define_editor = vi
-SQL> edit
-Wrote file afiedt.buf
-
-  1  INSERT INTO Cust
   2* VALUES ('102', '10 Shades Dr.', 400)
 SQL> /
 
