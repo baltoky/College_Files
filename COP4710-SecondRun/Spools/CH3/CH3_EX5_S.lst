@@ -1,0 +1,252 @@
+SQL> /
+COLUMN "Student Name" FORMAT a20
+*
+ERROR at line 1:
+ORA-00900: invalid SQL statement 
+
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  COLUMN "Student Name" FORMAT a20
+  2  COLUMN "Grade Assigned" FORMAT a20
+  3  SELECT a.name "Student Name", g.grade "Grade Assigned"
+  4  FROM Student s, Grade g
+  5  WHERE s.stno = g.student_number
+  6  AND rownum < 11
+  7* CLEAR COLUMNS
+SQL> /
+COLUMN "Student Name" FORMAT a20
+*
+ERROR at line 1:
+ORA-00900: invalid SQL statement 
+
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  COLUMN "Student Name" FORMAT A20
+  2  COLUMN "Grade Assigned" FORMAT A20
+  3  SELECT a.name "Student Name", g.grade "Grade Assigned"
+  4  FROM Student s, Grade g
+  5  WHERE s.stno = g.student_number
+  6  AND rownum < 11
+  7* CLEAR COLUMNS
+SQL> /
+COLUMN "Student Name" FORMAT A20
+*
+ERROR at line 1:
+ORA-00900: invalid SQL statement 
+
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  COLUMN Student Name FORMAT A20
+  2  COLUMN Grade Assigned FORMAT A20
+  3  SELECT a.name Student Name, g.grade Grade Assigned
+  4  FROM Student s, Grade g
+  5  WHERE s.stno = g.student_number
+  6  AND rownum < 11
+  7* CLEAR COLUMNS
+SQL> /
+COLUMN Student Name FORMAT A20
+*
+ERROR at line 1:
+ORA-00900: invalid SQL statement 
+
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  COLUMN "Student Name" FORMAT A20
+  2  COLUMN "Grade Assigned" FORMAT A20
+  3  SELECT a.name "Student Name",
+  4  	g.grade "Grade Assigned"
+  5  FROM Student s, Grade g
+  6  WHERE s.stno = g.student_number
+  7  AND rownum < 11
+  8* CLEAR COLUMNS
+SQL> /
+COLUMN "Student Name" FORMAT A20
+*
+ERROR at line 1:
+ORA-00900: invalid SQL statement 
+
+
+SQL> COMMIT
+  2  ;
+
+Commit complete.
+
+SQL> DROP TABLE T1, T2, T3, Stu, Major;
+DROP TABLE T1, T2, T3, Stu, Major
+             *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> DROP TAABLE T1;
+DROP TAABLE T1
+     *
+ERROR at line 1:
+ORA-00950: invalid DROP option 
+
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1* DROP TABLE T1
+SQL> /
+
+Table dropped.
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1* DROP TABLE T2
+SQL> /
+
+Table dropped.
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1* DROP TABLE T3
+SQL> /
+
+Table dropped.
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1* DROP TABLE T4
+SQL> /
+DROP TABLE T4
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1* DROP TABLE Stu
+SQL> /
+
+Table dropped.
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1* DROP TABLE Major
+SQL> /
+
+Table dropped.
+
+SQL> SELECT table_name
+  2  FROM user_tables;
+
+TABLE_NAME                                                                      
+--------------------------------------------------------------------------------
+CUST                                                                            
+
+SQL> SELECT s.sname
+  2  FROM Student s, Student a
+  3  WHERE s.class > a.class
+  4  AND a.class = 3;
+
+SNAME                                                                           
+------------------------------------------------------------                    
+Mary                                                                            
+Kelly                                                                           
+Donald                                                                          
+Chris                                                                           
+Benny                                                                           
+Jerry                                                                           
+Harrison                                                                        
+Francis                                                                         
+Jake                                                                            
+Holly                                                                           
+Mary                                                                            
+
+SNAME                                                                           
+------------------------------------------------------------                    
+Kelly                                                                           
+Donald                                                                          
+Chris                                                                           
+Benny                                                                           
+Jerry                                                                           
+Harrison                                                                        
+Francis                                                                         
+Jake                                                                            
+Holly                                                                           
+Mary                                                                            
+Kelly                                                                           
+
+SNAME                                                                           
+------------------------------------------------------------                    
+Donald                                                                          
+Chris                                                                           
+Benny                                                                           
+Jerry                                                                           
+Harrison                                                                        
+Francis                                                                         
+Jake                                                                            
+Holly                                                                           
+Mary                                                                            
+Kelly                                                                           
+Donald                                                                          
+
+SNAME                                                                           
+------------------------------------------------------------                    
+Chris                                                                           
+Benny                                                                           
+Jerry                                                                           
+Harrison                                                                        
+Francis                                                                         
+Jake                                                                            
+Holly                                                                           
+Mary                                                                            
+Kelly                                                                           
+Donald                                                                          
+Chris                                                                           
+
+SNAME                                                                           
+------------------------------------------------------------                    
+Benny                                                                           
+Jerry                                                                           
+Harrison                                                                        
+Francis                                                                         
+Jake                                                                            
+Holly                                                                           
+Mary                                                                            
+Kelly                                                                           
+Donald                                                                          
+Chris                                                                           
+Benny                                                                           
+
+SNAME                                                                           
+------------------------------------------------------------                    
+Jerry                                                                           
+Harrison                                                                        
+Francis                                                                         
+Jake                                                                            
+Holly                                                                           
+Mary                                                                            
+Kelly                                                                           
+Donald                                                                          
+Chris                                                                           
+Benny                                                                           
+Jerry                                                                           
+
+SNAME                                                                           
+------------------------------------------------------------                    
+Harrison                                                                        
+Francis                                                                         
+Jake                                                                            
+Holly                                                                           
+
+70 rows selected.
+
+SQL> SPOOL OFF;

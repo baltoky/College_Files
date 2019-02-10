@@ -1,0 +1,140 @@
+SQL> CREATE TABLE T3 (jobdesc VARCHAR2(20), minipay NUMBER(6,2));
+
+Table created.
+
+SQL> ALTER TABLE T2
+  2  MODIFY jobdesc VARCHAR2(20);
+
+Table altered.
+
+SQL> INSERT INTO T3
+  2  VALUES ('Plumbing', 2.1);
+
+1 row created.
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  INSERT INTO T3
+  2* VALUES ('Janitor', 2.2)
+SQL> /
+
+1 row created.
+
+SQL> ALTER TABLE T3
+  2  MODIFY minpa;
+MODIFY minpa
+            *
+ERROR at line 2:
+ORA-00911: invalid character 
+
+
+SQL> DROP TABLE T3;
+
+Table dropped.
+
+SQL> CREATE TABLE T3 (jobdesc VARCHAR2(20), minpay NUMBER(6,2));
+
+Table created.
+
+SQL> SELECT * FORM T3;
+SELECT * FORM T3
+         *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected 
+
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1* SELECT * FROM T3
+SQL> /
+
+no rows selected
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  INSERT INTO T3
+  2* VALUES ('PLumbing', 2.1)
+SQL> /
+
+1 row created.
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  INSERT INTO T3
+  2* VALUES ('Janitor', 2.2)
+SQL> /
+
+1 row created.
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  INSERT INTO T3
+  2* VALUES ('Plumbing', 2.2)
+SQL> /
+
+1 row created.
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  INSERT INTO T3
+  2* VALUES ('Plumbing', 2.2)
+SQL> DELETE FORM T3
+  2  WHERE jobdesc = 'PLumbing';
+DELETE FORM T3
+       *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  DELETE FROM T3
+  2* WHERE jobdesc = 'PLumbing'
+SQL> /
+
+1 row deleted.
+
+SQL> SELECT *
+  2  FROM T1, T2, T3
+  3  WHERE T1.jobno = T2.jobno
+  4  AND T2.jobdesc = T3.jobdesc;
+
+ENAME                               JOBNO      JOBNO                            
+------------------------------ ---------- ----------                            
+JOBDESC                                                                         
+------------------------------------------------------------                    
+JOBDESC                                                          MINPAY         
+------------------------------------------------------------ ----------         
+Roger                                 100        100                            
+Plumbing                                                                        
+Plumbing                                                            2.2         
+                                                                                
+Jose                                  200        200                            
+Janitor                                                                         
+Janitor                                                             2.2         
+
+ENAME                               JOBNO      JOBNO                            
+------------------------------ ---------- ----------                            
+JOBDESC                                                                         
+------------------------------------------------------------                    
+JOBDESC                                                          MINPAY         
+------------------------------------------------------------ ----------         
+                                                                                
+
+SQL> SELECT COUNT(*)
+  2  FROM T1, T2, T3
+  3  WHERE T1.jobno = T2.jobno
+  4  AND T2.jobdesc = T3.jobdesc;
+
+  COUNT(*)                                                                      
+----------                                                                      
+         2                                                                      
+
+SQL> SPOOL OFF;

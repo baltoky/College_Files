@@ -1,0 +1,79 @@
+SQL> CREATE TABLE T1(ename VARCHAR(10), jobno NUMBER(3));
+
+Table created.
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1* CREATE TABLE T2(jobno NUMBER(3), jobdesc VARCHAR(20))
+SQL> /
+
+Table created.
+
+SQL> INSERT INTO T1 VALUES ('Roger', 100), ('Jose', 200), ('Jill', 300);
+INSERT INTO T1 VALUES ('Roger', 100), ('Jose', 200), ('Jill', 300)
+                                    *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1* INSERT INTO T1 (ename, jobno) VALUES ('Roger', 100), ('Jose', 200), ('Jill', 300)
+SQL> /
+INSERT INTO T1 (ename, jobno) VALUES ('Roger', 100), ('Jose', 200), ('Jill', 300)
+                                                   *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1* INSERT INTO T1 (ename, jobno) VALUES ('Roger', 100)
+SQL> /
+
+1 row created.
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1* INSERT INTO T1 (ename, jobno) VALUES ('Jose', 200)
+SQL> /
+
+1 row created.
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1* INSERT INTO T1 (ename, jobno) VALUES ('Jill', 300)
+SQL> /
+
+1 row created.
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1* INSERT INTO T2 (jobno, jobdesc) VALUES (100, 'Plumbing')
+SQL> /
+
+1 row created.
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1* INSERT INTO T2 (jobno, jobdesc) VALUES (200, 'Janitor')
+SQL> /
+
+1 row created.
+
+SQL> SELECT COUNT(rownum)
+  2  FROM T1 INNER JOIN T2
+  3  ON T1.jobno = T2.jobno;
+
+COUNT(ROWNUM)                                                                   
+-------------                                                                   
+            2                                                                   
+
+SQL> SPOOL OFF

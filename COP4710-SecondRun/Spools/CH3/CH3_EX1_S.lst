@@ -1,0 +1,291 @@
+SQL> CREATE TABLE Stu(sname VARCHAR2(10), majorcode VARCHAR2(2));
+
+Table created.
+
+SQL> CREATE TABLE Major(majorcode VARCHAR2(2), majordesc VARCHAR2(20));
+
+Table created.
+
+SQL> INSERT INTO Stu
+  2  VALUES ("Jones", "CS");
+VALUES ("Jones", "CS")
+                 *
+ERROR at line 2:
+ORA-00984: column not allowed here 
+
+
+SQL> define_editor = vi
+SQL> edit
+Wrote file afiedt.buf
+
+  1  INSERT INTO Stu
+  2* VALUES ('Jones', 'CS')
+SQL> /
+
+1 row created.
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  INSERT INTO Stu
+  2* VALUES ('Smith', 'AC')
+SQL> /
+
+1 row created.
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  INSERT INTO Stu
+  2* VALUES ('Evans', 'MA')
+SQL> /
+
+1 row created.
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  INSERT INTO Stu
+  2* VALUES ('Adams', 'CS')
+SQL> /
+
+1 row created.
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  INSERT INTO Major
+  2* VALUES ('AC', 'Accounting')
+SQL> /
+
+1 row created.
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  INSERT INTO Major
+  2* VALUES ('CS', 'Computer Science')
+SQL> /
+
+1 row created.
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  INSERT INTO Major
+  2* VALUES ('MA', 'Math')
+SQL> /
+
+1 row created.
+
+SQL> SELECT *
+  2  FROM Stu, Major;
+
+SNAME                          MAJORC MAJORC                                    
+------------------------------ ------ ------                                    
+MAJORDESC                                                                       
+------------------------------------------------------------                    
+Jones                          CS     AC                                        
+Accounting                                                                      
+                                                                                
+Smith                          AC     AC                                        
+Accounting                                                                      
+                                                                                
+Evans                          MA     AC                                        
+Accounting                                                                      
+                                                                                
+
+SNAME                          MAJORC MAJORC                                    
+------------------------------ ------ ------                                    
+MAJORDESC                                                                       
+------------------------------------------------------------                    
+Adams                          CS     AC                                        
+Accounting                                                                      
+                                                                                
+Jones                          CS     CS                                        
+Computer Science                                                                
+                                                                                
+Smith                          AC     CS                                        
+Computer Science                                                                
+                                                                                
+
+SNAME                          MAJORC MAJORC                                    
+------------------------------ ------ ------                                    
+MAJORDESC                                                                       
+------------------------------------------------------------                    
+Evans                          MA     CS                                        
+Computer Science                                                                
+                                                                                
+Adams                          CS     CS                                        
+Computer Science                                                                
+                                                                                
+Jones                          CS     MA                                        
+Math                                                                            
+                                                                                
+
+SNAME                          MAJORC MAJORC                                    
+------------------------------ ------ ------                                    
+MAJORDESC                                                                       
+------------------------------------------------------------                    
+Smith                          AC     MA                                        
+Math                                                                            
+                                                                                
+Evans                          MA     MA                                        
+Math                                                                            
+                                                                                
+Adams                          CS     MA                                        
+Math                                                                            
+                                                                                
+
+12 rows selected.
+
+SQL> SELECT *
+  2  FROM Stu, Major
+  3  WHERE Stu.majorcode = Major.majorcode;
+
+SNAME                          MAJORC MAJORC                                    
+------------------------------ ------ ------                                    
+MAJORDESC                                                                       
+------------------------------------------------------------                    
+Jones                          CS     CS                                        
+Computer Science                                                                
+                                                                                
+Smith                          AC     AC                                        
+Accounting                                                                      
+                                                                                
+Evans                          MA     MA                                        
+Math                                                                            
+                                                                                
+
+SNAME                          MAJORC MAJORC                                    
+------------------------------ ------ ------                                    
+MAJORDESC                                                                       
+------------------------------------------------------------                    
+Adams                          CS     CS                                        
+Computer Science                                                                
+                                                                                
+
+SQL> SELECT *
+  2  FROM Stu INNER JOIN Major
+  3  ON Stu.majorcode = Major.majorcode;
+
+SNAME                          MAJORC MAJORC                                    
+------------------------------ ------ ------                                    
+MAJORDESC                                                                       
+------------------------------------------------------------                    
+Jones                          CS     CS                                        
+Computer Science                                                                
+                                                                                
+Smith                          AC     AC                                        
+Accounting                                                                      
+                                                                                
+Evans                          MA     MA                                        
+Math                                                                            
+                                                                                
+
+SNAME                          MAJORC MAJORC                                    
+------------------------------ ------ ------                                    
+MAJORDESC                                                                       
+------------------------------------------------------------                    
+Adams                          CS     CS                                        
+Computer Science                                                                
+                                                                                
+
+SQL> SELECT *
+  2  FROM Stu, Major
+  3  WHERE Stu = Major;
+WHERE Stu = Major
+            *
+ERROR at line 3:
+ORA-00904: "MAJOR": invalid identifier 
+
+
+SQL> SELECT *
+  2  FROM Stu, Major
+  3  WHERE majorcode = majorcode;
+WHERE majorcode = majorcode
+                  *
+ERROR at line 3:
+ORA-00918: column ambiguously defined 
+
+
+SQL> SELECT COUNT(*)
+  2  FROM Stu, Major
+  3  ;
+
+  COUNT(*)                                                                      
+----------                                                                      
+        12                                                                      
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  SELECT COUNT(*)
+  2  FROM Stu, Major
+  3* WHERE Stu.majorcode = Major.majorcode
+SQL> /
+
+  COUNT(*)                                                                      
+----------                                                                      
+         4                                                                      
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  SELECT COUNT(*)
+  2  FROM Stu, Major
+  3* --WHERE Stu.majorcode = Major.majorcode
+SQL> /
+
+  COUNT(*)                                                                      
+----------                                                                      
+        12                                                                      
+
+SQL> INSERT INTO Major
+  2  ;
+
+*
+ERROR at line 2:
+ORA-00926: missing VALUES keyword 
+
+
+SQL> ALTER Major
+  2  MODIFY majordesc VARCHAR(25);
+ALTER Major
+      *
+ERROR at line 1:
+ORA-00940: invalid ALTER command 
+
+
+SQL> ALTER TABLE Major
+  2  MODIFY majordesc VARCHAR(25);
+
+Table altered.
+
+SQL> INSERT INTO Major
+  2  VALUES ('IT', 'Information Technology');
+
+1 row created.
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  INSERT INTO Major
+  2* VALUES ('ST', 'Statistics')
+SQL> /
+
+1 row created.
+
+SQL> SELECT *
+  2  :q
+  3  /
+SP2-0552: Bind variable "Q" not declared.
+SQL> SELECT Stu.snames, Major.majordesc
+  2  FROM Stu, Major;
+SELECT Stu.snames, Major.majordesc
+       *
+ERROR at line 1:
+ORA-00904: "STU"."SNAMES": invalid identifier 
+
+
+SQL> SPOOL OFF;

@@ -1,0 +1,403 @@
+SQL> DESC Stu
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ SNAME                                              VARCHAR2(10)
+ MAJORCODE                                          VARCHAR2(2)
+
+SQL> SELECT Stu.sname, Major.majordesc
+  2  FROM Stu FULL OUTER JOIN Major
+  3  ON Stu.majorcode = Major.majorcode;
+
+SNAME                                                                           
+------------------------------                                                  
+MAJORDESC                                                                       
+---------------------------------------------------------------------------     
+Smith                                                                           
+Accounting                                                                      
+                                                                                
+Adams                                                                           
+Computer Science                                                                
+                                                                                
+Jones                                                                           
+Computer Science                                                                
+                                                                                
+
+SNAME                                                                           
+------------------------------                                                  
+MAJORDESC                                                                       
+---------------------------------------------------------------------------     
+Evans                                                                           
+Math                                                                            
+                                                                                
+                                                                                
+Information Technology                                                          
+                                                                                
+                                                                                
+Statistics                                                                      
+                                                                                
+
+6 rows selected.
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  SELECT Stu.sname, Major.majordesc
+  2  FROM Stu FULL OUTER JOIN Major
+  3* ON Stu.majorcode = Major.majorcode
+SQL> define_editor = vi
+SQL> edit
+Wrote file afiedt.buf
+
+  1  SELECT Stu.sname, Major.majordesc
+  2  FROM Stu ,Major
+  3* WHERE Stu.majorcode(+) = Major.majorcode
+SQL> /
+
+SNAME                                                                           
+------------------------------                                                  
+MAJORDESC                                                                       
+---------------------------------------------------------------------------     
+Jones                                                                           
+Computer Science                                                                
+                                                                                
+Smith                                                                           
+Accounting                                                                      
+                                                                                
+Evans                                                                           
+Math                                                                            
+                                                                                
+
+SNAME                                                                           
+------------------------------                                                  
+MAJORDESC                                                                       
+---------------------------------------------------------------------------     
+Adams                                                                           
+Computer Science                                                                
+                                                                                
+                                                                                
+Information Technology                                                          
+                                                                                
+                                                                                
+Statistics                                                                      
+                                                                                
+
+6 rows selected.
+
+SQL> INSERT INTO Stu
+  2  VALUES ('Arpan', NULL);
+
+1 row created.
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  INSERT INTO Stu
+  2* VALUES ('Ayona', NULL)
+SQL> /
+
+1 row created.
+
+SQL> SELECT s.snames, m.majordesc
+  2  FROM Stu s FULL OUTTER JOIN Major m
+  3  ON s.majorcode = m.majorcode;
+FROM Stu s FULL OUTTER JOIN Major m
+                *
+ERROR at line 2:
+ORA-00905: missing keyword 
+
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  SELECT s.snames, m.majordesc
+  2  FROM Stu s FULL OUTER JOIN Major m
+  3* ON s.majorcode = m.majorcode
+SQL> /
+SELECT s.snames, m.majordesc
+       *
+ERROR at line 1:
+ORA-00904: "S"."SNAMES": invalid identifier 
+
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  SELECT s.sname, m.majordesc
+  2  FROM Stu s FULL OUTER JOIN Major m
+  3* ON s.majorcode = m.majorcode
+SQL> /
+
+SNAME                                                                           
+------------------------------                                                  
+MAJORDESC                                                                       
+---------------------------------------------------------------------------     
+Jones                                                                           
+Computer Science                                                                
+                                                                                
+Smith                                                                           
+Accounting                                                                      
+                                                                                
+Evans                                                                           
+Math                                                                            
+                                                                                
+
+SNAME                                                                           
+------------------------------                                                  
+MAJORDESC                                                                       
+---------------------------------------------------------------------------     
+Adams                                                                           
+Computer Science                                                                
+                                                                                
+Arpan                                                                           
+                                                                                
+                                                                                
+Ayona                                                                           
+                                                                                
+                                                                                
+
+SNAME                                                                           
+------------------------------                                                  
+MAJORDESC                                                                       
+---------------------------------------------------------------------------     
+                                                                                
+Information Technology                                                          
+                                                                                
+                                                                                
+Statistics                                                                      
+                                                                                
+
+8 rows selected.
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  SELECT s.sname, m.majordesc
+  2  FROM Stu s, Major m
+  3* WHERE s.majorcode(+) = m.majorcode
+SQL> /
+
+SNAME                                                                           
+------------------------------                                                  
+MAJORDESC                                                                       
+---------------------------------------------------------------------------     
+Jones                                                                           
+Computer Science                                                                
+                                                                                
+Smith                                                                           
+Accounting                                                                      
+                                                                                
+Evans                                                                           
+Math                                                                            
+                                                                                
+
+SNAME                                                                           
+------------------------------                                                  
+MAJORDESC                                                                       
+---------------------------------------------------------------------------     
+Adams                                                                           
+Computer Science                                                                
+                                                                                
+                                                                                
+Information Technology                                                          
+                                                                                
+                                                                                
+Statistics                                                                      
+                                                                                
+
+6 rows selected.
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  SELECT s.sname, m.majordesc
+  2* FROM Stu s, Major m
+SQL> /
+
+SNAME                                                                           
+------------------------------                                                  
+MAJORDESC                                                                       
+---------------------------------------------------------------------------     
+Jones                                                                           
+Accounting                                                                      
+                                                                                
+Smith                                                                           
+Accounting                                                                      
+                                                                                
+Evans                                                                           
+Accounting                                                                      
+                                                                                
+
+SNAME                                                                           
+------------------------------                                                  
+MAJORDESC                                                                       
+---------------------------------------------------------------------------     
+Adams                                                                           
+Accounting                                                                      
+                                                                                
+Arpan                                                                           
+Accounting                                                                      
+                                                                                
+Ayona                                                                           
+Accounting                                                                      
+                                                                                
+
+SNAME                                                                           
+------------------------------                                                  
+MAJORDESC                                                                       
+---------------------------------------------------------------------------     
+Jones                                                                           
+Computer Science                                                                
+                                                                                
+Smith                                                                           
+Computer Science                                                                
+                                                                                
+Evans                                                                           
+Computer Science                                                                
+                                                                                
+
+SNAME                                                                           
+------------------------------                                                  
+MAJORDESC                                                                       
+---------------------------------------------------------------------------     
+Adams                                                                           
+Computer Science                                                                
+                                                                                
+Arpan                                                                           
+Computer Science                                                                
+                                                                                
+Ayona                                                                           
+Computer Science                                                                
+                                                                                
+
+SNAME                                                                           
+------------------------------                                                  
+MAJORDESC                                                                       
+---------------------------------------------------------------------------     
+Jones                                                                           
+Math                                                                            
+                                                                                
+Smith                                                                           
+Math                                                                            
+                                                                                
+Evans                                                                           
+Math                                                                            
+                                                                                
+
+SNAME                                                                           
+------------------------------                                                  
+MAJORDESC                                                                       
+---------------------------------------------------------------------------     
+Adams                                                                           
+Math                                                                            
+                                                                                
+Arpan                                                                           
+Math                                                                            
+                                                                                
+Ayona                                                                           
+Math                                                                            
+                                                                                
+
+SNAME                                                                           
+------------------------------                                                  
+MAJORDESC                                                                       
+---------------------------------------------------------------------------     
+Jones                                                                           
+Information Technology                                                          
+                                                                                
+Smith                                                                           
+Information Technology                                                          
+                                                                                
+Evans                                                                           
+Information Technology                                                          
+                                                                                
+
+SNAME                                                                           
+------------------------------                                                  
+MAJORDESC                                                                       
+---------------------------------------------------------------------------     
+Adams                                                                           
+Information Technology                                                          
+                                                                                
+Arpan                                                                           
+Information Technology                                                          
+                                                                                
+Ayona                                                                           
+Information Technology                                                          
+                                                                                
+
+SNAME                                                                           
+------------------------------                                                  
+MAJORDESC                                                                       
+---------------------------------------------------------------------------     
+Jones                                                                           
+Statistics                                                                      
+                                                                                
+Smith                                                                           
+Statistics                                                                      
+                                                                                
+Evans                                                                           
+Statistics                                                                      
+                                                                                
+
+SNAME                                                                           
+------------------------------                                                  
+MAJORDESC                                                                       
+---------------------------------------------------------------------------     
+Adams                                                                           
+Statistics                                                                      
+                                                                                
+Arpan                                                                           
+Statistics                                                                      
+                                                                                
+Ayona                                                                           
+Statistics                                                                      
+                                                                                
+
+30 rows selected.
+
+SQL> SELECT s.sname, m.majordesc
+  2  FROM Stu s FULL OUTER JOIN Major m
+  3  ON s.majorcode = m.majorcode;
+
+SNAME                                                                           
+------------------------------                                                  
+MAJORDESC                                                                       
+---------------------------------------------------------------------------     
+Jones                                                                           
+Computer Science                                                                
+                                                                                
+Smith                                                                           
+Accounting                                                                      
+                                                                                
+Evans                                                                           
+Math                                                                            
+                                                                                
+
+SNAME                                                                           
+------------------------------                                                  
+MAJORDESC                                                                       
+---------------------------------------------------------------------------     
+Adams                                                                           
+Computer Science                                                                
+                                                                                
+Arpan                                                                           
+                                                                                
+                                                                                
+Ayona                                                                           
+                                                                                
+                                                                                
+
+SNAME                                                                           
+------------------------------                                                  
+MAJORDESC                                                                       
+---------------------------------------------------------------------------     
+                                                                                
+Information Technology                                                          
+                                                                                
+                                                                                
+Statistics                                                                      
+                                                                                
+
+8 rows selected.
+
+SQL> SPOOL OFF

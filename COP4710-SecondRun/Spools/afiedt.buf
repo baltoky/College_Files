@@ -1,5 +1,2 @@
-SELECT sname, major, class
-FROM Student
-WHERE major = 'ART'
-OR class = 3
+DROP TABLE Major
 /
