@@ -42,9 +42,3 @@ SQL> /
 ----------                                                                      
     321024                                                                      
 
-SQL> edit
-Wrote file afiedt.buf
-
-  1  SELECT COUNT(*)
-  2* FROM Section, Student, Grade
-SQL> SPOOL OFF

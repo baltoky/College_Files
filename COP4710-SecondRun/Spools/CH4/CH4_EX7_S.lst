@@ -42,18 +42,6 @@ COUNT(C.COURSE_NUMBER)
 ----------------------                                                          
                      6                                                          
 
-SQL> edit
-Wrote file afiedt.buf
-
-  1  SELECT COUNT(g.grade)
-  2  FROM Section s, Grade c
-  3* WHERE s.course_num LIKE 'MATH%'
-SQL> /
-SELECT COUNT(g.grade)
-             *
-ERROR at line 1:
-ORA-00904: "G"."GRADE": invalid identifier 
-
 
 SQL> edit
 Wrote file afiedt.buf
