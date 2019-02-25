@@ -97,28 +97,6 @@ SQL> /
 
 1 row created.
 
-SQL> SELECT s.snames, m.majordesc
-  2  FROM Stu s FULL OUTTER JOIN Major m
-  3  ON s.majorcode = m.majorcode;
-FROM Stu s FULL OUTTER JOIN Major m
-                *
-ERROR at line 2:
-ORA-00905: missing keyword 
-
-
-SQL> edit
-Wrote file afiedt.buf
-
-  1  SELECT s.snames, m.majordesc
-  2  FROM Stu s FULL OUTER JOIN Major m
-  3* ON s.majorcode = m.majorcode
-SQL> /
-SELECT s.snames, m.majordesc
-       *
-ERROR at line 1:
-ORA-00904: "S"."SNAMES": invalid identifier 
-
-
 SQL> edit
 Wrote file afiedt.buf
 
