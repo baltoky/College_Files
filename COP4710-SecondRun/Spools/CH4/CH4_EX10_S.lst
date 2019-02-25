@@ -1,0 +1,204 @@
+SQL> SELECT COUNT(room)
+  2  FROM Room;
+
+COUNT(ROOM)                                                                     
+-----------                                                                     
+         10                                                                     
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  SELECT COUNT(*)
+  2* FROM Room
+SQL> /
+
+  COUNT(*)                                                                      
+----------                                                                      
+        10                                                                      
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  SELECT SUM(*)
+  2* FROM Room
+SQL> /
+SELECT SUM(*)
+           *
+ERROR at line 1:
+ORA-00936: missing expression 
+
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  SELECT SUM(*)
+  2* FROM Room
+SQL> DESC Room
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ BLDG                                      NOT NULL NUMBER(38)
+ ROOM                                      NOT NULL NUMBER(38)
+ CAPACITY                                           NUMBER(38)
+ OHEAD                                              VARCHAR2(1)
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  SELECT SUM(room)
+  2* FROM Room
+SQL> /
+
+ SUM(ROOM)                                                                      
+----------                                                                      
+      1276                                                                      
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  SELECT SUM(capacity)
+  2* FROM Room
+SQL> /
+
+SUM(CAPACITY)                                                                   
+-------------                                                                   
+          352                                                                   
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  SELECT AVERAGE(capacity)
+  2* FROM Room
+SQL> /
+SELECT AVERAGE(capacity)
+       *
+ERROR at line 1:
+ORA-00904: "AVERAGE": invalid identifier 
+
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  SELECT AVG(capacity)
+  2* FROM Room
+SQL> /
+
+AVG(CAPACITY)                                                                   
+-------------                                                                   
+   39.1111111                                                                   
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  SELECT MIN(capacity)
+  2* FROM Room
+SQL> /
+
+MIN(CAPACITY)                                                                   
+-------------                                                                   
+           22                                                                   
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  SELECT MAX(capacity)
+  2* FROM Room
+SQL> /
+
+MAX(CAPACITY)                                                                   
+-------------                                                                   
+           85                                                                   
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  SELECT NVL(capacity, '40')
+  2* FROM Room
+SQL> /
+
+NVL(CAPACITY,'40')                                                              
+------------------                                                              
+                85                                                              
+                35                                                              
+                60                                                              
+                35                                                              
+                22                                                              
+                40                                                              
+                25                                                              
+                25                                                              
+                25                                                              
+                40                                                              
+
+10 rows selected.
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  SELECT NVL(capacity, '40'), AVG(capacity)
+  2* FROM Room
+SQL> /
+SELECT NVL(capacity, '40'), AVG(capacity)
+           *
+ERROR at line 1:
+ORA-00937: not a single-group group function 
+
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  SELECT AVG(capacity)
+  2* FROM Room
+SQL> /
+
+AVG(CAPACITY)                                                                   
+-------------                                                                   
+   39.1111111                                                                   
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  SELECT NVL(capacity, '40')
+  2  FROM Room
+  3  AND SELECT AVG(capacity)
+  4* FROM Room
+SQL> /
+AND SELECT AVG(capacity)
+*
+ERROR at line 3:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  SELECT NVL(capacity, '40')
+  2  FROM Room
+  3  SELECT AVG(capacity)
+  4* FROM Room
+SQL> /
+SELECT AVG(capacity)
+*
+ERROR at line 3:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  SELECT NVL(capacity, '40')
+  2  FROM Room
+  3  /
+  4  SELECT AVG(capacity)
+  5* FROM Room
+SQL> /
+/
+*
+ERROR at line 3:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  SELECT NVL(capacity, '40')
+  2* FROM Room
+SQL> SPOOL OFF

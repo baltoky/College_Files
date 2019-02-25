@@ -1,0 +1,15 @@
+SQL> SELECT COUNT(DISTINCT sname)
+  2  FROM Student;
+
+COUNT(DISTINCTSNAME)                                                            
+--------------------                                                            
+                  47                                                            
+
+SQL> SELECT COUNT(*)
+  2  FROM Student;
+
+  COUNT(*)                                                                      
+----------                                                                      
+        48                                                                      
+
+SQL> SPOOL OFF

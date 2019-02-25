@@ -1,2 +1,3 @@
-DROP TABLE Major
+SELECT NVL(capacity, '40')
+FROM Room
 /

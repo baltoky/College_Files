@@ -1,0 +1,116 @@
+SQL> edit
+Wrote file afiedt.buf
+
+  1  SELECT COUNT(*), COUNT(DISTINCT *)
+  2* FROM Student;
+SQL> /
+SELECT COUNT(*), COUNT(DISTINCT *)
+                                *
+ERROR at line 1:
+ORA-00936: missing expression 
+
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  SELECT COUNT(*)
+  2* FROM Student;
+SQL> /
+FROM Student;
+            *
+ERROR at line 2:
+ORA-00911: invalid character 
+
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  SELECT COUNT(*)
+  2* FROM Student
+SQL> /
+
+  COUNT(*)                                                                      
+----------                                                                      
+        48                                                                      
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  SELECT COUNT(DISTINCT *)
+  2* FROM Student
+SQL> /
+SELECT COUNT(DISTINCT *)
+                      *
+ERROR at line 1:
+ORA-00936: missing expression 
+
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  SELECT COUNT(DISTINCT stno )
+  2* FROM Student
+SQL> /
+
+COUNT(DISTINCTSTNO)                                                             
+-------------------                                                             
+                 48                                                             
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  SELECT COUNT(DISTINCT stno )
+  2  FROM Student
+  3* WHERE stno IS NULL
+SQL> /
+
+COUNT(DISTINCTSTNO)                                                             
+-------------------                                                             
+                  0                                                             
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  SELECT COUNT(DISTINCT sname )
+  2  FROM Student
+  3* WHERE sname IS NULL
+SQL> /
+
+COUNT(DISTINCTSNAME)                                                            
+--------------------                                                            
+                   0                                                            
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  SELECT COUNT(DISTINCT sname )
+  2* FROM Student
+SQL> /
+
+COUNT(DISTINCTSNAME)                                                            
+--------------------                                                            
+                  47                                                            
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  SELECT COUNT(sname)
+  2* FROM Student
+SQL> /
+
+COUNT(SNAME)                                                                    
+------------                                                                    
+          48                                                                    
+
+SQL> DESC Section
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ SECTION_ID                                NOT NULL NUMBER(38)
+ COURSE_NUM                                         VARCHAR2(8)
+ SEMESTER                                           VARCHAR2(6)
+ YEAR                                               CHAR(2)
+ INSTRUCTOR                                         VARCHAR2(10)
+ BLDG                                               NUMBER(38)
+ ROOM                                               NUMBER(38)
+
+SQL> SPOOL OFF

@@ -1,0 +1,83 @@
+SQL> SELECT COUNT(s.section_ID)
+  2  FROM Section s, Course c
+  3  WHERE s.course_num = c.course_number;
+
+COUNT(S.SECTION_ID)                                                             
+-------------------                                                             
+                 32                                                             
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  SELECT COUNT(s.course_num), COUNT(c.course_number)
+  2  FROM Section s, Course c
+  3* WHERE s.course_num = c.course_number
+SQL> /
+
+COUNT(S.COURSE_NUM) COUNT(C.COURSE_NUMBER)                                      
+------------------- ----------------------                                      
+                 32                     32                                      
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  SELECT COUNT(s.course_num)
+  2  FROM Section s
+  3* WHERE s.course_num LIKE 'MATH%'
+SQL> /
+
+COUNT(S.COURSE_NUM)                                                             
+-------------------                                                             
+                  6                                                             
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  SELECT COUNT(c.course_number)
+  2  FROM Course c
+  3* WHERE c.course_number LIKE 'MATH%'
+SQL> /
+
+COUNT(C.COURSE_NUMBER)                                                          
+----------------------                                                          
+                     6                                                          
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  SELECT COUNT(g.grade)
+  2  FROM Section s, Grade c
+  3* WHERE s.course_num LIKE 'MATH%'
+SQL> /
+SELECT COUNT(g.grade)
+             *
+ERROR at line 1:
+ORA-00904: "G"."GRADE": invalid identifier 
+
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  SELECT COUNT(g.grade)
+  2  FROM Section s, Grade g
+  3* WHERE s.course_num LIKE 'MATH%'
+SQL> /
+
+COUNT(G.GRADE)                                                                  
+--------------                                                                  
+           684                                                                  
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  SELECT COUNT(g.grade)
+  2  FROM Section s, Grade g
+  3  WHERE s.course_num LIKE 'MATH%'
+  4* AND s.section_ID = g.section_ID
+SQL> /
+
+COUNT(G.GRADE)                                                                  
+--------------                                                                  
+             8                                                                  
+
+SQL> SPOOL OFF

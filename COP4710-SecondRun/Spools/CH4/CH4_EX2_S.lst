@@ -1,0 +1,77 @@
+SQL> DESC Section
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ SECTION_ID                                NOT NULL NUMBER(38)
+ COURSE_NUM                                         VARCHAR2(8)
+ SEMESTER                                           VARCHAR2(6)
+ YEAR                                               CHAR(2)
+ INSTRUCTOR                                         VARCHAR2(10)
+ BLDG                                               NUMBER(38)
+ ROOM                                               NUMBER(38)
+
+SQL> SELECT COUNT(Section_ID)
+  2  FROM Section;
+
+COUNT(SECTION_ID)                                                               
+-----------------                                                               
+               32                                                               
+
+SQL> DESC Grade;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ STUDENT_NUMBER                            NOT NULL NUMBER(38)
+ SECTION_ID                                NOT NULL NUMBER(38)
+ GRADE                                              CHAR(1)
+
+SQL> SELECT DISTINCT Section_ID
+  2  FROM Grade;
+
+SECTION_ID                                                                      
+----------                                                                      
+        87                                                                      
+        91                                                                      
+       100                                                                      
+       134                                                                      
+        90                                                                      
+        95                                                                      
+       112                                                                      
+        88                                                                      
+        85                                                                      
+       102                                                                      
+        96                                                                      
+
+SECTION_ID                                                                      
+----------                                                                      
+       133                                                                      
+        94                                                                      
+       201                                                                      
+       119                                                                      
+       135                                                                      
+       101                                                                      
+        99                                                                      
+        93                                                                      
+       107                                                                      
+       145                                                                      
+       109                                                                      
+
+SECTION_ID                                                                      
+----------                                                                      
+       158                                                                      
+        97                                                                      
+        89                                                                      
+       202                                                                      
+       126                                                                      
+       127                                                                      
+        92                                                                      
+        98                                                                      
+
+30 rows selected.
+
+SQL> SELECT COUNT(DISTINCT Section_ID)
+  2  FROM Grade;
+
+COUNT(DISTINCTSECTION_ID)                                                       
+-------------------------                                                       
+                       30                                                       
+
+SQL> SPOOL OFF;

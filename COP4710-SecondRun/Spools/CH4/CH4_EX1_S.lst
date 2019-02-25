@@ -1,0 +1,50 @@
+SQL> edit
+Wrote file afiedt.buf
+
+  1  SELECT COUNT(*)
+  2* FROM Grade
+  3  /
+
+  COUNT(*)                                                                      
+----------                                                                      
+       209                                                                      
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  SELECT COUNT(*)
+  2* FROM Student
+SQL> /
+
+  COUNT(*)                                                                      
+----------                                                                      
+        48                                                                      
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  SELECT COUNT(*)
+  2* FROM Section
+SQL> /
+
+  COUNT(*)                                                                      
+----------                                                                      
+        32                                                                      
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  SELECT COUNT(*)
+  2* FROM Section, Student, Grade
+SQL> /
+
+  COUNT(*)                                                                      
+----------                                                                      
+    321024                                                                      
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  SELECT COUNT(*)
+  2* FROM Section, Student, Grade
+SQL> SPOOL OFF
