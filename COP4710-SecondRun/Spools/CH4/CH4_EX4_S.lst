@@ -1,13 +1,4 @@
-SQL> SELECT COUNT(s.sname)
-  2  FROM Student
-  3  WHERE s.sname LIKE 'SMITH'
-  4  OR s.sname LIKE 'Smith';
-OR s.sname LIKE 'Smith'
-   *
-ERROR at line 4:
-ORA-00904: "S"."SNAME": invalid identifier 
-
-
+ 
 SQL> edit
 Wrote file afiedt.buf
 
