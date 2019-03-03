@@ -1,0 +1,114 @@
+SQL> CREATE TABLE BANK_BRANCH(Code VARCHAR2(10), BranchNo VARCHER2(10), Addr VARCHAR2(25));
+CREATE TABLE BANK_BRANCH(Code VARCHAR2(10), BranchNo VARCHER2(10), Addr VARCHAR2(25))
+                                                             *
+ERROR at line 1:
+ORA-00907: missing right parenthesis 
+
+
+SQL> CREATE TABLE BACK_BRANCH(Code VARCHAR2(10), BranchNo VARHCHAR2(10), Addr VARCHAR2(25));
+CREATE TABLE BACK_BRANCH(Code VARCHAR2(10), BranchNo VARHCHAR2(10), Addr VARCHAR2(25))
+                                                              *
+ERROR at line 1:
+ORA-00907: missing right parenthesis 
+
+
+SQL> CREATE TABLE Bank_Branch
+  2  (code VARCHAR(10),
+  3  BranchNo VARCHAR2(10),
+  4  Addr VARCHAR2(25));
+
+Table created.
+
+SQL> ALTER TABLE Bank_Branch
+  2  MODIFY code VARCHAR2(20);
+
+Table altered.
+
+SQL> CREATE TABLE Account
+  2  (AcctNo NUMBER(5),
+  3  Balance NUMBER(10),
+  4  Code VARCHAR2(20),
+  5  BanchNo VARCHAR2(10));
+
+Table created.
+
+SQL> CREATE TABLE Customer
+  2  (ssn VARCHAR2(9),
+  3  name VARCHAR2(15),
+  4  Addr VARCHAR2(25),
+  5  phone VARCHAR2(10));
+
+Table created.
+
+SQL> INSERT INTO Bank_Branch
+  2  VALUES ('1', 1, '16 Bishop Dr. Apr 22');
+
+1 row created.
+
+SQL> INSERT INTO Account
+  2  VALUES (1, 200, '1', 1);
+
+1 row created.
+
+SQL> INSERT INTO Customer
+  2  
+SQL> ALTER TABLE Customer
+  2  MODIFY ssn VARCHAR2(11);
+
+Table altered.
+
+SQL> INSERT INTO Customer
+  2  VALUES ('192-31-1325', 'Roger Lucas', '4 San Carlos Street', '8501235235');
+
+1 row created.
+
+SQL> ALTER TABLE Customer
+  2  MODIFY phone VARCHAR2(12);
+
+Table altered.
+
+SQL> UPDATE Customer
+  2  SET phone = '850-123-5235'
+  3  WHERE ssn = '192-31-1325';
+
+1 row updated.
+
+SQL> INSET INTO Customer
+SP2-0734: unknown command beginning "INSET INTO..." - rest of line ignored.
+SQL> INSERT INTO Customer
+  2  VALUES ('235-68-9827', 'Michele Smith', '7680 Lincoln Lane', '720-324-5723');
+
+1 row created.
+
+SQL> ALTER TABLE Account
+  2  ADD Type CHAR(4);
+
+Table altered.
+
+SQL> SELECT * FROM Account;
+
+    ACCTNO    BALANCE                                                           
+---------- ----------                                                           
+CODE                                                                            
+------------------------------------------------------------                    
+BANCHNO                        TYPE                                             
+------------------------------ ------------                                     
+         1        200                                                           
+1                                                                               
+1                                                                               
+                                                                                
+
+SQL> UPDATE Address
+  2  SET Type;
+SET Type
+       *
+ERROR at line 2:
+ORA-00927: missing equal sign 
+
+
+SQL> UPDATE Account
+  2  SET Type = 'SILV';
+
+1 row updated.
+
+SQL> SPOOL OFF;
