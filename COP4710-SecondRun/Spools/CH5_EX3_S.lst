@@ -1,0 +1,35 @@
+SQL> CREATE OR REPLACE VIEW vx (Na, Ma) AS
+  2  SELECT s.sname, s.major
+  3  FROM Stutab s
+  4  WHERE s.major = 'COSC';
+
+View created.
+
+SQL> SELECT *
+  2  FROM vx;
+
+NA                                                           MA                 
+------------------------------------------------------------ ------------       
+Mary                                                         COSC               
+Brenda                                                       COSC               
+Lujack                                                       COSC               
+Elainie                                                      COSC               
+Hillary1                                                     COSC               
+Alan                                                         COSC               
+Jerry                                                        COSC               
+Jake                                                         COSC               
+Zelda                                                        COSC               
+
+9 rows selected.
+
+SQL> CREATE OR REPLACE VIEW vy (s.sname, s.major) AS
+  2  SELECT s.sname, s.major
+  3  FROM Stutab s
+  4  WHERE s.major = 'COSC';
+CREATE OR REPLACE VIEW vy (s.sname, s.major) AS
+                            *
+ERROR at line 1:
+ORA-00907: missing right parenthesis 
+
+
+SQL> SPOOL OFF

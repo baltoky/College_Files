@@ -1,0 +1,276 @@
+SQL> SELECT *
+  2  FROM Student
+  3  WHERE stno < 100 AND major = 'COSC' OR major = 'ACCT';
+
+      STNO SNAME                                                                
+---------- ------------------------------------------------------------         
+MAJOR             CLASS BDATE                                                   
+------------ ---------- ---------------                                         
+         3 Mary                                                                 
+COSC                  4 16-JUL-98                                               
+                                                                                
+         8 Brenda                                                               
+COSC                  2 13-AUG-97                                               
+                                                                                
+        14 Lujack                                                               
+COSC                  1 12-FEB-97                                               
+                                                                                
+
+      STNO SNAME                                                                
+---------- ------------------------------------------------------------         
+MAJOR             CLASS BDATE                                                   
+------------ ---------- ---------------                                         
+        17 Elainie                                                              
+COSC                  1 12-AUG-96                                               
+                                                                                
+        20 Donald                                                               
+ACCT                  4 15-OCT-97                                               
+                                                                                
+        24 Chris                                                                
+ACCT                  4 12-FEB-98                                               
+                                                                                
+
+      STNO SNAME                                                                
+---------- ------------------------------------------------------------         
+MAJOR             CLASS BDATE                                                   
+------------ ---------- ---------------                                         
+       145 Harrison                                                             
+ACCT                  4 12-FEB-97                                               
+                                                                                
+       146 Francis                                                              
+ACCT                  4 11-JUN-97                                               
+                                                                                
+       148 Sebastian                                                            
+ACCT                  2 14-OCT-96                                               
+                                                                                
+
+      STNO SNAME                                                                
+---------- ------------------------------------------------------------         
+MAJOR             CLASS BDATE                                                   
+------------ ---------- ---------------                                         
+        31 Jake                                                                 
+COSC                  4 12-FEB-98                                               
+                                                                                
+         5 Zelda                                                                
+COSC                    12-FEB-98                                               
+                                                                                
+
+11 rows selected.
+
+SQL> SELECT *
+  2  FROM Student
+  3  WHERE (stno < 100 AND major = 'COSC') OR major = 'ACCT';
+
+      STNO SNAME                                                                
+---------- ------------------------------------------------------------         
+MAJOR             CLASS BDATE                                                   
+------------ ---------- ---------------                                         
+         3 Mary                                                                 
+COSC                  4 16-JUL-98                                               
+                                                                                
+         8 Brenda                                                               
+COSC                  2 13-AUG-97                                               
+                                                                                
+        14 Lujack                                                               
+COSC                  1 12-FEB-97                                               
+                                                                                
+
+      STNO SNAME                                                                
+---------- ------------------------------------------------------------         
+MAJOR             CLASS BDATE                                                   
+------------ ---------- ---------------                                         
+        17 Elainie                                                              
+COSC                  1 12-AUG-96                                               
+                                                                                
+        20 Donald                                                               
+ACCT                  4 15-OCT-97                                               
+                                                                                
+        24 Chris                                                                
+ACCT                  4 12-FEB-98                                               
+                                                                                
+
+      STNO SNAME                                                                
+---------- ------------------------------------------------------------         
+MAJOR             CLASS BDATE                                                   
+------------ ---------- ---------------                                         
+       145 Harrison                                                             
+ACCT                  4 12-FEB-97                                               
+                                                                                
+       146 Francis                                                              
+ACCT                  4 11-JUN-97                                               
+                                                                                
+       148 Sebastian                                                            
+ACCT                  2 14-OCT-96                                               
+                                                                                
+
+      STNO SNAME                                                                
+---------- ------------------------------------------------------------         
+MAJOR             CLASS BDATE                                                   
+------------ ---------- ---------------                                         
+        31 Jake                                                                 
+COSC                  4 12-FEB-98                                               
+                                                                                
+         5 Zelda                                                                
+COSC                    12-FEB-98                                               
+                                                                                
+
+11 rows selected.
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  SELECT *
+  2  FROM Student
+  3* WHERE stno < 100 AND( major = 'COSC' OR major = 'ACCT')
+SQL> /
+
+      STNO SNAME                                                                
+---------- ------------------------------------------------------------         
+MAJOR             CLASS BDATE                                                   
+------------ ---------- ---------------                                         
+         3 Mary                                                                 
+COSC                  4 16-JUL-98                                               
+                                                                                
+         5 Zelda                                                                
+COSC                    12-FEB-98                                               
+                                                                                
+         8 Brenda                                                               
+COSC                  2 13-AUG-97                                               
+                                                                                
+
+      STNO SNAME                                                                
+---------- ------------------------------------------------------------         
+MAJOR             CLASS BDATE                                                   
+------------ ---------- ---------------                                         
+        14 Lujack                                                               
+COSC                  1 12-FEB-97                                               
+                                                                                
+        17 Elainie                                                              
+COSC                  1 12-AUG-96                                               
+                                                                                
+        20 Donald                                                               
+ACCT                  4 15-OCT-97                                               
+                                                                                
+
+      STNO SNAME                                                                
+---------- ------------------------------------------------------------         
+MAJOR             CLASS BDATE                                                   
+------------ ---------- ---------------                                         
+        24 Chris                                                                
+ACCT                  4 12-FEB-98                                               
+                                                                                
+        31 Jake                                                                 
+COSC                  4 12-FEB-98                                               
+                                                                                
+
+8 rows selected.
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  SELECT *
+  2  FROM Student
+  3* WHERE stno < 100 OR major = 'COSC' AND major = 'ACCT'
+SQL> /
+
+      STNO SNAME                                                                
+---------- ------------------------------------------------------------         
+MAJOR             CLASS BDATE                                                   
+------------ ---------- ---------------                                         
+         2 Lineas                                                               
+ENGL                  1 15-APR-01                                               
+                                                                                
+         3 Mary                                                                 
+COSC                  4 16-JUL-98                                               
+                                                                                
+         5 Zelda                                                                
+COSC                    12-FEB-98                                               
+                                                                                
+
+      STNO SNAME                                                                
+---------- ------------------------------------------------------------         
+MAJOR             CLASS BDATE                                                   
+------------ ---------- ---------------                                         
+         6 Ken                                                                  
+POLY                    15-JUL-01                                               
+                                                                                
+         7 Mario                                                                
+MATH                    12-AUG-01                                               
+                                                                                
+         8 Brenda                                                               
+COSC                  2 13-AUG-97                                               
+                                                                                
+
+      STNO SNAME                                                                
+---------- ------------------------------------------------------------         
+MAJOR             CLASS BDATE                                                   
+------------ ---------- ---------------                                         
+         9 Romona                                                               
+ENGL                    15-APR-01                                               
+                                                                                
+        10 Richard                                                              
+ENGL                  1 13-MAY-01                                               
+                                                                                
+        13 Kelly                                                                
+MATH                  4 12-AUG-01                                               
+                                                                                
+
+      STNO SNAME                                                                
+---------- ------------------------------------------------------------         
+MAJOR             CLASS BDATE                                                   
+------------ ---------- ---------------                                         
+        14 Lujack                                                               
+COSC                  1 12-FEB-97                                               
+                                                                                
+        15 Reva                                                                 
+MATH                  2 10-JUN-01                                               
+                                                                                
+        17 Elainie                                                              
+COSC                  1 12-AUG-96                                               
+                                                                                
+
+      STNO SNAME                                                                
+---------- ------------------------------------------------------------         
+MAJOR             CLASS BDATE                                                   
+------------ ---------- ---------------                                         
+        19 Harley                                                               
+POLY                  2 16-APR-02                                               
+                                                                                
+        20 Donald                                                               
+ACCT                  4 15-OCT-97                                               
+                                                                                
+        24 Chris                                                                
+ACCT                  4 12-FEB-98                                               
+                                                                                
+
+      STNO SNAME                                                                
+---------- ------------------------------------------------------------         
+MAJOR             CLASS BDATE                                                   
+------------ ---------- ---------------                                         
+        31 Jake                                                                 
+COSC                  4 12-FEB-98                                               
+                                                                                
+        34 Lynette                                                              
+POLY                  1 16-JUL-02                                               
+                                                                                
+        49 Susan                                                                
+ENGL                  3 11-MAR-01                                               
+                                                                                
+
+      STNO SNAME                                                                
+---------- ------------------------------------------------------------         
+MAJOR             CLASS BDATE                                                   
+------------ ---------- ---------------                                         
+        62 Monica                                                               
+MATH                  3 14-OCT-01                                               
+                                                                                
+        70 Bill                                                                 
+POLY                    14-OCT-01                                               
+                                                                                
+        88 Smith                                                                
+                        15-OCT-93                                               
+                                                                                
+
+21 rows selected.
+
+SQL> SPOOL OFF
