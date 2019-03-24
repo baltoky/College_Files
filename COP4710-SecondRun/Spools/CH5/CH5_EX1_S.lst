@@ -26,24 +26,8 @@ HERMANO                                13        101
 
 SQL> SAVE q1
 Created file q1.sql
-SQL> edit q1
-
-SQL> host
 
 SQL> EDIT q1
-
-SQL> EDIT q1
-
-SQL> EDIT q1
-
-SQL> @q1;
-WHERE tinstructor = 'HERMANO'
-      *
-ERROR at line 3:
-ORA-00904: "TINSTRUCTOR": invalid identifier 
-
-
-SQL> edit q1
 
 SQL> @q1
 
