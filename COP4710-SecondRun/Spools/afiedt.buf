@@ -1,6 +1,2 @@
-SELECT *
-FROM (SELECT s.instructor, c.course_name
-FROM Section s, Course c
-WHERE s.course_num = c.course_number)
-ORDER BY instructor
+INSERT INTO R2 VALUES (550, 'Joseph')
 /
