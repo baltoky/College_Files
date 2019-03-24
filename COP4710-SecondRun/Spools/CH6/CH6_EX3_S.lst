@@ -1,0 +1,39 @@
+SQL> /
+
+no rows selected
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  SELECT s.sname, g.grade, t.course_num
+  2  FROM Student s, Section t, Grade g
+  3  WHERE s.stno = g.student_number
+  4  AND g.section_ID = t.section_ID
+  5  AND g.grade = 'A'
+  6  AND (t.course_num = 'MATH____'
+  7* OR t.course_num = 'COSC____')
+SQL> /
+
+no rows selected
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  SELECT s.sname, g.grade, t.course_num
+  2  FROM Student s, Section t, Grade g
+  3  WHERE s.stno = g.student_number
+  4  AND g.section_ID = t.section_ID
+  5  AND g.grade = 'A'
+  6  AND t.course_num = 'MATH____'
+  7  UNION
+  8  SELECT s.sname, g.grade, t.course_num
+  9  FROM Student s, Section t, Grade g
+ 10  WHERE s.stno = g.student_number
+ 11  AND g.section_ID = t.section_ID
+ 12  AND g.grade = 'A'
+ 13* AND t.course_num = 'COSC____'
+SQL> /
+
+no rows selected
+
+SQL> SPOOL OFF
