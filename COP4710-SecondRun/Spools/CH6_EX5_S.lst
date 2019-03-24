@@ -1,0 +1,515 @@
+SQL> edit Q65a
+
+SQL> DESC Student
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ STNO                                      NOT NULL NUMBER(38)
+ SNAME                                              VARCHAR2(20)
+ MAJOR                                              VARCHAR2(4)
+ CLASS                                              NUMBER(38)
+ BDATE                                              DATE
+
+SQL> DESC Section
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ SECTION_ID                                NOT NULL NUMBER(38)
+ COURSE_NUM                                         VARCHAR2(8)
+ SEMESTER                                           VARCHAR2(6)
+ YEAR                                               CHAR(2)
+ INSTRUCTOR                                         VARCHAR2(10)
+ BLDG                                               NUMBER(38)
+ ROOM                                               NUMBER(38)
+
+SQL> DESC Grade
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ STUDENT_NUMBER                            NOT NULL NUMBER(38)
+ SECTION_ID                                NOT NULL NUMBER(38)
+ GRADE                                              CHAR(1)
+
+SQL> edit Q65a
+
+SQL> /
+
+SNAME                                                        MAJOR              
+------------------------------------------------------------ ------------       
+Zelda                                                        COSC               
+Ken                                                          POLY               
+Mario                                                        MATH               
+Brenda                                                       COSC               
+Richard                                                      ENGL               
+Reva                                                         MATH               
+Donald                                                       ACCT               
+Jake                                                         COSC               
+Susan                                                        ENGL               
+Monica                                                       MATH               
+Bill                                                         POLY               
+
+SNAME                                                        MAJOR              
+------------------------------------------------------------ ------------       
+Sadie                                                        MATH               
+Jessica                                                      POLY               
+Steve                                                        ENGL               
+Alan                                                         COSC               
+Rachel                                                       ENGL               
+Smithly                                                      ENGL               
+Sebastian                                                    ACCT               
+Losmith                                                      CHEM               
+Genevieve                                                    UNKN               
+Thornton                                                                        
+Gus                                                          ART                
+
+SNAME                                                        MAJOR              
+------------------------------------------------------------ ------------       
+Benny                                                        CHEM               
+Lionel                                                                          
+
+24 rows selected.
+
+SQL> edit  Q65b
+
+SQL> @Q65a
+SELECT s.stno, s.name, t.course_num, g.grade
+               *
+ERROR at line 1:
+ORA-00904: "S"."NAME": invalid identifier 
+
+
+SQL> edit Q65a
+
+SQL> @Q65a
+
+no rows selected
+
+SQL> @Q65b
+  6  /
+AND t.course_num LIKE 'MATH$'
+    *
+ERROR at line 5:
+ORA-00904: "T"."COURSE_NUM": invalid identifier 
+
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  SELECT s.stno, s.sname, t.course_num, g.grade
+  2  FROM Student s, Section g, Grade g
+  3  WHERE s.stno = g.student_number
+  4  AND g.section_ID = t.section_ID
+  5* AND t.course_num LIKE 'MATH$'
+SQL> @Q65b
+  6  /
+AND t.course_num LIKE 'MATH$'
+    *
+ERROR at line 5:
+ORA-00904: "T"."COURSE_NUM": invalid identifier 
+
+
+SQL> edit Q65b
+
+SQL> edit Q65b
+
+SQL> /
+AND t.course_num LIKE 'MATH$'
+    *
+ERROR at line 5:
+ORA-00904: "T"."COURSE_NUM": invalid identifier 
+
+
+SQL> @Q65b
+
+no rows selected
+
+SQL> edit Q65a
+
+SQL> @Q65a
+
+      STNO SNAME                                                                
+---------- ------------------------------------------------------------         
+COURSE_NUM               GRA                                                    
+------------------------ ---                                                    
+         3 Mary                                                                 
+COSC3380                 B                                                      
+                                                                                
+        24 Chris                                                                
+COSC3380                 B                                                      
+                                                                                
+        34 Lynette                                                              
+COSC3380                 B                                                      
+                                                                                
+
+      STNO SNAME                                                                
+---------- ------------------------------------------------------------         
+COURSE_NUM               GRA                                                    
+------------------------ ---                                                    
+       121 Hillary1                                                             
+COSC3380                 B                                                      
+                                                                                
+       122 Phoebe                                                               
+COSC3380                 B                                                      
+                                                                                
+       123 Holly                                                                
+COSC3380                 B                                                      
+                                                                                
+
+      STNO SNAME                                                                
+---------- ------------------------------------------------------------         
+COURSE_NUM               GRA                                                    
+------------------------ ---                                                    
+       129 Cedric                                                               
+COSC3380                 A                                                      
+                                                                                
+       132 George                                                               
+COSC3380                 B                                                      
+                                                                                
+       142 Jerry                                                                
+COSC3380                 A                                                      
+                                                                                
+
+      STNO SNAME                                                                
+---------- ------------------------------------------------------------         
+COURSE_NUM               GRA                                                    
+------------------------ ---                                                    
+       143 Cramer                                                               
+COSC3380                 B                                                      
+                                                                                
+       144 Fraiser                                                              
+COSC3380                 B                                                      
+                                                                                
+       146 Francis                                                              
+COSC3380                 B                                                      
+                                                                                
+
+      STNO SNAME                                                                
+---------- ------------------------------------------------------------         
+COURSE_NUM               GRA                                                    
+------------------------ ---                                                    
+       155 Lindsay                                                              
+COSC3380                 B                                                      
+                                                                                
+       157 Stephanie                                                            
+COSC3380                 B                                                      
+                                                                                
+        14 Lujack                                                               
+COSC3701                 A                                                      
+                                                                                
+
+      STNO SNAME                                                                
+---------- ------------------------------------------------------------         
+COURSE_NUM               GRA                                                    
+------------------------ ---                                                    
+         3 Mary                                                                 
+COSC3701                 B                                                      
+                                                                                
+         8 Brenda                                                               
+COSC1310                 A                                                      
+                                                                                
+        15 Reva                                                                 
+COSC1310                 B                                                      
+                                                                                
+
+      STNO SNAME                                                                
+---------- ------------------------------------------------------------         
+COURSE_NUM               GRA                                                    
+------------------------ ---                                                    
+         3 Mary                                                                 
+COSC1310                 B                                                      
+                                                                                
+        34 Lynette                                                              
+COSC1310                 A                                                      
+                                                                                
+        49 Susan                                                                
+COSC1310                 A                                                      
+                                                                                
+
+      STNO SNAME                                                                
+---------- ------------------------------------------------------------         
+COURSE_NUM               GRA                                                    
+------------------------ ---                                                    
+       123 Holly                                                                
+COSC1310                 A                                                      
+                                                                                
+       127 Steve                                                                
+COSC1310                 A                                                      
+                                                                                
+       125 Sadie                                                                
+COSC1310                 A                                                      
+                                                                                
+
+      STNO SNAME                                                                
+---------- ------------------------------------------------------------         
+COURSE_NUM               GRA                                                    
+------------------------ ---                                                    
+       126 Jessica                                                              
+COSC1310                 A                                                      
+                                                                                
+        24 Chris                                                                
+COSC2025                 B                                                      
+                                                                                
+         3 Mary                                                                 
+COSC2025                 B                                                      
+                                                                                
+
+      STNO SNAME                                                                
+---------- ------------------------------------------------------------         
+COURSE_NUM               GRA                                                    
+------------------------ ---                                                    
+         8 Brenda                                                               
+COSC3320                 B                                                      
+                                                                                
+        19 Harley                                                               
+COSC3320                 B                                                      
+                                                                                
+        14 Lujack                                                               
+COSC3320                 B                                                      
+                                                                                
+
+      STNO SNAME                                                                
+---------- ------------------------------------------------------------         
+COURSE_NUM               GRA                                                    
+------------------------ ---                                                    
+        15 Reva                                                                 
+COSC3320                 B                                                      
+                                                                                
+         2 Lineas                                                               
+COSC3320                 B                                                      
+                                                                                
+        15 Reva                                                                 
+COSC1310                 B                                                      
+                                                                                
+
+      STNO SNAME                                                                
+---------- ------------------------------------------------------------         
+COURSE_NUM               GRA                                                    
+------------------------ ---                                                    
+        14 Lujack                                                               
+COSC1310                 B                                                      
+                                                                                
+         2 Lineas                                                               
+COSC1310                 B                                                      
+                                                                                
+
+35 rows selected.
+
+SQL> edit Q65b
+
+SQL> @Q65b
+
+      STNO SNAME                                                                
+---------- ------------------------------------------------------------         
+COURSE_NUM               GRA                                                    
+------------------------ ---                                                    
+         2 Lineas                                                               
+MATH2410                 D                                                      
+                                                                                
+         3 Mary                                                                 
+MATH2410                 A                                                      
+                                                                                
+         8 Brenda                                                               
+MATH2410                 A                                                      
+                                                                                
+
+      STNO SNAME                                                                
+---------- ------------------------------------------------------------         
+COURSE_NUM               GRA                                                    
+------------------------ ---                                                    
+        10 Richard                                                              
+MATH2410                                                                        
+                                                                                
+        13 Kelly                                                                
+MATH5501                                                                        
+                                                                                
+        13 Kelly                                                                
+MATH2410                 B                                                      
+                                                                                
+
+      STNO SNAME                                                                
+---------- ------------------------------------------------------------         
+COURSE_NUM               GRA                                                    
+------------------------ ---                                                    
+        14 Lujack                                                               
+MATH2410                 B                                                      
+                                                                                
+        14 Lujack                                                               
+MATH2410                                                                        
+                                                                                
+        15 Reva                                                                 
+MATH2410                 C                                                      
+                                                                                
+
+      STNO SNAME                                                                
+---------- ------------------------------------------------------------         
+COURSE_NUM               GRA                                                    
+------------------------ ---                                                    
+        15 Reva                                                                 
+MATH2410                 F                                                      
+                                                                                
+        17 Elainie                                                              
+MATH2410                                                                        
+                                                                                
+        19 Harley                                                               
+MATH2410                 D                                                      
+                                                                                
+
+      STNO SNAME                                                                
+---------- ------------------------------------------------------------         
+COURSE_NUM               GRA                                                    
+------------------------ ---                                                    
+       142 Jerry                                                                
+MATH2333                                                                        
+                                                                                
+       143 Cramer                                                               
+MATH2333                                                                        
+                                                                                
+       144 Fraiser                                                              
+MATH2333                                                                        
+                                                                                
+
+      STNO SNAME                                                                
+---------- ------------------------------------------------------------         
+COURSE_NUM               GRA                                                    
+------------------------ ---                                                    
+       145 Harrison                                                             
+MATH2333                                                                        
+                                                                                
+       146 Francis                                                              
+MATH2333                                                                        
+                                                                                
+       147 Smithly                                                              
+MATH2333                                                                        
+                                                                                
+
+      STNO SNAME                                                                
+---------- ------------------------------------------------------------         
+COURSE_NUM               GRA                                                    
+------------------------ ---                                                    
+       148 Sebastian                                                            
+MATH2333                                                                        
+                                                                                
+       151 Losmith                                                              
+MATH5501                                                                        
+                                                                                
+       153 Genevieve                                                            
+MATH5501                                                                        
+                                                                                
+
+      STNO SNAME                                                                
+---------- ------------------------------------------------------------         
+COURSE_NUM               GRA                                                    
+------------------------ ---                                                    
+       155 Lindsay                                                              
+MATH5501                                                                        
+                                                                                
+       157 Stephanie                                                            
+MATH5501                                                                        
+                                                                                
+       158 Thornton                                                             
+MATH5501                                                                        
+                                                                                
+
+      STNO SNAME                                                                
+---------- ------------------------------------------------------------         
+COURSE_NUM               GRA                                                    
+------------------------ ---                                                    
+       163 Lionel                                                               
+MATH5501                                                                        
+                                                                                
+       161 Benny                                                                
+MATH5501                                                                        
+                                                                                
+       160 Gus                                                                  
+MATH5501                                                                        
+                                                                                
+
+27 rows selected.
+
+SQL> CREATE OR REPLACE VIEW vq65a AS
+  2  @Q65a
+
+View created.
+
+SQL> CREATE OR REPLACE VIEW vq65b AS
+  2  @Q65b
+
+View created.
+
+SQL> SELECT COUNT(*) FROM vq65a;
+
+  COUNT(*)                                                                      
+----------                                                                      
+        35                                                                      
+
+SQL> SELECT COUNT(*) FROM vq65b;
+
+  COUNT(*)                                                                      
+----------                                                                      
+        27                                                                      
+
+SQL> SELECT s.stno
+  2  FROM vq65a
+  3  MINUS
+  4  SELECT s.stno
+  5  FROM vq65b;
+SELECT s.stno
+       *
+ERROR at line 1:
+ORA-00904: "S"."STNO": invalid identifier 
+
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  SELECT stno
+  2  FROM vq65a
+  3  MINUS
+  4  SELECT stno
+  5* FROM vq65b
+SQL> /
+
+      STNO                                                                      
+----------                                                                      
+        24                                                                      
+        34                                                                      
+        49                                                                      
+       121                                                                      
+       122                                                                      
+       123                                                                      
+       125                                                                      
+       126                                                                      
+       127                                                                      
+       129                                                                      
+       132                                                                      
+
+11 rows selected.
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  SELECT stno
+  2  FROM vq65b
+  3  MINUS
+  4  SELECT stno
+  5* FROM vq65a
+SQL> /
+
+      STNO                                                                      
+----------                                                                      
+        10                                                                      
+        13                                                                      
+        17                                                                      
+       145                                                                      
+       147                                                                      
+       148                                                                      
+       151                                                                      
+       153                                                                      
+       158                                                                      
+       160                                                                      
+       161                                                                      
+
+      STNO                                                                      
+----------                                                                      
+       163                                                                      
+
+12 rows selected.
+
+SQL> SPOOL OFF

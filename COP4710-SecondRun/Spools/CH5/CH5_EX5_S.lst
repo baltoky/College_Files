@@ -1,0 +1,502 @@
+SQL> SELECT s.instructor, c.course_name
+  2  FROM Section s, Course c
+  3  WHERE s.course_num = c.course_number
+  4  ORDER BY s.instructor;
+
+INSTRUCTOR                                                                      
+------------------------------                                                  
+COURSE_NAME                                                                     
+------------------------------------------------------------                    
+ANDERSON                                                                        
+INTRO TO COMPUTER SC                                                            
+                                                                                
+ANDERSON                                                                        
+INTRO TO COMPUTER SC                                                            
+                                                                                
+CARNEAU                                                                         
+ORGANIC CHEMISTRY                                                               
+                                                                                
+
+INSTRUCTOR                                                                      
+------------------------------                                                  
+COURSE_NAME                                                                     
+------------------------------------------------------------                    
+CHANG                                                                           
+ALGEBRA                                                                         
+                                                                                
+CHANG                                                                           
+DISCRETE MATHEMATICS                                                            
+                                                                                
+CHANG                                                                           
+MATH ANALYSIS                                                                   
+                                                                                
+
+INSTRUCTOR                                                                      
+------------------------------                                                  
+COURSE_NAME                                                                     
+------------------------------------------------------------                    
+EMERSON                                                                         
+MATH ANALYSIS                                                                   
+                                                                                
+HARDESTY                                                                        
+DATABASE                                                                        
+                                                                                
+HARDESTY                                                                        
+DATABASE                                                                        
+                                                                                
+
+INSTRUCTOR                                                                      
+------------------------------                                                  
+COURSE_NAME                                                                     
+------------------------------------------------------------                    
+HERMANO                                                                         
+ENGLISH COMP I                                                                  
+                                                                                
+HERMANO                                                                         
+ENGLISH COMP II                                                                 
+                                                                                
+HERMANO                                                                         
+ENGLISH COMP II                                                                 
+                                                                                
+
+INSTRUCTOR                                                                      
+------------------------------                                                  
+COURSE_NAME                                                                     
+------------------------------------------------------------                    
+HERMANO                                                                         
+ENGLISH COMP I                                                                  
+                                                                                
+HILLARY                                                                         
+FUND. TECH. WRITING                                                             
+                                                                                
+HILLARY                                                                         
+WRITING FOR NON MAJO                                                            
+                                                                                
+
+INSTRUCTOR                                                                      
+------------------------------                                                  
+COURSE_NAME                                                                     
+------------------------------------------------------------                    
+HILLARY                                                                         
+WRITING FOR NON MAJO                                                            
+                                                                                
+HILLARY                                                                         
+FUND. TECH. WRITING                                                             
+                                                                                
+JONES                                                                           
+INTRO TO COMPUTER SC                                                            
+                                                                                
+
+INSTRUCTOR                                                                      
+------------------------------                                                  
+COURSE_NAME                                                                     
+------------------------------------------------------------                    
+KING                                                                            
+DISCRETE MATHEMATICS                                                            
+                                                                                
+KNUTH                                                                           
+DATA STRUCTURES                                                                 
+                                                                                
+RAFAELT                                                                         
+TURBO PASCAL                                                                    
+                                                                                
+
+INSTRUCTOR                                                                      
+------------------------------                                                  
+COURSE_NAME                                                                     
+------------------------------------------------------------                    
+RAFAELT                                                                         
+INTRO TO COMPUTER SC                                                            
+                                                                                
+RODRIGUEZ                                                                       
+ACCOUNTING INFO SYST                                                            
+                                                                                
+RODRIQUEZ                                                                       
+ACCOUNTING II                                                                   
+                                                                                
+
+INSTRUCTOR                                                                      
+------------------------------                                                  
+COURSE_NAME                                                                     
+------------------------------------------------------------                    
+RODRIQUEZ                                                                       
+MANAGERIAL FINANCE                                                              
+                                                                                
+SCHMIDT                                                                         
+SOCIALISM AND COMMUN                                                            
+                                                                                
+SCHMIDT                                                                         
+AMERICAN CONSTITUTIO                                                            
+                                                                                
+
+INSTRUCTOR                                                                      
+------------------------------                                                  
+COURSE_NAME                                                                     
+------------------------------------------------------------                    
+SCHMIDT                                                                         
+AMERICAN GOVERNMENT                                                             
+                                                                                
+STONE                                                                           
+DATABASE                                                                        
+                                                                                
+                                                                                
+DISCRETE MATHEMATICS                                                            
+                                                                                
+
+INSTRUCTOR                                                                      
+------------------------------                                                  
+COURSE_NAME                                                                     
+------------------------------------------------------------                    
+                                                                                
+INTRO TO CHEMISTRY                                                              
+                                                                                
+                                                                                
+OPERATIONS RESEARCH                                                             
+                                                                                
+
+32 rows selected.
+
+SQL> CREATE OR REPLACE VIEW vins AS
+  2  SELECT s.instructor, c.course_name
+  3  FROM Section s, Course c
+  4  WHERE s.course_num = c.course_number
+  5  ORDER BY s.instructor;
+
+View created.
+
+SQL> SELECT *
+  2  FROM (SELECT s.instruct, c.course_name
+  3  FROM Section s, Course c
+  4  WHERE s.course_num = c.course_number);
+FROM (SELECT s.instruct, c.course_name
+             *
+ERROR at line 2:
+ORA-00904: "S"."INSTRUCT": invalid identifier 
+
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  SELECT *
+  2  FROM (SELECT s.instructor, c.course_name
+  3  FROM Section s, Course c
+  4* WHERE s.course_num = c.course_number)
+SQL> /
+
+INSTRUCTOR                                                                      
+------------------------------                                                  
+COURSE_NAME                                                                     
+------------------------------------------------------------                    
+RODRIQUEZ                                                                       
+ACCOUNTING II                                                                   
+                                                                                
+RODRIQUEZ                                                                       
+MANAGERIAL FINANCE                                                              
+                                                                                
+RODRIGUEZ                                                                       
+ACCOUNTING INFO SYST                                                            
+                                                                                
+
+INSTRUCTOR                                                                      
+------------------------------                                                  
+COURSE_NAME                                                                     
+------------------------------------------------------------                    
+                                                                                
+INTRO TO CHEMISTRY                                                              
+                                                                                
+CARNEAU                                                                         
+ORGANIC CHEMISTRY                                                               
+                                                                                
+JONES                                                                           
+INTRO TO COMPUTER SC                                                            
+                                                                                
+
+INSTRUCTOR                                                                      
+------------------------------                                                  
+COURSE_NAME                                                                     
+------------------------------------------------------------                    
+ANDERSON                                                                        
+INTRO TO COMPUTER SC                                                            
+                                                                                
+RAFAELT                                                                         
+INTRO TO COMPUTER SC                                                            
+                                                                                
+ANDERSON                                                                        
+INTRO TO COMPUTER SC                                                            
+                                                                                
+
+INSTRUCTOR                                                                      
+------------------------------                                                  
+COURSE_NAME                                                                     
+------------------------------------------------------------                    
+RAFAELT                                                                         
+TURBO PASCAL                                                                    
+                                                                                
+KNUTH                                                                           
+DATA STRUCTURES                                                                 
+                                                                                
+HARDESTY                                                                        
+DATABASE                                                                        
+                                                                                
+
+INSTRUCTOR                                                                      
+------------------------------                                                  
+COURSE_NAME                                                                     
+------------------------------------------------------------                    
+HARDESTY                                                                        
+DATABASE                                                                        
+                                                                                
+STONE                                                                           
+DATABASE                                                                        
+                                                                                
+                                                                                
+OPERATIONS RESEARCH                                                             
+                                                                                
+
+INSTRUCTOR                                                                      
+------------------------------                                                  
+COURSE_NAME                                                                     
+------------------------------------------------------------                    
+HERMANO                                                                         
+ENGLISH COMP I                                                                  
+                                                                                
+HERMANO                                                                         
+ENGLISH COMP I                                                                  
+                                                                                
+HERMANO                                                                         
+ENGLISH COMP II                                                                 
+                                                                                
+
+INSTRUCTOR                                                                      
+------------------------------                                                  
+COURSE_NAME                                                                     
+------------------------------------------------------------                    
+HERMANO                                                                         
+ENGLISH COMP II                                                                 
+                                                                                
+HILLARY                                                                         
+FUND. TECH. WRITING                                                             
+                                                                                
+HILLARY                                                                         
+FUND. TECH. WRITING                                                             
+                                                                                
+
+INSTRUCTOR                                                                      
+------------------------------                                                  
+COURSE_NAME                                                                     
+------------------------------------------------------------                    
+HILLARY                                                                         
+WRITING FOR NON MAJO                                                            
+                                                                                
+HILLARY                                                                         
+WRITING FOR NON MAJO                                                            
+                                                                                
+CHANG                                                                           
+ALGEBRA                                                                         
+                                                                                
+
+INSTRUCTOR                                                                      
+------------------------------                                                  
+COURSE_NAME                                                                     
+------------------------------------------------------------                    
+CHANG                                                                           
+DISCRETE MATHEMATICS                                                            
+                                                                                
+KING                                                                            
+DISCRETE MATHEMATICS                                                            
+                                                                                
+                                                                                
+DISCRETE MATHEMATICS                                                            
+                                                                                
+
+INSTRUCTOR                                                                      
+------------------------------                                                  
+COURSE_NAME                                                                     
+------------------------------------------------------------                    
+CHANG                                                                           
+MATH ANALYSIS                                                                   
+                                                                                
+EMERSON                                                                         
+MATH ANALYSIS                                                                   
+                                                                                
+SCHMIDT                                                                         
+AMERICAN CONSTITUTIO                                                            
+                                                                                
+
+INSTRUCTOR                                                                      
+------------------------------                                                  
+COURSE_NAME                                                                     
+------------------------------------------------------------                    
+SCHMIDT                                                                         
+AMERICAN GOVERNMENT                                                             
+                                                                                
+SCHMIDT                                                                         
+SOCIALISM AND COMMUN                                                            
+                                                                                
+
+32 rows selected.
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  SELECT *
+  2  FROM (SELECT s.instructor, c.course_name
+  3  FROM Section s, Course c
+  4  WHERE s.course_num = c.course_number)
+  5* ORDER BY instructor
+SQL> /
+
+INSTRUCTOR                                                                      
+------------------------------                                                  
+COURSE_NAME                                                                     
+------------------------------------------------------------                    
+ANDERSON                                                                        
+INTRO TO COMPUTER SC                                                            
+                                                                                
+ANDERSON                                                                        
+INTRO TO COMPUTER SC                                                            
+                                                                                
+CARNEAU                                                                         
+ORGANIC CHEMISTRY                                                               
+                                                                                
+
+INSTRUCTOR                                                                      
+------------------------------                                                  
+COURSE_NAME                                                                     
+------------------------------------------------------------                    
+CHANG                                                                           
+ALGEBRA                                                                         
+                                                                                
+CHANG                                                                           
+DISCRETE MATHEMATICS                                                            
+                                                                                
+CHANG                                                                           
+MATH ANALYSIS                                                                   
+                                                                                
+
+INSTRUCTOR                                                                      
+------------------------------                                                  
+COURSE_NAME                                                                     
+------------------------------------------------------------                    
+EMERSON                                                                         
+MATH ANALYSIS                                                                   
+                                                                                
+HARDESTY                                                                        
+DATABASE                                                                        
+                                                                                
+HARDESTY                                                                        
+DATABASE                                                                        
+                                                                                
+
+INSTRUCTOR                                                                      
+------------------------------                                                  
+COURSE_NAME                                                                     
+------------------------------------------------------------                    
+HERMANO                                                                         
+ENGLISH COMP I                                                                  
+                                                                                
+HERMANO                                                                         
+ENGLISH COMP II                                                                 
+                                                                                
+HERMANO                                                                         
+ENGLISH COMP II                                                                 
+                                                                                
+
+INSTRUCTOR                                                                      
+------------------------------                                                  
+COURSE_NAME                                                                     
+------------------------------------------------------------                    
+HERMANO                                                                         
+ENGLISH COMP I                                                                  
+                                                                                
+HILLARY                                                                         
+FUND. TECH. WRITING                                                             
+                                                                                
+HILLARY                                                                         
+WRITING FOR NON MAJO                                                            
+                                                                                
+
+INSTRUCTOR                                                                      
+------------------------------                                                  
+COURSE_NAME                                                                     
+------------------------------------------------------------                    
+HILLARY                                                                         
+WRITING FOR NON MAJO                                                            
+                                                                                
+HILLARY                                                                         
+FUND. TECH. WRITING                                                             
+                                                                                
+JONES                                                                           
+INTRO TO COMPUTER SC                                                            
+                                                                                
+
+INSTRUCTOR                                                                      
+------------------------------                                                  
+COURSE_NAME                                                                     
+------------------------------------------------------------                    
+KING                                                                            
+DISCRETE MATHEMATICS                                                            
+                                                                                
+KNUTH                                                                           
+DATA STRUCTURES                                                                 
+                                                                                
+RAFAELT                                                                         
+TURBO PASCAL                                                                    
+                                                                                
+
+INSTRUCTOR                                                                      
+------------------------------                                                  
+COURSE_NAME                                                                     
+------------------------------------------------------------                    
+RAFAELT                                                                         
+INTRO TO COMPUTER SC                                                            
+                                                                                
+RODRIGUEZ                                                                       
+ACCOUNTING INFO SYST                                                            
+                                                                                
+RODRIQUEZ                                                                       
+ACCOUNTING II                                                                   
+                                                                                
+
+INSTRUCTOR                                                                      
+------------------------------                                                  
+COURSE_NAME                                                                     
+------------------------------------------------------------                    
+RODRIQUEZ                                                                       
+MANAGERIAL FINANCE                                                              
+                                                                                
+SCHMIDT                                                                         
+SOCIALISM AND COMMUN                                                            
+                                                                                
+SCHMIDT                                                                         
+AMERICAN CONSTITUTIO                                                            
+                                                                                
+
+INSTRUCTOR                                                                      
+------------------------------                                                  
+COURSE_NAME                                                                     
+------------------------------------------------------------                    
+SCHMIDT                                                                         
+AMERICAN GOVERNMENT                                                             
+                                                                                
+STONE                                                                           
+DATABASE                                                                        
+                                                                                
+                                                                                
+DISCRETE MATHEMATICS                                                            
+                                                                                
+
+INSTRUCTOR                                                                      
+------------------------------                                                  
+COURSE_NAME                                                                     
+------------------------------------------------------------                    
+                                                                                
+INTRO TO CHEMISTRY                                                              
+                                                                                
+                                                                                
+OPERATIONS RESEARCH                                                             
+                                                                                
+
+32 rows selected.
+
+SQL> SPOOL OFF

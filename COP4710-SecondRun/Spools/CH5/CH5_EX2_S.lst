@@ -1,0 +1,170 @@
+SQL> CREATE TABLE Stutab (STNO NUMBER(38) NOT NULL,
+  2  SNAME VARCHAR2(20),
+  3  MAJOR VARCHAR2(4),
+  4  CLASS NUMBER(38),
+  5  BDATE DATE)
+  6  ;
+
+Table created.
+
+SQL> DESC Stutab;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ STNO                                      NOT NULL NUMBER(38)
+ SNAME                                              VARCHAR2(20)
+ MAJOR                                              VARCHAR2(4)
+ CLASS                                              NUMBER(38)
+ BDATE                                              DATE
+
+SQL> INSERT INTO Stutab
+  2  SELECT * FROM Student;
+
+48 rows created.
+
+SQL> Edit
+Wrote file afiedt.buf
+
+  1  SELECT s.sname, s.major
+  2  FROM Stutab s
+  3* WHERE s.class > 3
+SQL> /
+
+SNAME                                                        MAJOR              
+------------------------------------------------------------ ------------       
+Mary                                                         COSC               
+Kelly                                                        MATH               
+Donald                                                       ACCT               
+Chris                                                        ACCT               
+Holly                                                        POLY               
+Jerry                                                        COSC               
+Harrison                                                     ACCT               
+Francis                                                      ACCT               
+Jake                                                         COSC               
+Benny                                                        CHEM               
+
+10 rows selected.
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  SELECT s.sname, s.major
+  2  FROM Stutab s
+  3* WHERE s.major = 'COSC'
+SQL> /
+
+SNAME                                                        MAJOR              
+------------------------------------------------------------ ------------       
+Mary                                                         COSC               
+Brenda                                                       COSC               
+Lujack                                                       COSC               
+Elainie                                                      COSC               
+Hillary1                                                     COSC               
+Brad                                                         COSC               
+Alan                                                         COSC               
+Jerry                                                        COSC               
+Jake                                                         COSC               
+Zelda                                                        COSC               
+
+10 rows selected.
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  CREATE OR REPLACE VIEW vstu AS
+  2  SELECT s.sname, s.major
+  3  FROM Stutab s
+  4* WHERE s.major = 'COSC'
+SQL> /
+
+View created.
+
+SQL> SELECT *
+  2  FROM vstu
+  3  ORDER BY sname;
+
+SNAME                                                        MAJOR              
+------------------------------------------------------------ ------------       
+Alan                                                         COSC               
+Brad                                                         COSC               
+Brenda                                                       COSC               
+Elainie                                                      COSC               
+Hillary1                                                     COSC               
+Jake                                                         COSC               
+Jerry                                                        COSC               
+Lujack                                                       COSC               
+Mary                                                         COSC               
+Zelda                                                        COSC               
+
+10 rows selected.
+
+SQL> SELECT *
+  2  FROM vstu
+  3  ORDER BY sname;
+
+SNAME                                                        MAJOR              
+------------------------------------------------------------ ------------       
+Alan                                                         COSC               
+Brenda                                                       COSC               
+Elainie                                                      COSC               
+Hillary1                                                     COSC               
+Jake                                                         COSC               
+Jerry                                                        COSC               
+Lujack                                                       COSC               
+Mary                                                         COSC               
+Zelda                                                        COSC               
+
+9 rows selected.
+
+SQL> UPDATE vstu
+  2  SET Major = 'ACCT'
+  3  WHERE sname = 'Brad';
+
+1 row updated.
+
+SQL> SELECT *
+  2  FROM vstu
+  3  ORDER BY sname;
+
+SNAME                                                        MAJOR              
+------------------------------------------------------------ ------------       
+Alan                                                         COSC               
+Brenda                                                       COSC               
+Elainie                                                      COSC               
+Hillary1                                                     COSC               
+Jake                                                         COSC               
+Jerry                                                        COSC               
+Lujack                                                       COSC               
+Mary                                                         COSC               
+Zelda                                                        COSC               
+
+9 rows selected.
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  SELECT s.sname, s.major
+  2  FROM Stutab s
+  3* WHERE s.major = 'COSC'
+SQL> /
+
+SNAME                                                        MAJOR              
+------------------------------------------------------------ ------------       
+Mary                                                         COSC               
+Brenda                                                       COSC               
+Lujack                                                       COSC               
+Elainie                                                      COSC               
+Hillary1                                                     COSC               
+Alan                                                         COSC               
+Jerry                                                        COSC               
+Jake                                                         COSC               
+Zelda                                                        COSC               
+
+9 rows selected.
+
+SQL> UPDATE vstu
+  2  SET Major = 'COMPSC';
+SET Major = 'COMPSC'
+            *
+ERROR at line 2:
+ORA-12899: value too large for column "CAS156"."STUTAB"."MAJOR" (actual: 6,
+maximum: 4) 

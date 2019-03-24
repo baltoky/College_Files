@@ -1,0 +1,157 @@
+SQL> CREATE OR REPLACE TABLE R1 (name VARCHAR2(20) salary NUMBER(5));
+CREATE OR REPLACE TABLE R1 (name VARCHAR2(20) salary NUMBER(5))
+                  *
+ERROR at line 1:
+ORA-00922: missing or invalid option 
+
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1* CREATE TABLE R1 (name VARCHAR2(20) salary NUMBER(5))
+SQL> /
+CREATE TABLE R1 (name VARCHAR2(20) salary NUMBER(5))
+                                   *
+ERROR at line 1:
+ORA-00907: missing right parenthesis 
+
+
+SQL> edi
+Wrote file afiedt.buf
+
+  1* CREATE TABLE R1 (name VARCHAR2(20), salary NUMBER(5))
+SQL> /
+
+Table created.
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1* CREATE TABLE R1 (name VARCHAR2(20), salary NUMBER(5))
+SQL> DROP TABLE R1
+  2  ;
+
+Table dropped.
+
+SQL> CREATE TABLE R1 (name VARCHAR(20), salary NUMBER(5))
+  2  ;
+
+Table created.
+
+SQL> DROP TABLE R1;
+
+Table dropped.
+
+SQL> CREATE TABLE R1 (name VRACHAR2(20), salary NUMBER(5));
+CREATE TABLE R1 (name VRACHAR2(20), salary NUMBER(5))
+                              *
+ERROR at line 1:
+ORA-00907: missing right parenthesis 
+
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1* CREATE TABLE R1 (name VARCHAR2(20), salary NUMBER(5))
+SQL> /
+
+Table created.
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1* CREATE TABLE R2 (salary NUMBER(5), name VARCHAR2(20))
+SQL> /
+
+Table created.
+
+SQL> INSERT INTO R1 VALUES ('Roger', 200);
+
+1 row created.
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1* INSERT INTO R1 VALUES ('Matt', 200)
+SQL> /
+
+1 row created.
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1* INSERT INTO R1 VALUES ('Christ', 200)
+SQL> /
+
+1 row created.
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1* INSERT INTO R2 VALUES ('Jesus', 200)
+SQL> /
+INSERT INTO R2 VALUES ('Jesus', 200)
+                       *
+ERROR at line 1:
+ORA-01722: invalid number 
+
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1* INSERT INTO R2 VALUES (550, 'Jesus')
+SQL> /
+
+1 row created.
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1* INSERT INTO R2 VALUES (550, 'Klein')
+SQL> /
+
+1 row created.
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1* INSERT INTO R2 VALUES (550, 'Joseph')
+SQL> /
+
+1 row created.
+
+SQL> SELLECT * FROM R1 UNION SELECT * FROM R2;
+SP2-0734: unknown command beginning "SELLECT * ..." - rest of line ignored.
+SQL> edit
+Wrote file afiedt.buf
+
+  1* INSERT INTO R2 VALUES (550, 'Joseph')
+SQL> SELECT * FROM R1 UNION SELECT * FROM R2;
+SELECT * FROM R1 UNION SELECT * FROM R2
+       *
+ERROR at line 1:
+ORA-01790: expression must have same datatype as corresponding expression 
+
+
+SQL> SELECT * FROM R1 UNION SELECT name, salary FROM R2;
+
+NAME                                                             SALARY         
+------------------------------------------------------------ ----------         
+Christ                                                              200         
+Jesus                                                               550         
+Joseph                                                              550         
+Klein                                                               550         
+Matt                                                                200         
+Roger                                                               200         
+
+6 rows selected.
+
+SQL> DROP TABLE R1;
+
+Table dropped.
+
+SQL> DROP TABLE R2;
+
+Table dropped.
+
+SQL> SPOOL OFF

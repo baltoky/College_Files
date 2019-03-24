@@ -1,0 +1,40 @@
+SQL> SELECT *
+  2  FROM Section
+  3  WHERE instructor = 'HERMANO';
+
+SECTION_ID COURSE_NUM               SEMESTER           YEAR                     
+---------- ------------------------ ------------------ ------                   
+INSTRUCTOR                           BLDG       ROOM                            
+------------------------------ ---------- ----------                            
+       126 ENGL1010                 FALL               16                       
+HERMANO                                13        101                            
+                                                                                
+       127 ENGL1011                 SPRING             15                       
+HERMANO                                13        101                            
+                                                                                
+       133 ENGL1010                 FALL               15                       
+HERMANO                                13        101                            
+                                                                                
+
+SECTION_ID COURSE_NUM               SEMESTER           YEAR                     
+---------- ------------------------ ------------------ ------                   
+INSTRUCTOR                           BLDG       ROOM                            
+------------------------------ ---------- ----------                            
+       134 ENGL1011                 SPRING             16                       
+HERMANO                                13        101                            
+                                                                                
+
+SQL> SAVE q1
+Created file q1.sql
+
+SQL> EDIT q1
+
+SQL> @q1
+
+SNAME                                                                           
+------------------------------------------------------------                    
+Lineas                                                                          
+Lineas                                                                          
+Richard                                                                         
+
+SQL> SPOOL OFF
