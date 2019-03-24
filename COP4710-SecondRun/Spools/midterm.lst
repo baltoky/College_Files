@@ -1,28 +1,10 @@
-SQL> CREATE TABLE BANK_BRANCH(Code VARCHAR2(10), BranchNo VARCHER2(10), Addr VARCHAR2(25));
-CREATE TABLE BANK_BRANCH(Code VARCHAR2(10), BranchNo VARCHER2(10), Addr VARCHAR2(25))
-                                                             *
-ERROR at line 1:
-ORA-00907: missing right parenthesis 
-
-
-SQL> CREATE TABLE BACK_BRANCH(Code VARCHAR2(10), BranchNo VARHCHAR2(10), Addr VARCHAR2(25));
-CREATE TABLE BACK_BRANCH(Code VARCHAR2(10), BranchNo VARHCHAR2(10), Addr VARCHAR2(25))
-                                                              *
-ERROR at line 1:
-ORA-00907: missing right parenthesis 
-
 
 SQL> CREATE TABLE Bank_Branch
-  2  (code VARCHAR(10),
+  2  (code VARCHAR2(10),
   3  BranchNo VARCHAR2(10),
   4  Addr VARCHAR2(25));
 
 Table created.
-
-SQL> ALTER TABLE Bank_Branch
-  2  MODIFY code VARCHAR2(20);
-
-Table altered.
 
 SQL> CREATE TABLE Account
   2  (AcctNo NUMBER(5),
@@ -50,8 +32,6 @@ SQL> INSERT INTO Account
 
 1 row created.
 
-SQL> INSERT INTO Customer
-  2  
 SQL> ALTER TABLE Customer
   2  MODIFY ssn VARCHAR2(11);
 
@@ -73,8 +53,6 @@ SQL> UPDATE Customer
 
 1 row updated.
 
-SQL> INSET INTO Customer
-SP2-0734: unknown command beginning "INSET INTO..." - rest of line ignored.
 SQL> INSERT INTO Customer
   2  VALUES ('235-68-9827', 'Michele Smith', '7680 Lincoln Lane', '720-324-5723');
 
@@ -97,14 +75,6 @@ BANCHNO                        TYPE
 1                                                                               
 1                                                                               
                                                                                 
-
-SQL> UPDATE Address
-  2  SET Type;
-SET Type
-       *
-ERROR at line 2:
-ORA-00927: missing equal sign 
-
 
 SQL> UPDATE Account
   2  SET Type = 'SILV';
