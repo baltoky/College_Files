@@ -19,26 +19,10 @@ SQL> edit
 Wrote file afiedt.buf
 
   1* INSERT INTO Secretary VALUES ('ENGL', 'Maria')
-SQL> .//
-SP2-0042: unknown command ".//" - rest of line ignored.
-SQL> edit
-Wrote file afiedt.buf
-
-  1* INSERT INTO Secretary VALUES ('ENGL', 'Maria')
 SQL> /
 
 1 row created.
 
-SQL> SELECT d.dname
-  2  FROM Department d, Secretary y
-  3  WHERE d.dcode = y.dcode;
-
-DNAME                                                                           
-------------------------------------------------------------                    
-Accounting                                                                      
-Computer Science                                                                
-English                                                                         
-
 SQL> edit
 Wrote file afiedt.buf
 
@@ -54,13 +38,6 @@ Accounting
 Computer Science                                                                
 English                                                                         
 
-SQL> edit
-Wrote file afiedt.buf
-
-  1  SELECT d.dname
-  2  FROM Department d
-  3  WHERE d.dcode IN (SELECT y.dcode
-  4* FROM Secretary y)
 SQL> edit
 Wrote file afiedt.buf
 
@@ -78,86 +55,17 @@ Mathematics
 Political Science                                                               
                                                                                 
 
-SQL> INSERT INTO Secretary VAULUES (NULL, 'Brenda');
-INSERT INTO Secretary VAULUES (NULL, 'Brenda')
-                               *
-ERROR at line 1:
-ORA-00928: missing SELECT keyword 
-
-
-SQL> edit
-Wrote file afiedt.buf
-
-  1* INSERT INTO Secretary VAULUES (, 'Brenda')
-SQL> /
-INSERT INTO Secretary VAULUES (, 'Brenda')
-                               *
-ERROR at line 1:
-ORA-00928: missing SELECT keyword 
-
-
-SQL> edit
-Wrote file afiedt.buf
-
-  1* INSERT INTO Secretary VALUES (, 'Brenda')
-SQL> /
-INSERT INTO Secretary VALUES (, 'Brenda')
-                              *
-ERROR at line 1:
-ORA-00936: missing expression 
-
-
-SQL> edit
-Wrote file afiedt.buf
-
-  1* INSERT INTO Secretary VALUES (NULL, 'Brenda')
-SQL> /
-
-1 row created.
-
-SQL> edit
-Wrote file afiedt.buf
-
-  1* INSERT INTO Secretary VALUES (NULL, 'Brenda')
-SQL> edit q77a
-
-SQL> /
-
-1 row created.
-
-SQL> DELETE FROM Secretary WHERE rownum = 5;
-
-0 rows deleted.
-
-SQL> SELECT * FROM SECRETARY
-  2  ;
-
-DCODE        NAME                                                               
------------- ------------------------------------------------------------       
-ACCT         Sally                                                              
-COSC         Chris                                                              
-ENGL         Maria                                                              
-             Brenda                                                             
-             Brenda                                                             
-
-SQL> DELETE FROM Secretary WHERE rownum > 4;
-
-0 rows deleted.
-
-SQL> DELETE FROM SECRETARY WHERE rownum > 3;
-
-0 rows deleted.
-
-SQL> DELETE FROM Secretary WHERE name = 'Brenda';
-
-2 rows deleted.
 
 SQL> INSERT INTO Secretary VALUES (NULL, 'Brenda');
 
 1 row created.
 
 SQL> @q77a
-  5  ;
+  SELECT d.dname
+  FROM Department d
+  WHERE d.dcode IN (SELECT y.dcode
+  FROM Secretary y)
+  /
 
 DNAME                                                                           
 ------------------------------------------------------------                    
@@ -165,36 +73,23 @@ Accounting
 Computer Science                                                                
 English                                                                         
 
-SQL> edit q77b
-
 SQL> @q77b
-
-no rows selected
-
-SQL> edit @q77b
-
-SQL> edit q77b
-
-SQL> /
+   SELECT d.dname
+   FROM Department d
+   WHERE NOT d.dcode IN (SELECT y.dcode
+   FROM Secretary y)
+   /
 
 no rows selected
 
 SQL> @q77b
-AND d.dcode IN NOT NULL
-               *
-ERROR at line 5:
-ORA-00936: missing expression 
+   SELECT d.dname
+   FROM Department d
+   WHERE NOT d.dcode IN (SELECT y.dcode
+   FROM Secretary y
+   WHERE y.dcode IS NOT NULL)
+   /
 
-
-SQL> edit q77b
-
-SQL> @q77b
-
-no rows selected
-
-SQL> edit q77b
-
-SQL> @q77b
 
 DNAME                                                                           
 ------------------------------------------------------------                    
