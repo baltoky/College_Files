@@ -1,3 +1,54 @@
+SQL> CREATE OR REPLACE TABLE R1 (name VARCHAR2(20) salary NUMBER(5));
+CREATE OR REPLACE TABLE R1 (name VARCHAR2(20) salary NUMBER(5))
+                  *
+ERROR at line 1:
+ORA-00922: missing or invalid option 
+
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1* CREATE TABLE R1 (name VARCHAR2(20) salary NUMBER(5))
+SQL> /
+CREATE TABLE R1 (name VARCHAR2(20) salary NUMBER(5))
+                                   *
+ERROR at line 1:
+ORA-00907: missing right parenthesis 
+
+
+SQL> edi
+Wrote file afiedt.buf
+
+  1* CREATE TABLE R1 (name VARCHAR2(20), salary NUMBER(5))
+SQL> /
+
+Table created.
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1* CREATE TABLE R1 (name VARCHAR2(20), salary NUMBER(5))
+SQL> DROP TABLE R1
+  2  ;
+
+Table dropped.
+
+SQL> CREATE TABLE R1 (name VARCHAR(20), salary NUMBER(5))
+  2  ;
+
+Table created.
+
+SQL> DROP TABLE R1;
+
+Table dropped.
+
+SQL> CREATE TABLE R1 (name VRACHAR2(20), salary NUMBER(5));
+CREATE TABLE R1 (name VRACHAR2(20), salary NUMBER(5))
+                              *
+ERROR at line 1:
+ORA-00907: missing right parenthesis 
+
+
 SQL> edit
 Wrote file afiedt.buf
 
@@ -33,6 +84,16 @@ Wrote file afiedt.buf
 SQL> /
 
 1 row created.
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1* INSERT INTO R2 VALUES ('Jesus', 200)
+SQL> /
+INSERT INTO R2 VALUES ('Jesus', 200)
+                       *
+ERROR at line 1:
+ORA-01722: invalid number 
 
 
 SQL> edit

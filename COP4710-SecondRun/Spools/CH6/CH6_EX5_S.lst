@@ -1,12 +1,126 @@
 SQL> edit Q65a
+
+SQL> DESC Student
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ STNO                                      NOT NULL NUMBER(38)
+ SNAME                                              VARCHAR2(20)
+ MAJOR                                              VARCHAR2(4)
+ CLASS                                              NUMBER(38)
+ BDATE                                              DATE
+
+SQL> DESC Section
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ SECTION_ID                                NOT NULL NUMBER(38)
+ COURSE_NUM                                         VARCHAR2(8)
+ SEMESTER                                           VARCHAR2(6)
+ YEAR                                               CHAR(2)
+ INSTRUCTOR                                         VARCHAR2(10)
+ BLDG                                               NUMBER(38)
+ ROOM                                               NUMBER(38)
+
+SQL> DESC Grade
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ STUDENT_NUMBER                            NOT NULL NUMBER(38)
+ SECTION_ID                                NOT NULL NUMBER(38)
+ GRADE                                              CHAR(1)
+
+SQL> edit Q65a
+
+SQL> /
+
+SNAME                                                        MAJOR              
+------------------------------------------------------------ ------------       
+Zelda                                                        COSC               
+Ken                                                          POLY               
+Mario                                                        MATH               
+Brenda                                                       COSC               
+Richard                                                      ENGL               
+Reva                                                         MATH               
+Donald                                                       ACCT               
+Jake                                                         COSC               
+Susan                                                        ENGL               
+Monica                                                       MATH               
+Bill                                                         POLY               
+
+SNAME                                                        MAJOR              
+------------------------------------------------------------ ------------       
+Sadie                                                        MATH               
+Jessica                                                      POLY               
+Steve                                                        ENGL               
+Alan                                                         COSC               
+Rachel                                                       ENGL               
+Smithly                                                      ENGL               
+Sebastian                                                    ACCT               
+Losmith                                                      CHEM               
+Genevieve                                                    UNKN               
+Thornton                                                                        
+Gus                                                          ART                
+
+SNAME                                                        MAJOR              
+------------------------------------------------------------ ------------       
+Benny                                                        CHEM               
+Lionel                                                                          
+
+24 rows selected.
+
+SQL> edit  Q65b
+
+SQL> @Q65a
+SELECT s.stno, s.name, t.course_num, g.grade
+               *
+ERROR at line 1:
+ORA-00904: "S"."NAME": invalid identifier 
+
+
+SQL> edit Q65a
+
+SQL> @Q65a
+
+no rows selected
+
+SQL> @Q65b
+  6  /
+AND t.course_num LIKE 'MATH$'
+    *
+ERROR at line 5:
+ORA-00904: "T"."COURSE_NUM": invalid identifier 
+
+
+SQL> edit
 Wrote file afiedt.buf
 
   1  SELECT s.stno, s.sname, t.course_num, g.grade
-  2  FROM Student s, Section t, Grade g
+  2  FROM Student s, Section g, Grade g
   3  WHERE s.stno = g.student_number
   4  AND g.section_ID = t.section_ID
-  5  AND t.course_num LIKE 'COSC%'
-  6  AND (g.grade = 'A' OR g.grade = 'B')
+  5* AND t.course_num LIKE 'MATH$'
+SQL> @Q65b
+  6  /
+AND t.course_num LIKE 'MATH$'
+    *
+ERROR at line 5:
+ORA-00904: "T"."COURSE_NUM": invalid identifier 
+
+
+SQL> edit Q65b
+
+SQL> edit Q65b
+
+SQL> /
+AND t.course_num LIKE 'MATH$'
+    *
+ERROR at line 5:
+ORA-00904: "T"."COURSE_NUM": invalid identifier 
+
+
+SQL> @Q65b
+
+no rows selected
+
+SQL> edit Q65a
 
 SQL> @Q65a
 
@@ -178,14 +292,7 @@ COSC1310                 B
 35 rows selected.
 
 SQL> edit Q65b
-Wrote file afiedt.buf
 
-  1  SELECT s.stno, s.sname, t.course_num, g.grade
-  2  FROM Student s, Section g, Grade g
-  3  WHERE s.stno = g.student_number
-  4  AND g.section_ID = t.section_ID
-  5* AND t.course_num LIKE 'MATH%'
-  
 SQL> @Q65b
 
       STNO SNAME                                                                
@@ -337,6 +444,16 @@ SQL> SELECT COUNT(*) FROM vq65b;
   COUNT(*)                                                                      
 ----------                                                                      
         27                                                                      
+
+SQL> SELECT s.stno
+  2  FROM vq65a
+  3  MINUS
+  4  SELECT s.stno
+  5  FROM vq65b;
+SELECT s.stno
+       *
+ERROR at line 1:
+ORA-00904: "S"."STNO": invalid identifier 
 
 
 SQL> edit
