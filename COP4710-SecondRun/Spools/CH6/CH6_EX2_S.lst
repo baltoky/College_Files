@@ -1,0 +1,30 @@
+SQL> edit Q62
+
+  1  SELECT s.sname, s.class, t.course_num
+  2  FROM Student s, Section t, Grade g
+  3  WHERE s.stno = g.student_number
+  4* AND g.section_Id = t.section_Id
+  
+SQL> edit Q62                                                                           
+
+  1  SELECT s.sname, s.class, t.course_num
+  2  FROM Student s, Section t, Grade g
+  3  WHERE s.stno = g.student_number
+  4  AND g.section_Id = t.section_Id
+  5  AND NOT s.class IN(2)
+  6  SELECT s.sname, s.class, t.course_num
+  7  FROM Student s, Section t, Grade g
+  8* WHERE s.class = 2
+
+SQL> edit Q62
+
+  1  SELECT s.sname, s.class, t.course_num
+  2  FROM Student s, Section t, Grade g
+  3  WHERE s.stno = g.student_number
+  4  AND g.section_Id = t.section_Id
+  5  MINUS
+  6  SELECT s.sname, s.class, t.course_num
+  7  FROM Student s, Section t, Grade g
+  8* WHERE s.class = 2
+
+SQL> SPOOL OFF
