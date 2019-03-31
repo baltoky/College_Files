@@ -1,0 +1,23 @@
+SQL> edit
+Wrote file afiedt.buf
+
+  1  SELECT d.dname
+  2  FROM Course c, Department d
+  3  WHERE c.offering_dept = d.dcode
+  4  AND c.course_number LIKE '%2___'
+  5  OR c.course_number LIKE '%3___'
+  6  MINUS
+  7  SELECT d.dname
+  8  FROM Course c, Department d
+  9  WHERE c.offering_dept = d.dcode
+ 10* AND c.course_number LIKE '%1___'
+SQL> /
+
+DNAME                                                                           
+------------------------------------------------------------                    
+Accounting                                                                      
+Art                                                                             
+Chemistry                                                                       
+                                                                                
+
+SQL> SPOOL OFF

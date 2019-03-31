@@ -1,0 +1,125 @@
+SQL> edit
+Wrote file afiedt.buf
+
+  1  SELECT c.course_name, c.course_number
+  2  FROM Course c, Prereq p
+  3  WHERE c.course_number = p.prereq
+  4* OR c.course_number = p.course_number
+SQL> .
+SQL> /
+
+COURSE_NAME                                                                     
+------------------------------------------------------------                    
+COURSE_NUMBER                                                                   
+------------------------                                                        
+MANAGERIAL FINANCE                                                              
+ACCT3333                                                                        
+                                                                                
+ORGANIC CHEMISTRY                                                               
+CHEM3001                                                                        
+                                                                                
+DATA STRUCTURES                                                                 
+COSC3320                                                                        
+                                                                                
+
+COURSE_NAME                                                                     
+------------------------------------------------------------                    
+COURSE_NUMBER                                                                   
+------------------------                                                        
+DATABASE                                                                        
+COSC3380                                                                        
+                                                                                
+DATABASE                                                                        
+COSC3380                                                                        
+                                                                                
+ADA - INTRODUCTION                                                              
+COSC5234                                                                        
+                                                                                
+
+COURSE_NAME                                                                     
+------------------------------------------------------------                    
+COURSE_NUMBER                                                                   
+------------------------                                                        
+ENGLISH COMP II                                                                 
+ENGL1011                                                                        
+                                                                                
+FUND. TECH. WRITING                                                             
+ENGL3401                                                                        
+                                                                                
+WRITING FOR NON MAJO                                                            
+ENGL3520                                                                        
+                                                                                
+
+COURSE_NAME                                                                     
+------------------------------------------------------------                    
+COURSE_NUMBER                                                                   
+------------------------                                                        
+MATH ANALYSIS                                                                   
+MATH5501                                                                        
+                                                                                
+AMERICAN GOVERNMENT                                                             
+POLY2103                                                                        
+                                                                                
+POLITICS OF CUBA                                                                
+POLY5501                                                                        
+                                                                                
+
+COURSE_NAME                                                                     
+------------------------------------------------------------                    
+COURSE_NUMBER                                                                   
+------------------------                                                        
+ACCOUNTING II                                                                   
+ACCT2220                                                                        
+                                                                                
+INTRO TO CHEMISTRY                                                              
+CHEM2001                                                                        
+                                                                                
+INTRO TO COMPUTER SC                                                            
+COSC1310                                                                        
+                                                                                
+
+COURSE_NAME                                                                     
+------------------------------------------------------------                    
+COURSE_NUMBER                                                                   
+------------------------                                                        
+DATA STRUCTURES                                                                 
+COSC3320                                                                        
+                                                                                
+DATA STRUCTURES                                                                 
+COSC3320                                                                        
+                                                                                
+ENGLISH COMP I                                                                  
+ENGL1010                                                                        
+                                                                                
+
+COURSE_NAME                                                                     
+------------------------------------------------------------                    
+COURSE_NUMBER                                                                   
+------------------------                                                        
+ENGLISH COMP II                                                                 
+ENGL1011                                                                        
+                                                                                
+ENGLISH COMP II                                                                 
+ENGL1011                                                                        
+                                                                                
+ALGEBRA                                                                         
+MATH2333                                                                        
+                                                                                
+
+COURSE_NAME                                                                     
+------------------------------------------------------------                    
+COURSE_NUMBER                                                                   
+------------------------                                                        
+DISCRETE MATHEMATICS                                                            
+MATH2410                                                                        
+                                                                                
+AMERICAN CONSTITUTIO                                                            
+POLY1201                                                                        
+                                                                                
+SOCIALISM AND COMMUN                                                            
+POLY4103                                                                        
+                                                                                
+
+24 rows selected.
+
+SQL> SPOOL OFF

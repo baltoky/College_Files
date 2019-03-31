@@ -1,0 +1,253 @@
+SQL> edit
+Wrote file afiedt.buf
+
+  1  SELECT s.sname, d.dname
+  2  FROM Student s, Section t, Grade g, Course c, Department d
+  3  WHERE s.stno = g.student_number
+  4  AND g.section_ID = t.section_ID
+  5  AND t.course_num = c.course_number
+  6  AND c.offering_dept = d.dcode
+  7* AND s.class = 2
+SQL> /
+
+SNAME                                                                           
+------------------------------------------------------------                    
+DNAME                                                                           
+------------------------------------------------------------                    
+Brenda                                                                          
+Mathematics                                                                     
+                                                                                
+Brenda                                                                          
+Computer Science                                                                
+                                                                                
+Brenda                                                                          
+Accounting                                                                      
+                                                                                
+
+SNAME                                                                           
+------------------------------------------------------------                    
+DNAME                                                                           
+------------------------------------------------------------                    
+Brenda                                                                          
+Accounting                                                                      
+                                                                                
+Brenda                                                                          
+Computer Science                                                                
+                                                                                
+Brenda                                                                          
+Computer Science                                                                
+                                                                                
+
+SNAME                                                                           
+------------------------------------------------------------                    
+DNAME                                                                           
+------------------------------------------------------------                    
+Brenda                                                                          
+English                                                                         
+                                                                                
+Brenda                                                                          
+English                                                                         
+                                                                                
+Brenda                                                                          
+Computer Science                                                                
+                                                                                
+
+SNAME                                                                           
+------------------------------------------------------------                    
+DNAME                                                                           
+------------------------------------------------------------                    
+Brenda                                                                          
+Chemistry                                                                       
+                                                                                
+Reva                                                                            
+Mathematics                                                                     
+                                                                                
+Reva                                                                            
+Computer Science                                                                
+                                                                                
+
+SNAME                                                                           
+------------------------------------------------------------                    
+DNAME                                                                           
+------------------------------------------------------------                    
+Reva                                                                            
+English                                                                         
+                                                                                
+Reva                                                                            
+Computer Science                                                                
+                                                                                
+Reva                                                                            
+Computer Science                                                                
+                                                                                
+
+SNAME                                                                           
+------------------------------------------------------------                    
+DNAME                                                                           
+------------------------------------------------------------                    
+Reva                                                                            
+Computer Science                                                                
+                                                                                
+Reva                                                                            
+Mathematics                                                                     
+                                                                                
+Harley                                                                          
+Computer Science                                                                
+                                                                                
+
+SNAME                                                                           
+------------------------------------------------------------                    
+DNAME                                                                           
+------------------------------------------------------------                    
+Harley                                                                          
+Computer Science                                                                
+                                                                                
+Harley                                                                          
+English                                                                         
+                                                                                
+Harley                                                                          
+Mathematics                                                                     
+                                                                                
+
+SNAME                                                                           
+------------------------------------------------------------                    
+DNAME                                                                           
+------------------------------------------------------------                    
+Sadie                                                                           
+Computer Science                                                                
+                                                                                
+Sadie                                                                           
+Computer Science                                                                
+                                                                                
+Sadie                                                                           
+Accounting                                                                      
+                                                                                
+
+SNAME                                                                           
+------------------------------------------------------------                    
+DNAME                                                                           
+------------------------------------------------------------                    
+Sadie                                                                           
+Accounting                                                                      
+                                                                                
+Sadie                                                                           
+Accounting                                                                      
+                                                                                
+Sadie                                                                           
+Computer Science                                                                
+                                                                                
+
+SNAME                                                                           
+------------------------------------------------------------                    
+DNAME                                                                           
+------------------------------------------------------------                    
+Jessica                                                                         
+Computer Science                                                                
+                                                                                
+Jessica                                                                         
+Computer Science                                                                
+                                                                                
+Jessica                                                                         
+Accounting                                                                      
+                                                                                
+
+SNAME                                                                           
+------------------------------------------------------------                    
+DNAME                                                                           
+------------------------------------------------------------                    
+Jessica                                                                         
+Accounting                                                                      
+                                                                                
+Jessica                                                                         
+Accounting                                                                      
+                                                                                
+Jessica                                                                         
+Computer Science                                                                
+                                                                                
+
+SNAME                                                                           
+------------------------------------------------------------                    
+DNAME                                                                           
+------------------------------------------------------------                    
+Cedric                                                                          
+Computer Science                                                                
+                                                                                
+Cedric                                                                          
+Accounting                                                                      
+                                                                                
+Cedric                                                                          
+Accounting                                                                      
+                                                                                
+
+SNAME                                                                           
+------------------------------------------------------------                    
+DNAME                                                                           
+------------------------------------------------------------                    
+Alan                                                                            
+Computer Science                                                                
+                                                                                
+Alan                                                                            
+Accounting                                                                      
+                                                                                
+Alan                                                                            
+Accounting                                                                      
+                                                                                
+
+SNAME                                                                           
+------------------------------------------------------------                    
+DNAME                                                                           
+------------------------------------------------------------                    
+Smithly                                                                         
+English                                                                         
+                                                                                
+Smithly                                                                         
+English                                                                         
+                                                                                
+Smithly                                                                         
+Computer Science                                                                
+                                                                                
+
+SNAME                                                                           
+------------------------------------------------------------                    
+DNAME                                                                           
+------------------------------------------------------------                    
+Smithly                                                                         
+Political Science                                                               
+                                                                                
+Smithly                                                                         
+Mathematics                                                                     
+                                                                                
+Smithly                                                                         
+Chemistry                                                                       
+                                                                                
+
+SNAME                                                                           
+------------------------------------------------------------                    
+DNAME                                                                           
+------------------------------------------------------------                    
+Sebastian                                                                       
+English                                                                         
+                                                                                
+Sebastian                                                                       
+English                                                                         
+                                                                                
+Sebastian                                                                       
+Computer Science                                                                
+                                                                                
+
+SNAME                                                                           
+------------------------------------------------------------                    
+DNAME                                                                           
+------------------------------------------------------------                    
+Sebastian                                                                       
+Political Science                                                               
+                                                                                
+Sebastian                                                                       
+Mathematics                                                                     
+                                                                                
+Sebastian                                                                       
+Chemistry                                                                       
+                                                                                
+
+51 rows selected.
+
+SQL> SPOOL OFF

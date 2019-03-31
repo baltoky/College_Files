@@ -1,0 +1,26 @@
+SQL> edit
+Wrote file afiedt.buf
+
+  1  SELECT c.course_name
+  2  FROM Course c, Section t
+  3  WHERE c.course_number = t.course_num
+  4  AND t.semester LIKE '%FALL%'
+  5  AND t.section_id IN (SELECT t.section_id
+  6  FROM Section t, Room r
+  7  WHERE (t.bldg = r.bldg AND t.room = r.room)
+  8  AND r.capacity > (SELECT AVG(r.capacity)
+  9* FROM Room r))
+SQL> /
+
+COURSE_NAME                                                                     
+------------------------------------------------------------                    
+FUND. TECH. WRITING                                                             
+WRITING FOR NON MAJO                                                            
+ENGLISH COMP I                                                                  
+INTRO TO CHEMISTRY                                                              
+FUND. TECH. WRITING                                                             
+ENGLISH COMP I                                                                  
+
+6 rows selected.
+
+SQL> SPOOL OFF

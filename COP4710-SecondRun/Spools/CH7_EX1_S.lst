@@ -1,0 +1,154 @@
+SQL> SELECT stno
+  2  FROM Student
+  3  WHERE (SELECT stno
+  4  FROM Student, Grade, Section
+  5  
+SQL> edit
+Wrote file afiedt.buf
+
+  1  SELECT stno
+  2  FROM Student
+  3  WHERE (SELECT stno
+  4* FROM Student, Grade, Section
+SQL> define_editor=vi
+SQL> edit
+Wrote file afiedt.buf
+
+  1  SELECT stno
+  2  FROM Student
+  3  WHERE (SELECT stno
+  4  FROM Student s, Grade g, Section t
+  5  WHERE s.stno = g.students_number
+  6  AND g.section_id = t.section_id
+  7  AND (g.grade = 'A' OR g.grade = 'B')
+  8* AND t.semester LIKE '%FALL%'
+SQL> /
+WHERE (SELECT stno
+       *
+ERROR at line 3:
+ORA-00936: missing expression 
+
+
+SQL> EDIT
+Wrote file afiedt.buf
+
+  1  SELECT s.stno
+  2  FROM Student s, Grade g
+  3  WHERE s.stno = g.student_number
+  4  AND (g.grade = 'A' OR g.grade = 'B')
+  5  AND g.section_id = (SELECT section_ID
+  6  FROM Section
+  7* WHERE semester LIKE '%FALL%')
+SQL> /
+AND g.section_id = (SELECT section_ID
+                    *
+ERROR at line 5:
+ORA-01427: single-row subquery returns more than one row 
+
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  SELECT s.stno
+  2  FROM Student s, Grade g
+  3  WHERE s.stno = g.student_number
+  4  AND (g.grade = 'A' OR g.grade = 'B')
+  5  AND g.section_id IN (SELECT section_ID
+  6  FROM Section
+  7* WHERE semester LIKE '%FALL%')
+SQL> /
+
+      STNO                                                                      
+----------                                                                      
+        13                                                                      
+         8                                                                      
+         3                                                                      
+        20                                                                      
+         3                                                                      
+        14                                                                      
+         3                                                                      
+         8                                                                      
+        15                                                                      
+         3                                                                      
+       122                                                                      
+
+      STNO                                                                      
+----------                                                                      
+       129                                                                      
+       121                                                                      
+       123                                                                      
+        24                                                                      
+         3                                                                      
+         2                                                                      
+
+17 rows selected.
+
+SQL> EDIT
+Wrote file afiedt.buf
+
+  1  SELECT s.stno
+  2  FROM Student s, Grade g INNER JOIN Section t
+  3  WHERE s.stno = g.student_number
+  4  AND (g.grade = 'A' OR g.grade = 'B')
+  5  AND g.student_id = t.student_id
+  6* AND semester LIKE '%FALL%'
+SQL> /
+WHERE s.stno = g.student_number
+*
+ERROR at line 3:
+ORA-00905: missing keyword 
+
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  SELECT s.stno
+  2  FROM Student s, Grade g, Section t
+  3  WHERE s.stno = g.student_number
+  4  AND (g.grade = 'A' OR g.grade = 'B')
+  5  AND g.student_id = t.student_id
+  6* AND semester LIKE '%FALL%'
+SQL> /
+AND g.student_id = t.student_id
+                   *
+ERROR at line 5:
+ORA-00904: "T"."STUDENT_ID": invalid identifier 
+
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  SELECT s.stno
+  2  FROM Student s, Grade g, Section t
+  3  WHERE s.stno = g.student_number
+  4  AND (g.grade = 'A' OR g.grade = 'B')
+  5  AND g.section_id = t.section_id
+  6* AND semester LIKE '%FALL%'
+SQL> /
+
+      STNO                                                                      
+----------                                                                      
+        13                                                                      
+         8                                                                      
+         3                                                                      
+        20                                                                      
+         3                                                                      
+        14                                                                      
+         3                                                                      
+         8                                                                      
+        15                                                                      
+         3                                                                      
+       122                                                                      
+
+      STNO                                                                      
+----------                                                                      
+       129                                                                      
+       121                                                                      
+       123                                                                      
+        24                                                                      
+         3                                                                      
+         2                                                                      
+
+17 rows selected.
+
+SQL> SPOOL off

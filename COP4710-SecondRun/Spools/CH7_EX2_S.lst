@@ -1,0 +1,78 @@
+SQL> edit
+Wrote file afiedt.buf
+
+  1  SELECT s.stno, c.course_name, g.grade
+  2  FROM Student s, Section t, Grade g, Course c
+  3  WHERE s.stno = g.student_number
+  4  AND g.section_id = t.section_id
+  5  AND t.course_num = c.course_number
+  6* AND c.course_number LIKE 'ACCT%'
+SQL> /
+
+      STNO COURSE_NAME                                                  GRA     
+---------- ------------------------------------------------------------ ---     
+        13 ACCOUNTING II                                                B       
+         5 ACCOUNTING II                                                B       
+         6 ACCOUNTING II                                                B       
+         7 ACCOUNTING II                                                B       
+         8 ACCOUNTING II                                                B       
+         9 ACCOUNTING II                                                F       
+       121 ACCOUNTING II                                                B       
+       122 ACCOUNTING II                                                B       
+       123 ACCOUNTING II                                                B       
+       125 ACCOUNTING II                                                B       
+       126 ACCOUNTING II                                                B       
+
+      STNO COURSE_NAME                                                  GRA     
+---------- ------------------------------------------------------------ ---     
+       127 ACCOUNTING II                                                B       
+       128 ACCOUNTING II                                                F       
+       129 ACCOUNTING II                                                B       
+       130 ACCOUNTING II                                                C       
+        24 ACCOUNTING II                                                B       
+        24 MANAGERIAL FINANCE                                                   
+        34 MANAGERIAL FINANCE                                                   
+        49 MANAGERIAL FINANCE                                                   
+       123 MANAGERIAL FINANCE                                                   
+       125 MANAGERIAL FINANCE                                                   
+       126 MANAGERIAL FINANCE                                                   
+
+      STNO COURSE_NAME                                                  GRA     
+---------- ------------------------------------------------------------ ---     
+       127 MANAGERIAL FINANCE                                                   
+       151 MANAGERIAL FINANCE                                                   
+       153 MANAGERIAL FINANCE                                                   
+       155 MANAGERIAL FINANCE                                                   
+       157 MANAGERIAL FINANCE                                                   
+       158 MANAGERIAL FINANCE                                                   
+       160 MANAGERIAL FINANCE                                                   
+       161 MANAGERIAL FINANCE                                                   
+       163 MANAGERIAL FINANCE                                                   
+        20 ACCOUNTING INFO SYST                                         C       
+        62 ACCOUNTING INFO SYST                                         C       
+
+      STNO COURSE_NAME                                                  GRA     
+---------- ------------------------------------------------------------ ---     
+        70 ACCOUNTING INFO SYST                                         C       
+        49 ACCOUNTING INFO SYST                                         C       
+         5 ACCOUNTING INFO SYST                                         C       
+         6 ACCOUNTING INFO SYST                                         C       
+         7 ACCOUNTING INFO SYST                                         C       
+         8 ACCOUNTING INFO SYST                                         C       
+         9 ACCOUNTING INFO SYST                                         F       
+       121 ACCOUNTING INFO SYST                                         B       
+       122 ACCOUNTING INFO SYST                                         B       
+       123 ACCOUNTING INFO SYST                                         B       
+       125 ACCOUNTING INFO SYST                                         C       
+
+      STNO COURSE_NAME                                                  GRA     
+---------- ------------------------------------------------------------ ---     
+       126 ACCOUNTING INFO SYST                                         C       
+       127 ACCOUNTING INFO SYST                                         C       
+       128 ACCOUNTING INFO SYST                                         F       
+       129 ACCOUNTING INFO SYST                                         A       
+       130 ACCOUNTING INFO SYST                                         C       
+
+49 rows selected.
+
+SQL> SPOOL OFF

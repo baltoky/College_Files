@@ -1,0 +1,55 @@
+SQL> edit
+Wrote file afiedt.buf
+
+  1  SELECT t.instructor
+  2  FROM Section t, Course c
+  3  WHERE t.course_num = c.course_number
+  4  AND c.credit_hours IN (SELECT c.credit_hours
+  5  FROM Course c
+  6  WHERE c.credit_hours = 1
+  7  OR c.credit_hours = 2
+  8* OR c.credit_hours = 4)
+SQL> /
+
+INSTRUCTOR                                                                      
+------------------------------                                                  
+SCHMIDT                                                                         
+KNUTH                                                                           
+ANDERSON                                                                        
+RAFAELT                                                                         
+ANDERSON                                                                        
+JONES                                                                           
+SCHMIDT                                                                         
+HILLARY                                                                         
+HILLARY                                                                         
+SCHMIDT                                                                         
+
+10 rows selected.
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  SELECT t.instructor
+  2  FROM Section t, Course c
+  3  WHERE t.course_num = c.course_number
+  4  AND NOT c.credit_hours IN (SELECT c.credit_hours
+  5  FROM Course c
+  6* WHERE c.credit_hours = 3)
+SQL> /
+
+INSTRUCTOR                                                                      
+------------------------------                                                  
+SCHMIDT                                                                         
+KNUTH                                                                           
+ANDERSON                                                                        
+RAFAELT                                                                         
+ANDERSON                                                                        
+JONES                                                                           
+SCHMIDT                                                                         
+SCHMIDT                                                                         
+HILLARY                                                                         
+HILLARY                                                                         
+
+10 rows selected.
+
+SQL> SPOOL OFF
