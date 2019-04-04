@@ -1,0 +1,18 @@
+SQL> edit
+Wrote file afiedt.buf
+
+  1  SELECT class, COUNT(*)
+  2  FROM Student
+  3  WHERE major LIKE 'MATH'
+  4  GROUP BY class
+  5* HAVING COUNT(*) > 1
+SQL> /
+
+     CLASS   COUNT(*)                                                           
+---------- ----------                                                           
+                    2                                                           
+         2          3                                                           
+
+SQL> SPOOL
+currently spooling to CH8_EX3_s.lst
+SQL> SPOOL OFF

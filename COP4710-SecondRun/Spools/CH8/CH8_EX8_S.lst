@@ -1,0 +1,25 @@
+SQL> edit
+Wrote file afiedt.buf
+
+  1  SELECT t.instructor, COUNT(g.grade)
+  2  FROM Section t, Grade g
+  3  WHERE t.section_ID = g.section_ID
+  4  AND g.grade = 'A'
+  5  GROUP BY t.instructor
+  6* ORDER BY g.grade
+SQL> /
+
+INSTRUCTOR                     COUNT(G.GRADE)                                   
+------------------------------ --------------                                   
+HARDESTY                                    2                                   
+                                            1                                   
+RODRIGUEZ                                   1                                   
+HILLARY                                     2                                   
+RAFAELT                                     6                                   
+HERMANO                                     2                                   
+KING                                        2                                   
+ANDERSON                                    1                                   
+
+8 rows selected.
+
+SQL> SPOOL OFF

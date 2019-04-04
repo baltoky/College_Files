@@ -1,0 +1,13 @@
+SQL> edit
+Wrote file afiedt.buf
+
+  1  SELECT COUNT(*)
+  2  FROM Student
+  3* WHERE class = 3
+SQL> /
+
+  COUNT(*)                                                                      
+----------                                                                      
+         7                                                                      
+
+SQL> SPOOL OFF

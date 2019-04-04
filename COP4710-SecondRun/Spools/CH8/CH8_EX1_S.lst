@@ -1,0 +1,32 @@
+SQL> edit
+Wrote file afiedt.buf
+
+  1  SELECT p.course_number, COUNT(*)
+  2  FROM Prereq p
+  3* GROUP BY p.course_number
+SQL> define_editor=vi
+SQL> edit
+Wrote file afiedt.buf
+
+  1  SELECT p.course_number, COUNT(*)
+  2  FROM Prereq p
+  3* GROUP BY p.course_number
+SQL> /
+
+COURSE_NUMBER              COUNT(*)                                             
+------------------------ ----------                                             
+ACCT3333                          1                                             
+CHEM3001                          1                                             
+COSC3320                          1                                             
+COSC3380                          2                                             
+COSC5234                          1                                             
+ENGL1011                          1                                             
+ENGL3401                          1                                             
+ENGL3520                          1                                             
+MATH5501                          1                                             
+POLY2103                          1                                             
+POLY5501                          1                                             
+
+11 rows selected.
+
+SQL> SPOOL OFF

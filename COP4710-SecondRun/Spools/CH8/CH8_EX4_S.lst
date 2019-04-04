@@ -1,0 +1,21 @@
+SQL> edit
+Wrote file afiedt.buf
+
+  1  SELECT g.grade, COUNT(*)
+  2  FROM Grade g
+  3  GROUP BY g.grade
+  4* ORDER BY g.grade
+SQL> /
+
+GRA   COUNT(*)                                                                  
+--- ----------                                                                  
+A           17                                                                  
+B           50                                                                  
+C           36                                                                  
+D            2                                                                  
+F            9                                                                  
+            95                                                                  
+
+6 rows selected.
+
+SQL> SPOOL OFF

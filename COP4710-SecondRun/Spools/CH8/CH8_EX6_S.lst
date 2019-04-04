@@ -1,0 +1,60 @@
+SQL> CREATE TABLE NOC (name VARCHAR2(20), num_children NUMBER(8));
+
+Table created.
+
+SQL> INSERT INTO Noc VALUES ('Becky', 40);
+
+1 row created.
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1* INSERT INTO Noc VALUES ('Jennifer', 52)
+SQL> /
+
+1 row created.
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1* INSERT INTO Noc VALUES ('Sabrina', 67)
+SQL> /
+
+1 row created.
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1* INSERT INTO Noc VALUES ('Tanny', 77)
+SQL> /
+
+1 row created.
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1* INSERT INTO Noc VALUES ('Betty', 101)
+SQL> /
+
+1 row created.
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1* INSERT INTO Noc VALUES ('Jill', 1)
+SQL> /
+
+1 row created.
+
+SQL> SELECT COUNT(*), SUM(num_children), AVG(num_children), MIN(num_children), MAX(num_children)
+  2  FROM Noc;
+
+  COUNT(*) SUM(NUM_CHILDREN) AVG(NUM_CHILDREN) MIN(NUM_CHILDREN)                
+---------- ----------------- ----------------- -----------------                
+MAX(NUM_CHILDREN)                                                               
+-----------------                                                               
+         6               338        56.3333333                 1                
+              101                                                               
+                                                                                
+
+SQL> SPOOL OFF

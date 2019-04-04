@@ -1,0 +1,106 @@
+SQL> CREATE TABLE WhyTen (name VARCHAR2(20), salaries NUMBER(20), location VARCHAR2(25));
+
+Table created.
+
+SQL> INSERT INTO WhyTen VALUES ('Molly', 20000, '420 High Rd.');
+
+1 row created.
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1* INSERT INTO WhyTen VALUES ('Mary Jane', 15000, '420 High Rd.')
+SQL> /
+
+1 row created.
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1* INSERT INTO WhyTen VALUES ('Gibby', 42000, '420 High Rd.')
+SQL> /
+
+1 row created.
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1* INSERT INTO WhyTen VALUES ('Johnnathia', 180000, '21 Jump St.')
+SQL> /
+
+1 row created.
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1* INSERT INTO WhyTen VALUES ('Jeff', 0, '21 Jump St.')
+SQL> /
+
+1 row created.
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1* INSERT INTO WhyTen VALUES ('Jordan', 50000, '21 Jump St.')
+SQL> /
+
+1 row created.
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1* INSERT INTO WhyTen VALUES ('Luke', 323232, '66 Cold St. Hoth')
+SQL> /
+
+1 row created.
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1* INSERT INTO WhyTen VALUES ('Leia', 2, '66 Cold St. Hoth')
+SQL> /
+
+1 row created.
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1* INSERT INTO WhyTen VALUES ('Anakin', 7, '66 Cold St. Hoth')
+SQL> /
+
+1 row created.
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1* INSERT INTO WhyTen VALUES ('Obi-Wan Kenobi', 1000000, '66 Cold St. Hoth')
+SQL> /
+
+1 row created.
+
+SQL> SELECT AVG(salary)
+  2  FROM WhyTen
+  3  GROUP BY location;
+SELECT AVG(salary)
+           *
+ERROR at line 1:
+ORA-00904: "SALARY": invalid identifier 
+
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  SELECT AVG(salaries)
+  2  FROM WhyTen
+  3* GROUP BY location
+SQL> /
+
+AVG(SALARIES)                                                                   
+-------------                                                                   
+   25666.6667                                                                   
+    330810.25                                                                   
+   76666.6667                                                                   
+
+SQL> SPOOL
+currently spooling to CH8_EX7_S.lst
+SQL> SPOOL OFF

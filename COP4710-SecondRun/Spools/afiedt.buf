@@ -1,10 +1,7 @@
-SELECT c.course_name
-FROM Course c, Section t
-WHERE c.course_number = t.course_num
-AND t.semester LIKE '%FALL%'
-AND t.section_id IN (SELECT t.section_id
-FROM Section t, Room r
-WHERE (t.bldg = r.bldg AND t.room = r.room)
-AND r.capacity > (SELECT AVG(r.capacity)
-FROM Room r))
+SELECT t.instructor, COUNT(g.grade)
+FROM Section t, Grade g
+WHERE t.section_ID = g.section_ID
+AND g.grade = 'A'
+GROUP BY t.instructor
+ORDER BY COUNT(g.grade) DESC
 /

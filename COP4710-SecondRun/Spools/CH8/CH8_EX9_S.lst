@@ -1,0 +1,181 @@
+SQL> CREATE TABLE Old_Employees (name VARCHAR2(20), salary NUMBER(20), job VARCHAR2(20));
+
+Table created.
+
+SQL> INSERT INTO Old_Employees VALUES ('Mary', 1000, 'Programmer');
+
+1 row created.
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1* INSERT INTO Old_Employees VALUES ('Brenda', 3000, NULL)
+SQL> /
+
+1 row created.
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1* INSERT INTO Old_Employees VALUES ('Stephanie', NULL, 'Artist')
+SQL> /
+
+1 row created.
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1* INSERT INTO Old_Employees VALUES ('Alice', NULL, NULL)
+SQL> /
+
+1 row created.
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1* INSERT INTO Old_Employees VALUES ('Lindsay', 2000, 'Artist')
+SQL> /
+
+1 row created.
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1* INSERT INTO Old_Employees VALUES ('Christina', 500, 'Programmer')
+SQL> /
+
+1 row created.
+
+SQL> SELECT * FROM Old_Employees;
+
+NAME                                                             SALARY         
+------------------------------------------------------------ ----------         
+JOB                                                                             
+------------------------------------------------------------                    
+Mary                                                               1000         
+Programmer                                                                      
+                                                                                
+Brenda                                                             3000         
+                                                                                
+                                                                                
+Stephanie                                                                       
+Artist                                                                          
+                                                                                
+
+NAME                                                             SALARY         
+------------------------------------------------------------ ----------         
+JOB                                                                             
+------------------------------------------------------------                    
+Alice                                                                           
+                                                                                
+                                                                                
+Lindsay                                                            2000         
+Artist                                                                          
+                                                                                
+Christina                                                           500         
+Programmer                                                                      
+                                                                                
+
+6 rows selected.
+
+SQL> SELECT COUNT(salary), SUM(salary), MAX(salary), MIN(salary), AVG(salary)
+  2  FROM Old_Employees;
+
+COUNT(SALARY) SUM(SALARY) MAX(SALARY) MIN(SALARY) AVG(SALARY)                   
+------------- ----------- ----------- ----------- -----------                   
+            4        6500        3000         500        1625                   
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  SELECT NVL(COUNT(salary), 0) , NVL(SUM(salary), 0), NVL(MAX(salary), 0), NVL(MIN(salary), 0), NVL(AVG(salary), 0)
+  2* FROM Old_Employees
+SQL> /
+
+NVL(COUNT(SALARY),0) NVL(SUM(SALARY),0) NVL(MAX(SALARY),0) NVL(MIN(SALARY),0)   
+-------------------- ------------------ ------------------ ------------------   
+NVL(AVG(SALARY),0)                                                              
+------------------                                                              
+                   4               6500               3000                500   
+              1625                                                              
+                                                                                
+
+SQL> SELECT SVG(salary)
+  2  FROM Old_Employees
+  3  GROUP BY location;
+GROUP BY location
+         *
+ERROR at line 3:
+ORA-00904: "LOCATION": invalid identifier 
+
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  SELECT SVG(salary)
+  2  FROM Old_Employees
+  3* GROUP BY job
+SQL> /
+SELECT SVG(salary)
+       *
+ERROR at line 1:
+ORA-00904: "SVG": invalid identifier 
+
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  SELECT AVG(salary)
+  2  FROM Old_Employees
+  3* GROUP BY job
+SQL> /
+
+AVG(SALARY)                                                                     
+-----------                                                                     
+        750                                                                     
+       3000                                                                     
+       2000                                                                     
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  SELECT NVL(AVG(salary), 0)
+  2  FROM Old_Employees
+  3* GROUP BY job
+SQL> /
+
+NVL(AVG(SALARY),0)                                                              
+------------------                                                              
+               750                                                              
+              3000                                                              
+              2000                                                              
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  SELECT AVG(NVL(salary, 0))
+  2  FROM Old_Employees
+  3* GROUP BY job
+SQL> /
+
+AVG(NVL(SALARY,0))                                                              
+------------------                                                              
+               750                                                              
+              1500                                                              
+              1000                                                              
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  SELECT AVG(NVL(salary, 0)), NVL(job, 'no job title')
+  2  FROM Old_Employees
+  3* GROUP BY job
+SQL> /
+
+AVG(NVL(SALARY,0)) NVL(JOB,'NOJOBTITLE')                                        
+------------------ ------------------------------------------------------------ 
+               750 Programmer                                                   
+              1500 no job title                                                 
+              1000 Artist                                                       
+
+SQL> SPOOL OFF

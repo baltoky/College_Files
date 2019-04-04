@@ -1,0 +1,38 @@
+SQL> edit
+Wrote file afiedt.buf
+
+  1  SELECT COUNT(t.course_num)
+  2  FROM Section t
+  3  GROUP BY t.course_num
+  4* ORDER BY COUNT(t.course_num) DESC
+SQL> /
+
+COUNT(T.COURSE_NUM)                                                             
+-------------------                                                             
+                  4                                                             
+                  3                                                             
+                  3                                                             
+                  2                                                             
+                  2                                                             
+                  2                                                             
+                  2                                                             
+                  2                                                             
+                  1                                                             
+                  1                                                             
+                  1                                                             
+
+COUNT(T.COURSE_NUM)                                                             
+-------------------                                                             
+                  1                                                             
+                  1                                                             
+                  1                                                             
+                  1                                                             
+                  1                                                             
+                  1                                                             
+                  1                                                             
+                  1                                                             
+                  1                                                             
+
+20 rows selected.
+
+SQL> SPOOL OFF
