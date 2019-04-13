@@ -78,15 +78,6 @@ SQL> /
 
 1 row created.
 
-SQL> SELECT AVG(salary)
-  2  FROM WhyTen
-  3  GROUP BY location;
-SELECT AVG(salary)
-           *
-ERROR at line 1:
-ORA-00904: "SALARY": invalid identifier 
-
-
 SQL> edit
 Wrote file afiedt.buf
 

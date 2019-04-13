@@ -2,44 +2,6 @@ SQL> SELECT t.instructor, COUNT(g.grade)
   2  FROM Section t, Grade g
   3  WHERE t.section_ID = g.section_ID
   4  AND g.grade = 'A'
-  5  ORDER BY COUNT(g.grade);
-SELECT t.instructor, COUNT(g.grade)
-       *
-ERROR at line 1:
-ORA-00937: not a single-group group function 
-
-
-SQL> edit
-Wrote file afiedt.buf
-
-  1  SELECT t.instructor, COUNT(g.grade)
-  2  FROM Section t, Grade g
-  3  WHERE t.section_ID = g.section_ID
-  4  AND g.grade = 'A'
-  5  GROUP BY t.instructor
-  6* ORDER BY COUNT(g.grade)
-SQL> /.
-
-INSTRUCTOR                     COUNT(G.GRADE)                                   
------------------------------- --------------                                   
-ANDERSON                                    1                                   
-                                            1                                   
-RODRIGUEZ                                   1                                   
-HARDESTY                                    2                                   
-HILLARY                                     2                                   
-HERMANO                                     2                                   
-KING                                        2                                   
-RAFAELT                                     6                                   
-
-8 rows selected.
-
-SQL> edit
-Wrote file afiedt.buf
-
-  1  SELECT t.instructor, COUNT(g.grade)
-  2  FROM Section t, Grade g
-  3  WHERE t.section_ID = g.section_ID
-  4  AND g.grade = 'A'
   5  GROUP BY t.instructor
   6* ORDER BY COUNT(g.grade) DESC
 SQL> /

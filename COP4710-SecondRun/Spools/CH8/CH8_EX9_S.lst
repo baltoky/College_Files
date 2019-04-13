@@ -100,26 +100,6 @@ NVL(AVG(SALARY),0)
               1625                                                              
                                                                                 
 
-SQL> SELECT SVG(salary)
-  2  FROM Old_Employees
-  3  GROUP BY location;
-GROUP BY location
-         *
-ERROR at line 3:
-ORA-00904: "LOCATION": invalid identifier 
-
-
-SQL> edit
-Wrote file afiedt.buf
-
-  1  SELECT SVG(salary)
-  2  FROM Old_Employees
-  3* GROUP BY job
-SQL> /
-SELECT SVG(salary)
-       *
-ERROR at line 1:
-ORA-00904: "SVG": invalid identifier 
 
 
 SQL> edit
@@ -135,20 +115,6 @@ AVG(SALARY)
         750                                                                     
        3000                                                                     
        2000                                                                     
-
-SQL> edit
-Wrote file afiedt.buf
-
-  1  SELECT NVL(AVG(salary), 0)
-  2  FROM Old_Employees
-  3* GROUP BY job
-SQL> /
-
-NVL(AVG(SALARY),0)                                                              
-------------------                                                              
-               750                                                              
-              3000                                                              
-              2000                                                              
 
 SQL> edit
 Wrote file afiedt.buf
