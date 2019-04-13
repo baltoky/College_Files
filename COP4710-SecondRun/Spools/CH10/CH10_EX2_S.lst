@@ -1,12 +1,3 @@
-SQL> CREATE TABLE Test5
-  2  (a		CHAR(2)
-  3  b		CHAR(3));
-b		CHAR(3))
-*
-ERROR at line 3:
-ORA-00907: missing right parenthesis 
-
-
 SQL> edit
 Wrote file afiedt.buf
 
@@ -14,25 +5,6 @@ Wrote file afiedt.buf
   2  (a		CHAR(2) NOT NULL,
   3* b		CHAR(3))
 SQL> /
-
-Table created.
-
-SQL> INSERT INTO Test5 VALUES ('x'. 'y')'
-  2  ;
-ERROR:
-ORA-01756: quoted string not properly terminated 
-
-
-SQL> edit
-Wrote file afiedt.buf
-
-  1* INSERT INTO Test5 VALUES ('x'. 'y')
-SQL> /
-INSERT INTO Test5 VALUES ('x'. 'y')
-                             *
-ERROR at line 1:
-ORA-00917: missing comma 
-
 
 SQL> edit
 Wrote file afiedt.buf

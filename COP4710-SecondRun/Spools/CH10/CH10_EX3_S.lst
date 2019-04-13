@@ -1,0 +1,26 @@
+
+SQL> CREATE TABLE Test4 (name VARCHAR2(20), ssn CHAR(9) CONSTRAINT ssn_pk PRIMARY KEY,
+  2  dept_number INTEGER, acct_balance NUMBER(9,2));
+
+Table created.
+
+SQL> INSERT INTO Test4 VALUES ( 'xxx', 'y', 20, 10.5);
+
+1 row created.
+
+SQL> INSERT INTO Test4 VALUES ( 'xx', 'yy', 30, 15.3);
+
+1 row created.
+
+SQL> INSERT INTO Test4 VALUES ('x', 'yyy', 60, 22.8);
+
+1 row created.
+
+SQL> INSERT INTO Test4 VALUES( 'x', 'yy', 50, 20);
+INSERT INTO Test4 VALUES( 'x', 'yy', 50, 20)
+*
+ERROR at line 1:
+ORA-00001: unique constraint (CAS156.SSN_PK) violated 
+
+
+SQL> SPOOL OFF;
