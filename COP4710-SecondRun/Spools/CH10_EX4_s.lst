@@ -1,0 +1,273 @@
+SQL> CREATE TABLE Department
+  2  (deptno NUMBER(2) CONSTRAINT deptno_pk PRIMARY KEY,
+  3  deptname VARCHAR2(20));
+CREATE TABLE Department
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object 
+
+
+SQL> CREATE TABLE Dept
+  2  (deptno NUMBER(3) CONSTRAINT deptno_pk PRIMARY KEY,
+  3  deptname VARCHAR2(20));
+
+Table created.
+
+SQL> CREATE TABLE Empl
+  2  (empno NUMBER(4) CONSTRAINT empno_pk PRIMARY KEY,
+  3  empname VARCHAR2(20),
+  4  dept NUMBER(3) CONSTRAINT dept_fk REFERENCES Dept(deptno));
+
+Table created.
+
+SQL> ALTER TABLE Empl
+  2  ADD teamnum NUMBER(6);
+
+Table altered.
+
+SQL> ALTER TABLE Empl
+  2  ADD CONSTRAINT teamnum_ck CHECK(teamnum BETWEEN 1 AND 20);
+
+Table altered.
+
+SQL> ALTER TABLE Dept
+  2  ADD teamnum NUMBER(6);
+
+Table altered.
+
+SQL> ALTER TABLE Dept
+  2  ADD CONSTRAINT teamnum_uk UNIQUE(teamnum));
+ADD CONSTRAINT teamnum_uk UNIQUE(teamnum))
+                                         *
+ERROR at line 2:
+ORA-01735: invalid ALTER TABLE option 
+
+
+SQL> ALTER TABLE Dept
+  2  DROM COLUMN teamnum;
+DROM COLUMN teamnum
+*
+ERROR at line 2:
+ORA-01735: invalid ALTER TABLE option 
+
+
+SQL> ALTER TABLE Dept
+  2  DROP COLUMN teamnum;
+
+Table altered.
+
+SQL> ALTER TABLE Dept
+  2  ADD projname VARCHAR2(20);
+
+Table altered.
+
+SQL> ALTER TABLE Dept
+  2  ADD CONSTRAINT projname_uk UNIQUE(projname);
+
+Table altered.
+
+SQL> DESC Dept
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ DEPTNO                                    NOT NULL NUMBER(3)
+ DEPTNAME                                           VARCHAR2(20)
+ PROJNAME                                           VARCHAR2(20)
+
+SQL> INSERT INTO Dept VALUES(1, 'Accountants', 'Counting');
+
+1 row created.
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1* INSERT INTO Dept VALUES(1, 'Programmers', 'Software System 1')
+SQL> /
+INSERT INTO Dept VALUES(1, 'Programmers', 'Software System 1')
+*
+ERROR at line 1:
+ORA-00001: unique constraint (CAS156.DEPTNO_PK) violated 
+
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1* INSERT INTO Dept VALUES(2, 'Programmers', 'Software System 1')
+SQL> /
+
+1 row created.
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1* INSERT INTO Dept VALUES(3, 'Business Peeps', 'Not much, just money')
+SQL> /
+
+1 row created.
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1* INSERT INTO Empl VALUES(, 'Business Peeps', 'Not much, just money')
+SQL> DESC EMPL
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMPNO                                     NOT NULL NUMBER(4)
+ EMPNAME                                            VARCHAR2(20)
+ DEPT                                               NUMBER(3)
+ TEAMNUM                                            NUMBER(6)
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1* INSERT INTO Empl VALUES(1, 'Roger', 1, 1)
+SQL> /
+
+1 row created.
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1* INSERT INTO Empl VALUES(2, 'Roger2', 2, 2)
+SQL> /
+
+1 row created.
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1* INSERT INTO Empl VALUES(3, 'other roger', 1, 1)
+SQL> /
+
+1 row created.
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1* INSERT INTO Empl VALUES(4, 'Regina', 1, 2)
+SQL> /
+
+1 row created.
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1* INSERT INTO Empl VALUES(5, 'Rogerino', 3, 5)
+SQL> /
+
+1 row created.
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1* INSERT INTO Empl VALUES(6, 'Rog', 2, 7)
+SQL> /
+
+1 row created.
+
+SQL> CREATE TABLE Deptbak
+  2  AS SELECT * FROM Dept;
+
+Table created.
+
+SQL> CREATE TABLE Emplbak
+  2  AS SELECT  * FROM Empl;
+
+Table created.
+
+SQL> INSERT INTO Empl VALUES(7, "Rogue", 4, 2);
+INSERT INTO Empl VALUES(7, "Rogue", 4, 2)
+                           *
+ERROR at line 1:
+ORA-00984: column not allowed here 
+
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1* INSERT INTO Empl VALUES(7, 'Rogue', 4, 2)
+SQL> /
+INSERT INTO Empl VALUES(7, 'Rogue', 4, 2)
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (CAS156.DEPT_FK) violated - parent key not
+found 
+
+
+SQL> UPDATE TABLE Empl
+  2  SET dept = 4
+  3  WHERE empname LIKE 'Rog%';
+UPDATE TABLE Empl
+       *
+ERROR at line 1:
+ORA-00903: invalid table name 
+
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  UPDATE Empl
+  2  SET dept = 4
+  3* WHERE empname LIKE 'Rog%'
+SQL> /
+UPDATE Empl
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (CAS156.DEPT_FK) violated - parent key not
+found 
+
+
+SQL> UPDATE Dept
+  2  SET deptno = 5
+  3  WHERE deptno = 1;
+UPDATE Dept
+*
+ERROR at line 1:
+ORA-02292: integrity constraint (CAS156.DEPT_FK) violated - child record found 
+
+
+SQL> DELETE FROM Dept WHERE deptno = 1;
+DELETE FROM Dept WHERE deptno = 1
+*
+ERROR at line 1:
+ORA-02292: integrity constraint (CAS156.DEPT_FK) violated - child record found 
+
+
+SQL> INSERT INTO Dept VALUES ( 4,  'Lame dept' , 'Doin nothin');
+
+1 row created.
+
+SQL> DELETE FROM Dept WHERE deptno = 4;
+
+1 row deleted.
+
+SQL> ALTER TABLE Empl
+  2  DROP dept;
+DROP dept
+     *
+ERROR at line 2:
+ORA-00905: missing keyword 
+
+
+SQL> ALTER TABLE Empl
+  2  DROP COLUMN dept
+  3  ;
+
+Table altered.
+
+SQL> ALTER TABLE EMPL
+  2  ADD CONSTRAINT dept REFERENCES Dept(deptno) ON DELETE CASCADE);
+ADD CONSTRAINT dept REFERENCES Dept(deptno) ON DELETE CASCADE)
+                                    *
+ERROR at line 2:
+ORA-01735: invalid ALTER TABLE option 
+
+
+SQL> ALTER TABLE Empl
+  2  ADD dept REFERENCES Dept(deptno) ON DELETE CASCADE);
+ADD dept REFERENCES Dept(deptno) ON DELETE CASCADE)
+                                                  *
+ERROR at line 2:
+ORA-01735: invalid ALTER TABLE option 
+
+
+SQL> SPOOL OFF

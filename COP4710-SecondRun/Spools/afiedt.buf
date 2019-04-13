@@ -1,7 +1,4 @@
-SELECT t.instructor, COUNT(g.grade)
-FROM Section t, Grade g
-WHERE t.section_ID = g.section_ID
-AND g.grade = 'A'
-GROUP BY t.instructor
-ORDER BY COUNT(g.grade) DESC
+UPDATE Empl
+SET dept = 4
+WHERE empname LIKE 'Rog%'
 /

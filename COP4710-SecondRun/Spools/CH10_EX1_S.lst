@@ -1,0 +1,38 @@
+SQL> CREATE TABLE Test4
+  2  (name	VARCHAR(20),
+  3  ssn 	CHAR(9),
+  4  dept_number INTEGER,
+  5  acct_balance NUMBER(9,2));
+
+Table created.
+
+SQL> INSERT INTO Test4 VALUES('xx', 'yy', 2, 5);
+
+1 row created.
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1* INSERT INTO Test4 VALUES('xx', 'yy', 2, 5)
+SQL> define_editor=vi
+SQL> edit
+Wrote file afiedt.buf
+
+  1* INSERT INTO Test4 VALUES('xx', 'yyy', 20000000000, 5)
+SQL> /
+
+1 row created.
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1* INSERT INTO Test4 VALUES('xx', 'yyy', 2, 1234567.89)
+SQL> /
+
+1 row created.
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1* INSERT INTO Test4 VALUES('xx', 'yyy', 2, 1234567.89)
+SQL> SPOOL OFF
