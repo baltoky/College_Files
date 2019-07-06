@@ -1,0 +1,101 @@
+\documentclass[a4paper,12px] {article}
+
+\begin{document}
+
+\title{Assignment 1}
+\author{Cesar A. Santiago}
+\date{\today}
+\maketitle
+
+\pagenumbering {roman}
+\tableofcontents
+\newpage
+\pagenumbering{arabic}
+
+\section{GPA histogram.}
+\subsection{Part 1}
+Whithin the categories of 2.45-2.65 and 2.65-2.85 there are the most student
+per category.
+\subsection{Part 2}
+Both ranges of grades: 2.45-2.65 and 2.65-2.85 both have 7 / 30 students. Therefore the categories put together make up 14 / 30 students.
+\subsection{Part 3}
+The portion of students that had less that a 2.65 GPA consited of 16 / 30 students.
+
+\section{Formulas for Mean, Variance, and Standard Variation.}
+\begin{itemize}
+\item $ \overline{y} = \frac{1}{n} \sum_{i = 1} ^ n y_i $
+\item $ s ^ 2 = \frac{1}{n - 1} \sum_{i = 1} ^ n ( y_i - \overline{y})^2 $
+\item $ s = \sqrt{s^2} = \frac{1}{n - 1}\sqrt{ \sum_{i = 1} ^ n ( y_i - \overline{y})^2i} $
+\end{itemize}
+
+\section{From the 44 observations, take the Mean, Variance, and Standard Deviation.}
+\subsection{Consider the following 44 observations:}
+Set S = \{0.07, 5.7, 6.2, 7.1, 7.6, 7.7, 7.8, 7.8, 7.9, 8.2, 8.3, 8.4, 8.6, 8.7, 8.8,
+ 8.8, 8.8, 8.8, 8.8, 8.9, 8.9, 9.0, 9.1, 9.1, 9.2, 9.2, 9.3, 9.4, 9.5, 9.6, 9.6, 10.2,
+ 10.3, 10.3, 10.5, 10.5, 10.6, 10.7, 10.9, 11.3, 11.5, 11.8, 12.4, 12.7\} \newline
+Using the formulas from section 2;
+\begin{itemize}
+\item  For the Mean we conclude the following: \newline $ \overline{y} = \frac{1}{n} \sum_{i = 1} ^ n y_i = \textbf{9.058} $
+\item For the Variance we conclude the following:\newline $ s ^ 2 = \frac{1}{n - 1} \sum_{i = 1} ^ n ( y_i - \overline{y})^2 = \textbf{4.092} $
+\item For the Standard Deviation we conclude the following:\newline $ s = \sqrt{s^2} = \frac{1}{n - 1}\sqrt{ \sum_{i = 1} ^ n ( y_i - \overline{y})^2i}= \textbf{2.023} $
+\end{itemize}
+
+\section {Resting breathing Mean and Standard Deviation.}
+\subsection {9.7 to 14.3 breaths per minute.}
+On an average normal distribution the breathing rates between 9.7 and 14.3 which are $[\overline y - s, \overline y + s]$ is equivalent to about \textbf{68\%}.
+\subsection {7.4 to 16.6 breaths per minute.}
+On an average normal distribution the breathing rates between 7.4 and 16.6 which are $[\overline y - 2s, \overline y + 2s]$ is equivalent to about \textbf{95\%}.
+\subsection {9.7 to 16.6 breaths per minute.}
+On an average normal distribution the breathing rates between 7.4 and 16.6 which are $[\overline y - s, \overline y + 2s]$ is equivalent to about \textbf{81.5\%}.
+\subsection {Breaths per minute lower than 5.1 and higher than 18.9.}
+On an average normal distribution the breathing rates lower than 5.1 and higher than 18.9 which are $5.1 < x > 18.9$ is approximately \textbf{0.27\%}.
+
+\section{Time spent using the Internet.}
+\subsection{Value exactly one Standard Deviation below}
+The value one Standard Deviation below the mean is 0 users. Because we can not go negative in this projection.
+\subsection{What portion of users pend lees than the first Standard Deviation point}
+Given an approximatelly normal distribution of this data the percentage of people that spend an amount lower than one Standard Deviation below the mean is 16\%.
+\subsection{Is time spent online approximately normally distributed? Why?}
+This data is not normally distributed and we can deduce that because a user can not spend a negative amount of hours on the Internet per year. And a normal distribution would sugest that there
+are users that are under that value. Therefore this data is not normally distributed.
+
+\section{Weekly maintenance cost for a factory.}
+\subsection{Average spendature: \$420 with a Standard Deviation of \$30}
+The total amount that add when we add the mean and one standard deviation is \$450. The probability that next week will go over that budget is 16\%.
+Since this data is normally distributed then the approximate percentage of datapoints above ($\overline y + s$) is our previously mentioned value of 16\%.
+
+\section{Use of sumations to calculate variance $s^2$}
+\subsection{Using the results given show that}
+\label{sec7.1}
+$$s^2 = \frac{1}{n-1}\sum_{i=1}^n(y_i-\overline y)^2 = \frac{1}{n-1}[\sum_{i=1}^n y^2 - \frac{1}{n}(\sum_{i=1}^n y_i)^2]$$
+Work:\newline
+$$ s^2 =  \frac{1}{n-1}\sum_{i=1}^n(y_i-\overline y)^2 = \frac{1}{n-1}[\sum_{i=1}^n (y_i)^2 - \sum_{i=1}^n (\overline y)^2]$$ In this first line we distribute the parenthesis to allow more algebraic mobility.
+$$ => \frac{1}{n-1}[\sum_{i=1}^n (y_i)^2 - \sum_{i=1}^n (\frac{1}{n} \sum_{i=1}^n (y_i)^2)]$$ We get this result by using the Mean function from Section 2.
+$$ => \frac{1}{n-1} [\sum_{i=1}^n y_i ^2 - \frac{1}{n} ( \sum_{i=1}^n y_i)^2]$$ This final result uses the second function provided to reach the function that we desired.
+\subsection{Using the result from \ref{sec7.1} find the Standard Deviation with the following values:}
+Let S be the set of sample measurements: S = \{1, 4, 2, 1, 3, 3\}\newline
+From the previous section we can surmise that:
+$$s^2 = \frac{1}{n-1} [\sum_{i=1}^n y_i ^2 - \frac{1}{n} ( \sum_{i=1}^n y_i)^2]$$
+When we plug in our set of values S:
+$$s^2 = \frac{1}{6-1}[(1^2 + 4^2 + 2^2 + 1^2 + 3^2 + 3^2) - \frac{1}{6} (1 + 4 + 2 + 1 + 3 + 3) ^ 2]$$
+$$ => \frac{1}{5} (40 - \frac{14^2}{6})$$
+$$ => \frac{1}{5} (7.33)$$
+$$ => \textbf{1.46}$$
+
+\section{Family that contains two children, an older child and a younger one.}
+Let S be the set of potential child combinations
+$$S = \{FF, MM, FM, MF\}$$ \newline
+Let A be the set of elements with no males; $$ A = \{FF\}$$
+Let B be the set of elements with two males; $$ B = \{MM\}$$
+Let C be the set of elements with at least one male; $$ C = \{MM, FM, MF\}$$\newline
+The following are sets that result from the combinations of the previous.
+$$ A \cap B = \{ \} = \emptyset$$
+$$ A \cup B = \{ FF MM \}$$
+$$ A \cap C= \{ \} = \emptyset$$
+$$ A \cup C = \{ FF, MM, FM, MF \}$$
+$$ B \cap C = \{ MM \}$$
+$$ B \cup C = \{ MM, FM, MF \}$$
+$$ C \cup \overline B = \{ FM, MF \}$$
+
+
+\end{document}

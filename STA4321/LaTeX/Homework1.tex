@@ -1,0 +1,41 @@
+\documentclass[a4paper,12pt]{article}
+
+\begin{document}
+
+\title{Document}
+\author{Cesar Santiago}
+\date{\today}
+\maketitle
+
+\pagenumbering{roman}
+\tableofcontents
+\newpage
+\pagenumbering{arabic}
+
+\section{Introduction}
+Hello World
+
+\section{Methods}
+
+\subsection{Stage 1}
+\label{sec1}
+A paragraph
+
+\subsection{Stage 2}
+Here are the findings from \ref{sec1} on page \pageref{sec1} \\
+
+\begin{tabular}{l|c|c}
+Item & Quantity & Price(\$) \\
+\hline
+Nails & 500 & 0.34 \\
+Wooden boards & 100 & 4.00 \\
+Bricks & 240 & 11.50 \\
+\end{tabular}
+
+\vspace{20px}
+
+\begin{equation}
+e = mc^2
+\end{equation}
+
+\end{document}
