@@ -1,0 +1,72 @@
+\documentclass[a4paper, 12pt]{article}
+\begin{document}
+
+\title{Assignement 2}
+\author{Cesar A. Santiago}
+\date{\today}
+\maketitle
+
+\pagenumbering{roman}
+\tableofcontents
+\newpage
+\pagenumbering{arabic}
+
+\section {Y possesses the following density function.}
+$f(y) = cy$  if $0 \leq y \leq 2$; $0$ otherwise
+\begin{itemize}
+\item Find the c that makes f(y) a PDF
+	$$\int_0^2 (cy)dy = 1 => c\int_0^2 ydy = 1 => \frac{c}{2} [y^2]_0^2 = 1$$
+	$$=> \frac{c}{2}4 = 1 => 2c = 1 => c = \frac{1}{2}$$
+\item Find the CDF
+$$P(Y \leq y) = F(y) = \frac{1}{2}\int_0^y (y)dy => \frac{1}{4}[y^2]_0^y = \frac{y^2}{4}$$
+F(y) = $\frac{y^2}{4}$ when $0 \leq y \leq 2$; 0 when $y < 0$; 1 when $y > 2$
+\item Use F(y) to find $P(1 \leq Y \leq 2)$
+$$P(1 \leq Y \leq 2)  = F(2) - F(1) = \frac{2^2}{4} - \frac{1^2}{4} = 1 - \frac{1}{4} = \frac{3}{4}$$
+\end{itemize}
+
+\section {A Random Variable Y has the following CDF:}
+F(y) = $1-e^{-y^2}$ if $y \geq 0$; 0 otherwise
+\begin{itemize}
+\item Find f(y)
+$$f(y) = F`(y) = \frac{d}{dy}(1-e^{-y^2}) = 2ye^{-y^2}$$
+\item Find $P(Y \geq 2)$
+$$P(Y \geq 2) = 1 - P(Y \leq 2) = 1 - F(2) = 1 - (1 - e^{-2}) = 1 - 0.98 = 0.02$$
+\item Find $P(Y > 1 | Y \leq 2)$
+$$P(Y > 1|Y\leq 2) = \frac{P(Y > 1, Y \leq 2)}{P(Y \leq 2)}$$
+$$\frac{P(1\leq Y \leq 2)}{P(Y \leq 2)} = \frac{F(2) - F(1)}{F(2)} = \frac{1-e^{-2^2} - (1 - e^{-1^2})}{(1-e)}$$
+$$\frac{0.98 - 0.63}{0.98} = 0.357$$
+\end{itemize}
+
+\section {Random Variable Y has the following PDF}
+\begin{itemize}
+\item E(Y) = $\mu = \int_0^1y(\frac{3}{2}y^2 + y)dy = \frac{3}{2}\int_0^1y^3dy + \int_0^1y^2dy$\newline
+\newline $\frac{3}{8}[y^4]_0^1+\frac{1}{3}[y^3]_0^1 = \frac{3}{8} + \frac{1}{3} = 0.7083$
+\item V(Y) = E($Y^2$) - $\mu^2$
+\newline E($Y^2$) = $\int_0^1 y^2(\frac{3}{2}y^2 + y)dy = \frac{3}{10}[y^5]_0^1 + \frac{1}{4}[y^4]_0^1 = 0.55$\newline
+V(Y) $= 0.55 - 0.7083^2 = 0.0483$
+\end{itemize}
+
+\section {Random Variable Y has a Uniform Distribution}
+$Y \sim Uniform(50, 70)$\newline
+F(y) = 0 for $y \leq 50$; $\frac{y - 50}{20}$ for $50 \leq y \leq 70$; 1 for $y\geq 70$
+$$P(Y\geq 65 | Y \geq 55) = \frac{P(Y\geq 65, Y \geq 55)}{P(Y \geq 55)} = \frac{P(Y\geq 65)}{P(Y \geq 55)}$$
+$$=> \frac{1 - P(Y \leq 65)}{1 - P(\leq 55)} = \frac{1 - \frac{65 - 50}{20}}{1 - \frac{55-50}{20}} = \frac{1-\frac{3}{4}}{1 - \frac{1}{4}} = \frac{1}{3}$$
+
+\section {Use Table to find: }
+\begin{itemize}
+\item $P(0 < Z < 1.2) = \Phi(1.2) = 0.88493$
+\item $P(-0.9 < Z < 0) = \Phi(0) - (1 - \Phi(0.9)) = 0.5 - (1 - 0.81594) = 0.31594$
+\item $P(0.3 < Z < 1.56) = \Phi(1.56) - \Phi(0.3) = 0.94062 - 0.61791 = 0.32271$
+\item $P(-0.2 < Z < 0.2) = \Phi(0.2) - (1 - \Phi(0.2)) = 0.57926 - 0.42074 = 0.15852$
+\item $P(-1.56 < Z < -0.2) = \Phi(-0.2) - \Phi(-1.56)$\newline$ = (1-\Phi(0.2)) - (1-\Phi(1.56)) = 0.42074 - 0.05938 = 0.36136$
+\end{itemize}
+
+\section {Random Variable $Y \sim Exponential(\lambda)$}
+\begin{itemize}
+\item Find the PDF:
+\newline $f(y) = \lambda e^{-y\lambda}$ for $y\geq 0$; 0 otherwise
+\item Find the CDF:
+$$F(y) = \lambda\int_0^ye^{-y\lambda} = -\lambda^2[e^{-y\lambda}]_0^y = -\lambda^2e^{-y\lambda}$$
+\end{itemize}
+
+\end{document}

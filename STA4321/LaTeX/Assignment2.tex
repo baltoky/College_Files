@@ -6,30 +6,122 @@
 \date{\today}
 \maketitle
 
-\pagenumbeting{roman}
+\pagenumbering{roman}
 \tableofcontents
 \newpage
 \pagenumbering{arabic}
 
 \section{Advertising agency.}
+Given by the problem:\newline
+P(seeing the ad in a Magazine) = $\frac{1}{50}$\newline
+P(seeing ad on T.V.) = $\frac{1}{5}$\newline
+P(seeing the ad on both) = $\frac{1}{100}$\newline
+P(the customer buys / sees the ad) = $\frac{1}{3}$\newline
+P(the customer buys / not seen the ad) = $\frac{1}{10}$\newline
+What is the probability that a randomly selected customer will buy the product?\newline
+P(customer buys the product) = P(customer buys / sees the ad) + P(customer buys / not seen the ad) = $\frac{13}{30}$\newline
+The reasoning is because the set that have seen the ad and those who have not are mutually exclusive.
 \section{Median income for U.S. families.}
+\subsection{Points in the sample space.}
+Let O be the event of an income over the median, and E be the event of an income equal to or under the median.\newline
+Let S be the sample set of the events that can occur if we pick four families within the census: \{OOOO, OOOE, OOEO, OOEE, OEOO, OEOE, OEEO, OEEE, EOOO, EOOE, EOEO, EOEE, EEOO, EEOE, EEEO, EEEE\}\newline
+$\|S\| = 16$
+\subsection{Simple events in each of the following:}
+A) At least two incomes exceeding \$43,318 : $$\|\{OOOO, OOOE, OOEO, OEOO, OEEO, EOOO, EOOE, EOEO, EEOO\}\| = 9$$
+B) Exactly two had incomes exceeding \$43,318: $$\|\{OEEO, EOOE, EOEO, EEOO\}\| = 4$$
+C) Exaclt one had income less that or equal to \$43,318: $$\|\{OEEE, EOEE, EEOE, EEEO\}\| = 4$$
+\subsection{Probabilities of the events}
+The probabilities of these events happening are the sum of probabilities of simple events times each of the events probabilities.
+In this case that ends up being the sum of simple events over the total because they have similar probability.\newline
+P(A): $ \frac{9}{16}$, 
+P(B): $\frac{4}{16}$, 
+P(C): $\frac{4}{16}$
 \section{Imported wines.}
-\subsection{}
-\subsection{}
-\subsection{}
+Let A, B, C  be different brands of wine. The set S is the set of wines ranked from best to worst = $\{ABC, ACB, BAC, BCA, CAB, CBA\}$ with a size of 6.
+Assuming equal probability of being picked, Let A be the markably best wine. The probability that A will be picked last is the set \{BCA, CBA\} which has a size of 2.
+The probability of any element in this set being picked is $P(A) = \frac{2}{6}$.
 \section{Demand for a tool.}
+The following are the mean and variance of the times the tool is used. We multiply these values by \$10 to find the dollar amount.
+$$E(Y) = \sum_{all y} yp(y) = \sum_{y = 0}^2 yp(y) = 0*0.1 + 1*0.5 + 2*0.4 = 1.3 = \mu$$
+$$Var(Y) = E(Y^2) - \mu^2 = \sum_{y=0}^2 y^2p(y) - 1.3^2 = (0^2*0.1 + 1^2*0.5+2^2*0.4) - 1.3 = 2.1 - 1.3 = 0.8$$
+$$E(Y) = \$13, V(Y) = \$8 $$
 \section{Multiple choice examination.}
+Let Y be the random variable Y: The number of questions that are answered correctly.
+Then we can determine that assuming true randomness then $P(Y\leq1) = p(1) = \frac{1}{5}$
+Then we try to find $P(Y\geq10) = 1 - P(Y<10) = 1 - (P(Y = 10) + P(Y = 9) + P(Y = 8) + P(Y = 7) + P(Y = 6) + P(Y = 5) + P(Y = 4) + P(Y =3) + P(Y = 2) + P(Y = 1))
+ = 1 - (0.0001 + 0.0006 + 0.0034 + 0.0138 + 0.0429 + 0.1031 + 0.187 + 0.25 + 0.23 + 0.13) = 1 - 0.96 = \textbf{0.0391}$
 \section{New surgical procedure.}
-\subsection{}
-\subsection{}
-\subsection{}
-\subsection{}
-\subsection{}
-\section{}
-\section{}
-\section{}
-\section{}
-\section{}
-\section{}
+Let Y denote a random variable that follows this distribution; $Y \sim Binomial(n, p)$.\newline
+$P(Y = y) = (^n_y)p^y(1-p)^{n-y}$\newline
+The probability that all five are successful if p = 0.8:$$ P(Y = 5) = (^5_y)0.8^y(1-0.8)^{5-y} = 0.327$$
+\newline The probability that exactly four are successful if p=0.6: $$P(Y = 4) = (^5_y)0.6^y(1-0.6)^{5-y} = 0.2592$$
+\newline The probability that less than two are successful if p = 0.3: $$P(Y<2) = P(Y \leq 1) = P(Y = 1) + P(Y = 0) = 0.36015 + 0.16807 = 0.52822$$
+\section{Applicants for an industrial job.}
+Let $Y \sim Geometric(p)$ be our Random Variable in this distribution with a p of $\frac{3}{10}$. Where Y is the number of the first applicant interviewed that has advanced training in computer science, begining at one and counting up.\newline\newline
+\indent The probability that the first applicant with advanced programming training is found in the fifth interview: $$P(Y = 5) = (1 - p)^{y-1}p = (\frac{7}{10})^4(\frac{3}{10}) = 0.07203$$
+\indent Find the Expected Value of this distribution: $$E(Y) = \frac{1}{p} = \frac{1}{\frac{3}{10}} = 3.3\overline3$$
+\section{Oil prospector.}
+Let $Y \sim Geometric(p)$ be our Random Variable for this distribution where p = 0.2.\newline
+\newline The probability that the third hole drilled is the first in the sequence to yield a productive well is: $$P(Y = 3) = (1-p)^{y-1}p = 0.8^3*0.2 = 0.1024$$
+What is then, the probability that the prospector will fail to find a well if at most ten trials can be afforded? 
+$$P(Y > 10) = 1 - P(Y \leq 10) = $$ $$=> 1 - (p(10) + p(9)+p(8)+p(7)+p(6)+p(5)+p(4)+p(3)+p(2)+p(1)))$$
+$$=> 1 - ((1-0.2)^{9}0.2 + (1-0.2)^{8} 0.2 + (1-0.2)^{7}0.2 + (1-0.2)^{6}0.2 + (1-0.2)^{5}0.2$$$$ + (1-0.2)^{4}0.2 + (1-0.2)^{3}0.2 + (1-0.2)^{2}0.2 + (1-0.2)0.2 + )
+(1-0.2)^{0}0.2$$
+$$=> 1 - (0.0268 + 0.0335 + 0.04194 + 0.0524 + 0.0655 + 0.0819 + 0.1024 + 0.128 + 0.16 + 0.2) = 0.107$$
+\section{Defective printing machines.}
+The probability of a defective machine given is $\frac{2}{5} = 0.4$\newline
+Let Y be our Random Variable as Y: The number of machines selected that are not defective. Y will simulate a Binomial distribution: $Y \sim Binomial(n, p)$ for n = 5 and p = 0.6.\newline
+$$P(Y = y) = (^n_y)p^y(1-p)^{n-y}$$
+Therefore the probability that all machines are functioning is denoted by:
+$$P(Y = 5) = (^5_5)*0.6^5*0.4^0 = 0.07776$$
+\section{Poisson distribution.}
+Let Y denote a random variable that has a Poisson distribution with mean $\lambda = 2$
+$$P(Y = y) = \frac{1}{y!}\lambda^ye^{-\lambda}$$
+Then the following probabilities are as such:
+$$P(Y = 4) = \frac{1}{4!} * 2^4 * e^{-2} = 0.0.090$$\newline
+$$P(Y \geq 4) = 1 - P(Y < 4) = 1 - (P(Y = 3) + P(Y = 2) + P(Y = 1))$$ $$ = 1- (0.180 + 0.270 + 0.270) = 1 - 0.72 = 0.28$$\newline
+$$P(Y < 4) = (P(Y = 3) + P(Y = 2) + P(Y = 1))$$ $$ = (0.180 + 0.270 + 0.270) = 0.72 $$\newline
+$$V(Y) = E(Y^2) - \mu^2 = E(Y^2) - \lambda^2$$
+To find the variance we must first find $E(Y^2-Y)$
+The reason for this is that we can then say $E(Y^2) = E(Y^2-Y) + E(Y)$
+So Then $E(Y^2-Y) = \sum_{y=1}^n y(y-1) \frac{1}{(y)(y-1)(y-2)!} * \lambda^{y-2}* \lambda^2 * e^{-lambda}$
+After some cancelation we arrive to the output of $=> \lambda^2 \sum_{y=3}^n\lambda^{y-2}e^{-\lambda}$
+So from this we know $E(Y^2-Y) = \lambda^2$
+And $E(Y^2) = \lambda^3$
+Therefore The variance is: 
+ $$E(Y^2) - \lambda^2 = \lambda^3 - \lambda^2 = \lambda$$
+\section{Customers at a checkout counter.}
+Let $Y \sim Poisson(\lambda)$ Given that $\lambda = 4$ what are the following probabilities?
+$$P(Y \leq 9) = $$ $ P(Y = 9) + P(Y = 8) + P(Y = 7) + P(Y = 6) + P(Y = 5) + P(Y = 4) + P(Y = 3) + P(Y = 2) + P(Y = 1)  = 0.013 + 0.029 + 0.059 + 
+0.104 + 0.156 + 0.195 + 0.195 + 0.1465 + 0.0732 = \textbf{0.9707}$
+$$P(Y \geq 5) = $$ $1 - (P(Y = 5) + P(Y = 4) + P(Y = 3) + P(Y = 2) + P(Y = 1)) = 1 - (0.156 + 0.195 + 0.195 + 0.1465 + 0.0732) = 1 - 0.7657 = \textbf{0.2343}$
+$$P(Y = 9) = \frac{1}{9!} * \lambda^9 * e^{-\lambda} = \textbf{0.013}$$
+\section{Consider Y as a binomial random variable.}
+$Y \sim Binom(n, p)$. We know that E(Y ) = np and V (Y ) = npq. We will use mgf(t) to prove them again.
+If $Y \sim Binomial(n, p)$ the we know that $P(Y= y) = (^n_y)p^y(1-p)^{n-y}$\newline
+We can obtain the mgf as: $$ mgf_Y(t) = E(e^{ty}) = \sum_{y = 0}^n(^n_y)e^{ty}p^y(1-p)^n-y$$
+$$ = \sum_{y=0}^n (^n_y)(e^tp)^y(1-p)^{n-y}$$
+Here we can use the Binomial Theorem $\sum_{y=0}^n(^n_y)x^yz^{n-y} = (x + z)^n$
+and we conclude that $mgf_Y(t) = (e^tp + (1-p))^n = (q +pe^t)^n$
+\newline To fim the Expeted Value and Variance we will use derivatives:\newline
+$E(Y) = \frac{d}{dt} mgf_Y(t) = \frac{d}{dt} (1 +  \frac{tE(Y)}{})= n(pe^t) = np$\newline
+$V(Y) = \frac{d^2}{d^2t} mgf_Y(t) = \frac{d^2}{d^2t} (q + pe^t)^n = npq$
 
 \end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
