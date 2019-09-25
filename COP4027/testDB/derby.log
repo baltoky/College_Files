@@ -1,6 +1,6 @@
 ----------------------------------------------------------------
-Wed Sep 25 13:54:32 CDT 2019:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-016d-69c6-63ae-00000f683d30 
+Wed Sep 25 16:22:41 CDT 2019:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-016d-6a4e-0656-00000f682128 
 on database directory C:\Users\cas156\Documents\repos\College_Files\COP4027\testDB\myDB with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@6e5e91e4 
 Loaded from file:/C:/Users/cas156/Documents/repos/College_Files/COP4027/testDB/derby.jar
 java.vendor=AdoptOpenJDK
