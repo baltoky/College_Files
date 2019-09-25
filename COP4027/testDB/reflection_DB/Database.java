@@ -97,8 +97,8 @@ public class Database {
 				resultString += "\n";
 			}
 		}
-		catch (SQLException e) {
-			
+		catch (Exception e) {
+			System.out.println("Could not retrieve the result from the query.");
 		}
 		return resultString;
 	}
@@ -136,32 +136,13 @@ public class Database {
 		}
 	}
 	
-	/*
-	public static ArrayList<String> ReflectionExample1(String className)
-	{
-		ArrayList<String> datatype = new ArrayList<String>();
-		try {
-			Class c = Class.forName(className);
-			Field f[] = c.getDeclaredFields();
-			System.out.println("fields:");
-			for(Field field : f) {
-				datatype.add(field.getType().toString());
-			}                    
-		}
-		catch (Throwable e) {
-			System.err.println(e);
-		}  
-		return datatype;
-	}
-	 * */
-	
 	public static int closeConnection() {
 		try {
 			connection.close();
 			return 0;
 		}
-		catch(SQLException e) {
-			
+		catch(Exception e) {
+			System.out.println("Could not close the database connection.");
 		}
 		return 1;
 	}

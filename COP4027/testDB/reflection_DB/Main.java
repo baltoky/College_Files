@@ -39,17 +39,17 @@ public class Main {
 			Database.executeStatement(statement);
 		}
 		
-		String res;
+		String res = "";
 		
 		Database.executeQuery("SELECT * FROM " + TABLENAME);
 		res = Database.getResult();
 		System.out.println(res);
 
-		Database.executeQuery("SELECT * FROM " + TABLENAME);
+		Database.executeQuery("SELECT * FROM " + TABLENAME + " WHERE make = 'Chevy' OR make = 'Toyota'");
 		res = Database.getResult();
 		System.out.println(res);
 
-		Database.executeQuery("SELECT * FROM " + TABLENAME);
+		Database.executeQuery("SELECT * FROM " + TABLENAME + " WHERE weight >= 2500");
 		res = Database.getResult();
 		System.out.println(res);
 		
