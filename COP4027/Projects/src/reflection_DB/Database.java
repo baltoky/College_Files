@@ -8,6 +8,13 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Properties;
 
+/**
+Student Name: Cesar Santiago
+File Name: Database.java
+Assignment number 1
+
+The class that handles the database aspect of the program.
+*/
 public class Database {
 	private static String url;
 	private static String username;
@@ -16,6 +23,12 @@ public class Database {
 	private static Statement statement;
 	private static ResultSet result;
 	
+	/**
+	 * @param fileName
+	 * @throws IOException
+	 * @throws ClassNotFoundException
+	 * Initializes the database.
+	 */
 	public static void init(String fileName)
 	         throws IOException, ClassNotFoundException
 	{  
@@ -33,11 +46,19 @@ public class Database {
 	    	Class.forName(driver);
 	}
 	
+	/**
+	 * @return
+	 * @throws SQLException
+	 */
 	public static Connection getConnection() throws SQLException
 	{
 		return DriverManager.getConnection(url, username, password);
 	}
 
+	/**
+	 * @param args
+	 * Parses the arguments given by the user and sends it to the init function.
+	 */
 	public static void parseArguments(String [] args) {
 		if (args.length == 0){   
 			System.out.println(
@@ -56,6 +77,10 @@ public class Database {
 		}
 	}
 	
+	/**
+	 * @return statement
+	 * Sets a connection to the database and returns it as a statement.
+	 */
 	public static Statement setConnection() {
 		try {
 			connection = Database.getConnection();
@@ -65,6 +90,10 @@ public class Database {
 		return statement;
 	}
 	
+	/**
+	 * @param stat
+	 * Executes a statement given as a String variable.
+	 */
 	public static void executeStatement(String stat) {
 		try {
 			statement.execute(stat);
@@ -75,6 +104,11 @@ public class Database {
 		Log.log(stat);
 	}
 	
+	/**
+	 * @param query
+	 * @return result
+	 * Executes a query and stores the result into the result instance variable.
+	 */
 	public static ResultSet executeQuery(String query) {
 		try {
 			result = statement.executeQuery(query);
@@ -87,6 +121,10 @@ public class Database {
 		return result;
 	}
 	
+	/**
+	 * @return resultString.
+	 * Logs and returns the result of the last query that was retrieved.
+	 */
 	public static String getResult() {
 		String resultString = "";
 		int cols ;
@@ -108,6 +146,11 @@ public class Database {
 		return resultString;
 	}
 	
+	/**
+	 * @param className
+	 * @param tableName
+	 * Creates the table on the database for a class given in the String className.
+	 */
 	public static void createTableForClass(String className, String tableName) {
 		ArrayList<String> typesToTable = new ArrayList<String>();
 		String tableCreate = "CREATE TABLE " + tableName + " (";
@@ -140,6 +183,9 @@ public class Database {
 		}
 	}
 	
+	/**
+	 * Closes the connection to the database.
+	 */
 	public static void closeConnection() {
 		try {
 			connection.close();

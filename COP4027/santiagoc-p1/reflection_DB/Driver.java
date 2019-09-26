@@ -1,5 +1,12 @@
 package reflection_DB;
 
+/**
+Student Name: Cesar Santiago
+File Name: Driver.java
+Assignment number 1
+
+The driver of the program. Performs all of the operations that the program is required to run.
+*/
 public class Driver {
 	
 	public static final String VEHICLEPATH = "vehicle.dat";
@@ -7,6 +14,10 @@ public class Driver {
 	public static final int NUM_OF_VEHICLES = 10;
 	public static final String TABLENAME = "Vehicle";
 	
+	/**
+	 * @param args
+	 * Runs the program to requirements.
+	 */
 	public static void run(String[] args) {
 		init(args);
 		writeVehicles();
@@ -17,6 +28,10 @@ public class Driver {
 		close();
 	}
 	
+	/**
+	 * @param args
+	 * Initializes the database connection and the log.
+	 */
 	private static void init(String [] args) {
 
 		Database.parseArguments(args);
@@ -25,6 +40,9 @@ public class Driver {
 		
 	}
 	
+	/**
+	 * Creates and writes the vehicles to a file $VEHICLEPATH.
+	 */
 	private static void writeVehicles() {
 
 		VehicleManager vm1 = new VehicleManager();
@@ -34,6 +52,11 @@ public class Driver {
 		
 	}
 	
+	/**
+	 * @return
+	 * Reads the vehicles from $VEHICLEPATH and adds it to a VehicleManager
+	 * Returns the new VehicleManager.
+	 */
 	private static VehicleManager readVehicles() {
 		
 		VehicleManager vm1 = new VehicleManager();
@@ -42,6 +65,9 @@ public class Driver {
 		
 	}
 	
+	/**
+	 * Allows the Database table to be created.
+	 */
 	private static void createTable() {
 		
 		Database.executeStatement("DROP TABLE " + TABLENAME);
@@ -49,6 +75,10 @@ public class Driver {
 		
 	}
 	
+	/**
+	 * @param vm
+	 * Inserts all of the vehicles from vm into the database table $TABLENAME.
+	 */
 	private static void insertIntoTable(VehicleManager vm) {
 
 		String statement;
@@ -60,6 +90,9 @@ public class Driver {
 		
 	}
 	
+	/**
+	 * Executes the required queries.
+	 */
 	private static void execQueries() {
 		
 		String res = "";
@@ -78,6 +111,9 @@ public class Driver {
 		
 	}
 	
+	/**
+	 * Closes the program by closing the database and the log.
+	 */
 	private static void close() {
 		
 		Database.closeConnection();
