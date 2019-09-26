@@ -47,11 +47,12 @@ public class Database {
 			return;
 	      }
 		else {
-			System.out.println("args[0] = " + args[0]);
 			try {
 				Database.init(args[0]);
 			}
-			catch(Exception e) {}
+			catch(Exception e) {
+				Log.log("ERROR: Failed to achieve derby connection.");
+			}
 		}
 	}
 	
@@ -69,7 +70,7 @@ public class Database {
 			statement.execute(stat);
 		}
 		catch(Exception e) {
-			System.out.println("Failed to complete statement");
+			Log.log("ERROR: Failed to execute statement." + stat);
 		}
 		Log.log(stat);
 	}
@@ -79,7 +80,8 @@ public class Database {
 			result = statement.executeQuery(query);
 		}
 		catch(Exception e){
-			System.out.println("Failed to complete query");
+
+			Log.log("ERROR: Failed to complete query." + query);
 		}
 		Log.log(query);
 		return result;
@@ -100,7 +102,7 @@ public class Database {
 			}
 		}
 		catch (Exception e) {
-			System.out.println("Could not retrieve the result from the query.");
+			Log.log("ERROR: Could not get result from the query.");
 		}
 		Log.log(resultString);
 		return resultString;
@@ -122,7 +124,6 @@ public class Database {
 					typesToTable.add("BOOLEAN");
 				}
 			}
-			System.out.println(typesToTable.toString());
 			for(int i = 1; i < typesToTable.size(); i++) {
 				tableCreate += typesToTable.get(i) + " ";
 				i++;
@@ -131,7 +132,7 @@ public class Database {
 					tableCreate += ", ";
 			}
 			tableCreate += ")";
-			System.out.println(tableCreate);
+			Log.log(tableCreate);
 			Database.executeStatement(tableCreate);
 		}
 		catch(ClassNotFoundException e) {
@@ -139,15 +140,13 @@ public class Database {
 		}
 	}
 	
-	public static int closeConnection() {
+	public static void closeConnection() {
 		try {
 			connection.close();
-			return 0;
 		}
 		catch(Exception e) {
-			System.out.println("Could not close the database connection.");
+			Log.log("ERROR: Failed to close connection to the derby databse.");
 		}
-		return 1;
 	}
 	
 }

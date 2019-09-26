@@ -10,13 +10,15 @@ public class Log {
 	
 	public static void log(String s) {
 		try {
+			
 			LocalDateTime dt = LocalDateTime.now();
 			DateTimeFormatter dtFormat = DateTimeFormatter.ofPattern("MM-dd-yyyy/HH:mm:ss");
 			String dateTime = dt.format(dtFormat);
 			fos.append("Date/Time: " + dateTime + " :\n");
 			fos.append(s + "\n\n");
-		}catch (IOException e) {
 			
+		}catch (IOException e) {
+			System.out.println("Could not append to file.");
 		}
 	}
 	

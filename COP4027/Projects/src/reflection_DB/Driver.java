@@ -38,7 +38,6 @@ public class Driver {
 		
 		VehicleManager vm1 = new VehicleManager();
 		VehicleReader.readVehicles(VEHICLEPATH, vm1);
-		vm1.printVehicles();
 		return vm1;
 		
 	}
