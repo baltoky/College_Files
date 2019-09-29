@@ -1,6 +1,6 @@
 ----------------------------------------------------------------
-2018-01-22 20:38:58.005 GMT:
- Booting Derby version The Apache Software Foundation - Apache Derby - 10.2.2.0 - (485682): instance c013800d-0161-1f98-6988-00000f974ef0
-on database directory H:\test\myDB  
+2019-09-25 14:56:35.703 GMT:
+ Booting Derby version The Apache Software Foundation - Apache Derby - 10.2.2.0 - (485682): instance c013800d-016d-68ec-8b4b-00000edd1e98
+on database directory E:\Documents\College_Files\COP4027\testDB\myDB  
 
 Database Class Loader started - derby.database.classpath=''

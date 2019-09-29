@@ -1,1 +1,2 @@
-java -classpath derby.jar;. refactor_DB.Main database.properties
+java -classpath derby.jar;. reflection_DB.Main database.properties
+pause

@@ -4,6 +4,8 @@ import java.sql.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Properties;
 
 public class Database {
@@ -18,17 +20,17 @@ public class Database {
 	         throws IOException, ClassNotFoundException
 	{  
 		Properties props = new Properties();
-	      FileInputStream in = new FileInputStream(fileName);
-	      props.load(in);
+	    FileInputStream in = new FileInputStream(fileName);
+	    props.load(in);
 
-	      String driver = props.getProperty("jdbc.driver");
-	      url = props.getProperty("jdbc.url");
-	      username = props.getProperty("jdbc.username");
-	      if (username == null) username = "";
-	      password = props.getProperty("jdbc.password");
-	      if (password == null) password = "";
-	      if (driver != null)
-	    	  Class.forName(driver);
+	    String driver = props.getProperty("jdbc.driver");
+	    url = props.getProperty("jdbc.url");
+	    username = props.getProperty("jdbc.username");
+	    if (username == null) username = "";
+	    password = props.getProperty("jdbc.password");
+	    if (password == null) password = "";
+	    if (driver != null)
+	    	Class.forName(driver);
 	}
 	
 	public static Connection getConnection() throws SQLException
@@ -99,6 +101,39 @@ public class Database {
 			
 		}
 		return resultString;
+	}
+	
+	public static void createTableForClass(String className, String tableName) {
+		ArrayList<String> typesToTable = new ArrayList<String>();
+		String tableCreate = "CREATE TABLE " + tableName + " (";
+		try {
+			Class c = Class.forName(className);
+			Field f[] = c.getDeclaredFields();
+			for(Field field : f) {
+				typesToTable.add(field.getName());
+				if(field.getType().toString().equalsIgnoreCase("class java.lang.String")) {
+					typesToTable.add("CHAR(20)");
+				}else if(field.getType().toString().equalsIgnoreCase("double")) {
+					typesToTable.add("DOUBLE");
+				}else if(field.getType().toString().equalsIgnoreCase("boolean")) {
+					typesToTable.add("BOOLEAN");
+				}
+			}
+			System.out.println(typesToTable.toString());
+			for(int i = 1; i < typesToTable.size(); i++) {
+				tableCreate += typesToTable.get(i) + " ";
+				i++;
+				tableCreate += typesToTable.get(i);
+				if(typesToTable.size() != i + 1)
+					tableCreate += ", ";
+			}
+			tableCreate += ")";
+			System.out.println(tableCreate);
+			Database.executeStatement(tableCreate);
+		}
+		catch(ClassNotFoundException e) {
+			System.out.println("Failed to create table.");
+		}
 	}
 	
 	public static int closeConnection() {
