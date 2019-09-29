@@ -39,17 +39,29 @@ public class Main {
 			Database.executeStatement(statement);
 		}
 		
+<<<<<<< HEAD
 		String res;
+=======
+		String res = "";
+>>>>>>> 7fd21b6af655cd82aa01395e9b7d28245527ad1c
 		
 		Database.executeQuery("SELECT * FROM " + TABLENAME);
 		res = Database.getResult();
 		System.out.println(res);
 
+<<<<<<< HEAD
 		Database.executeQuery("SELECT * FROM " + TABLENAME);
 		res = Database.getResult();
 		System.out.println(res);
 
 		Database.executeQuery("SELECT * FROM " + TABLENAME);
+=======
+		Database.executeQuery("SELECT * FROM " + TABLENAME + " WHERE make = 'Chevy' OR make = 'Toyota'");
+		res = Database.getResult();
+		System.out.println(res);
+
+		Database.executeQuery("SELECT * FROM " + TABLENAME + " WHERE weight >= 2500");
+>>>>>>> 7fd21b6af655cd82aa01395e9b7d28245527ad1c
 		res = Database.getResult();
 		System.out.println(res);
 		

@@ -97,8 +97,8 @@ public class Database {
 				resultString += "\n";
 			}
 		}
-		catch (SQLException e) {
-			
+		catch (Exception e) {
+			System.out.println("Could not retrieve the result from the query.");
 		}
 		return resultString;
 	}
@@ -132,7 +132,11 @@ public class Database {
 			Database.executeStatement(tableCreate);
 		}
 		catch(ClassNotFoundException e) {
+<<<<<<< HEAD
 			System.out.println("Failed to create table.");
+=======
+			
+>>>>>>> 7fd21b6af655cd82aa01395e9b7d28245527ad1c
 		}
 	}
 	
@@ -141,8 +145,8 @@ public class Database {
 			connection.close();
 			return 0;
 		}
-		catch(SQLException e) {
-			
+		catch(Exception e) {
+			System.out.println("Could not close the database connection.");
 		}
 		return 1;
 	}

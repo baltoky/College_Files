@@ -1,0 +1,57 @@
+Date/Time: 09-25-2019/15:38:59 :
+DROP TABLE Vehicle
+
+Date/Time: 09-25-2019/15:38:59 :
+CREATE TABLE Vehicle (make CHAR(20), size CHAR(20), weight DOUBLE, engineSize DOUBLE, isImport BOOLEAN)
+
+Date/Time: 09-25-2019/15:38:59 :
+INSERT INTO Vehicle VALUES('Nissan', 'Intermediate', 2001.3625030050866, 4590.325916712396, true)
+
+Date/Time: 09-25-2019/15:38:59 :
+INSERT INTO Vehicle VALUES('Toyota', 'Compact', 1550.5314439062925, 3959.83045712528, true)
+
+Date/Time: 09-25-2019/15:38:59 :
+INSERT INTO Vehicle VALUES('Toyota', 'FullSize', 3413.216976138175, 2084.9799719047624, false)
+
+Date/Time: 09-25-2019/15:38:59 :
+INSERT INTO Vehicle VALUES('Nissan', 'Intermediate', 2131.7393998853445, 4896.6325451158145, true)
+
+Date/Time: 09-25-2019/15:38:59 :
+INSERT INTO Vehicle VALUES('Nissan', 'Intermediate', 2000.12548969519, 2973.6531498040185, false)
+
+Date/Time: 09-25-2019/15:38:59 :
+INSERT INTO Vehicle VALUES('Hyundai', 'Compact', 1980.4765213531782, 4093.744330763048, true)
+
+Date/Time: 09-25-2019/15:38:59 :
+INSERT INTO Vehicle VALUES('Toyota', 'Compact', 1580.5425254263557, 2520.022224362124, false)
+
+Date/Time: 09-25-2019/15:38:59 :
+INSERT INTO Vehicle VALUES('Nissan', 'Compact', 1539.0648721647153, 3627.4454346945463, true)
+
+Date/Time: 09-25-2019/15:38:59 :
+INSERT INTO Vehicle VALUES('Ford', 'Compact', 1751.0470701127906, 4180.011708356145, true)
+
+Date/Time: 09-25-2019/15:38:59 :
+INSERT INTO Vehicle VALUES('Ford', 'FullSize', 3064.7210495067657, 3378.5965666541997, false)
+
+Date/Time: 09-25-2019/15:38:59 :
+SELECT * FROM Vehicle
+
+Date/Time: 09-25-2019/15:38:59 :
+
+
+Date/Time: 09-25-2019/15:38:59 :
+SELECT * FROM Vehicle WHERE make = 'Chevy' OR make = 'Toyota'
+
+Date/Time: 09-25-2019/15:38:59 :
+
+
+Date/Time: 09-25-2019/15:38:59 :
+SELECT * FROM Vehicle WHERE weight >= 2500
+
+Date/Time: 09-25-2019/15:38:59 :
+
+
+Date/Time: 09-25-2019/15:38:59 :
+DROP TABLE Vehicle
+
