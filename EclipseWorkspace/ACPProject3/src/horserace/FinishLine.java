@@ -12,6 +12,10 @@ public class FinishLine {
 	public int getWinner() {
 		return winner;
 	}
+	
+	public boolean hasWinner() {
+		return (getWinner() != -1);
+	}
 
 	public void setWinner(int winner) {
 		this.winner = winner;

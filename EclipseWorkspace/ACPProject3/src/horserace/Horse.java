@@ -1,12 +1,17 @@
 package horserace;
 
-public class Horse extends Thread{
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+
+public class Horse implements Runnable{
 	
-	int horseNumber;
-	int position;
-	FinishLine finishline;
-	int stride;
-	boolean finished;
+	public final static int SLEEP_TIME = 50;
+	private int horseNumber;
+	private int position;
+	private FinishLine finishline;
+	private int stride;
+	private boolean finished;
+	private HorseRenderer hr;
 	
 	public Horse() {
 		horseNumber = 0;
@@ -14,24 +19,37 @@ public class Horse extends Thread{
 		finishline = null;
 		stride = 0;
 		finished = false;
+		hr = null;
 	}
 	
-	public Horse(int horseNumber, int position, int stride, FinishLine finishline) {
+	public Horse(int horseNumber, int position, int stride, FinishLine finishline, HorseRenderer h) {
 		this.horseNumber = horseNumber;
 		this.position = position;
 		this.finishline = finishline;
 		this.stride = stride;
 		finished = false;
+		hr = h;
 	}
 	
-	public synchronized void sprint() {
-		while(position < finishline.getFinishline()) {
+	public void sprint() {
+		while(position < finishline.getFinishline() && finishline.hasWinner()) {
 			position = position + stride;
+			hr.drawNormalized(position);
+			System.out.println("#" + horseNumber + " Got here " + position);
+			try {
+				Thread.sleep(SLEEP_TIME);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
-		finished = true;
+		setFinished(true);
+		System.out.println("#" + horseNumber + " finished.");
+		setWinner();
+	}
+	
+	public synchronized void setWinner() {
 		if(finishline.getWinner() == -1)
 			finishline.setWinner(horseNumber);
-		System.out.println("#" + horseNumber + " finished.");
 	}
 	
 	@Override
