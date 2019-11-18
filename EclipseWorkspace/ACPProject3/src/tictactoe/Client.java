@@ -7,6 +7,14 @@ import java.net.UnknownHostException;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
+/**
+ * Student Name: Cesar Santiago
+ * File Name: Client.java
+ * Assignment Number: 4
+ * 
+ * This class performs the operations needed for the Client to send and recieve information from a server.
+ */
+
 public class Client{
 
 	public static final String DEFAULT_HOST = "127.0.0.1";
@@ -21,11 +29,19 @@ public class Client{
 	private String username;
 	private int playerNum;
     
+    /**
+     * Initializes the client with the default settings
+     */
     public Client() {
     	this(DEFAULT_HOST, DEFAULT_PORT);
     }
 
 
+	/**
+	 * Initializes the client with a host and a port
+	 * @param host
+	 * @param port
+	 */
 	public Client(String host, int port) {
 		setHost(host);
 		setPort(port);
@@ -36,31 +52,38 @@ public class Client{
 	
 
 
+	/**
+	 * Attempts to connect to a server
+	 * @throws UnknownHostException
+	 * @throws IOException
+	 */
 	public void startConnection() throws UnknownHostException, IOException {
 		setConnection(new Socket(getHost(), getPort()));
-		System.out.println("Got connection");
 		setOut(new PrintWriter(getConnection().getOutputStream(), true));
-		System.out.println("Got an output");
 		setIn(new BufferedReader(new InputStreamReader(getConnection().getInputStream())));
-		System.out.println("Got an input");
 	}
 	
+	/**
+	 * Closes the connection to a server
+	 * @throws IOException
+	 */
 	public void closeConnection() throws IOException {
 		getOut().close();
 		getIn().close();
 		getConnection().close();
 	}
 	
+	/**
+	 * Sends a message to a server and expects a response
+	 * @param command
+	 * @return
+	 */
 	public String sendAndRecieve(String command){
 		String res = "";
-		String temp = "";
 		try {
 			out.println(command);
-			
-			while((temp = in.readLine()).isEmpty()) {
-				res += temp;
-			}
-			System.out.println(res);
+			res = in.readLine();
+			System.out.println("Response from server: " + res);
 			return res;
 		} catch (Exception e) {
 			System.out.println("Could not communicate with server.");

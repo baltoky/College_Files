@@ -6,6 +6,15 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * Student Name: Cesar Santiago
+ * File Name: Server.java
+ * Assignment Number: 4
+ * 
+ * This class holds all of the actions the Server has to perform to correctly communicate with clients
+ * As well as the control of the board.
+ */
+
 public class Server extends Thread{
     public static final int PORT_NUMBER = 8081;
     public static final int BOARD_SIZE = 3;
@@ -14,25 +23,32 @@ public class Server extends Thread{
 
     private Socket player1;
     private Socket player2;
-    private char board[][];
+    private String player1Name;
+    private String player2Name;
+	private char board[][];
     private int turn;
     private boolean gameOver;
     private int x;
     private int y;
+    InputStream inP1;
+    InputStream inP2;
+    OutputStream outputP1;
+    OutputStream outputP2;
 
 
 	public static void main(String[] args) {
-        System.out.println("SocketServer Example");
         ServerSocket server = null;
         ArrayList<Server> serverList = new ArrayList<Server>();
+        Server aServer = null;
         try {
             server = new ServerSocket(PORT_NUMBER);
             while (true) {
-                /**
-                 * create a new {@link SocketServer} object for each connection
-                 * this will allow multiple client connections
-                 */
-                serverList.add(new Server(server.accept(), server.accept()));
+            	System.out.println("Starting a new Server. Awaiting players...");
+            	aServer = new Server(server.accept());
+            	aServer.start();
+            	aServer.setPlayer2(server.accept());
+                serverList.add(aServer);
+                
             }
         } catch (IOException ex) {
             System.out.println("Unable to start server.");
@@ -45,17 +61,37 @@ public class Server extends Thread{
             }
         }
     }
+	
+	/**
+	 * Initializes the server with one player
+	 * @param player1
+	 */
+	private Server(Socket player1) {
+    	this(player1, null);
+	}
     
+    /**
+     * Initializes the server with two players
+     * @param player1
+     * @param player2
+     */
     private Server(Socket player1, Socket player2) {
     	setPlayer1(player1);
+    	setPlayer1Name("");
     	setPlayer2(player2);
+    	setPlayer2Name("");
         startBoard();
-        this.turn = new Random().nextInt(1)+1;
+        this.inP1 = null;
+        this.inP2 = null;
+        this.outputP1 = null;
+        this.outputP2 = null;
+        this.turn = 1;
         this.gameOver = false;
-        System.out.println("Game has started between " + player1.getInetAddress().getHostAddress() + " and " + player2.getInetAddress().getHostAddress());
-        start();
     }
     
+    /**
+     * Initializes the board
+     */
     public void startBoard() {
     	char board[][] = new char[BOARD_SIZE][BOARD_SIZE];
     	for(char b[]: board)
@@ -64,21 +100,35 @@ public class Server extends Thread{
     	setBoard(board);
     }
     
+    /**
+     * Toggles the turn variable
+     */
     public void toggleTurn() {
-    	if(turn == 0)
-    		turn = 1;
-    	else turn = 0;
+    	if(turn == 1)
+    		turn = 2;
+    	else turn = 1;
     }
     
+    /**
+     * Makes a check on whether a tile on the board is clear
+     * @param x
+     * @param y
+     * @return false if tile is not clear, true if it is clear
+     */
     public boolean makeCheck(int x, int y) {
     	if(getBoard()[x][y] == ' ')
     		return true;
     	return false;
     }
     
+    /**
+     * Changes the board to the player whose turn it is
+     * @param x
+     * @param y
+     */
     public void changeBoard(int x, int y) {
     	char[][] b = new char[BOARD_SIZE][BOARD_SIZE];
-    	if(getTurn() == 0)
+    	if(getTurn() == 1)
     		b[x][y] = P_ONE_MARKER;
     	else
     		b[x][y] = P_TWO_MARKER;
@@ -86,11 +136,17 @@ public class Server extends Thread{
     	setBoard(b);
     }
     
+    /**
+     * Checks the win condition for the game
+     * @param x
+     * @param y
+     * @return false if the game has not been won, true if the game has been won
+     */
     public boolean checkWinConditions(int x, int y) {
     	char[][] b = getBoard();
     	char marker = P_ONE_MARKER;
     	
-    	if(getTurn() == 0)
+    	if(getTurn() == 1)
     		marker = P_ONE_MARKER;
     	else
     		marker = P_TWO_MARKER;
@@ -130,16 +186,28 @@ public class Server extends Thread{
 		return false;
     }
     
+    /**
+     * Parses the answer from the client and gives back an appropriate response
+     * @param playerResponse
+     * @return A string with the message to the player
+     */
     public String parsePlayerResponse(String playerResponse){
     	String[] pr = playerResponse.split(" ");
     	String response = "";
-    	if(pr[0].equals("join"))
+    	System.out.println("Player response: \"" + playerResponse + "\"");
+    	if(pr[0].equals("join")) {
     		response = "Hello " + pr[1] + " you are player " + turn + ".";
+    		if(turn == 1)
+    			this.setPlayer1Name(pr[1]);
+    		else
+    			this.setPlayer2Name(pr[1]);
+    		toggleTurn();
+    	}
     	else if(pr[0].equals("choose")) {
     		int _x = 0, _y = 0;
     		_x = Integer.parseInt(pr[2]);
     		_y = Integer.parseInt(pr[3]);
-    		if(getPlayer1() == null || getPlayer2() == null) {
+    		if(this.getPlayer1Name() == null || this.getPlayer2Name() == null) {
     			response = "We do not have two players yet.";
     		}else if(makeCheck(_x, _y)) {
     			changeBoard(_x, _y);
@@ -152,44 +220,72 @@ public class Server extends Thread{
     	}else if(pr[0].equals("quit")) {
     		setGameOver(true);
     	}
+		System.out.println(response);
 		return response + "\n";
     }
 
+    /**
+     * Run the server thread
+     * it will get both players, and allow to input the names and other inputs.
+     * Then parse those inputs and send back a response. If an update to the board needs to be done
+     * it will be done.
+     */
     public void run() {
-        InputStream in = null;
-        OutputStream outputP1 = null;
-        OutputStream outputP2 = null;
-        String playerMessage;
-        
+        String player1Message = "";
+        String player2Message = "";
         try {
+        	
+        	BufferedReader br1 = null;
+        	BufferedReader br2 = null;
+
+			
         	while(!gameOver) {
-        		if(turn == 0)
-        			in = player1.getInputStream();
-        		else
-        			in = player2.getInputStream();
+
+    			if(player1 != null) {
+    				inP1 = player1.getInputStream();
+    				outputP1 = player1.getOutputStream();
+            		br1 = new BufferedReader(new InputStreamReader(inP1));
+    			}
+    			else if(player2 != null) {
+    				inP2 = player2.getInputStream();
+        			outputP2 = player2.getOutputStream();
+            		br2 = new BufferedReader(new InputStreamReader(inP2));
+    			}
+
+        		System.out.println("Turn : " + turn);
         		
-        		outputP1 = player1.getOutputStream();
-        		outputP2 = player2.getOutputStream();
+        		if(turn == 1 || player2 == null)
+        			player1Message = br1.readLine();
+        		else if(turn == 2)
+        			player2Message = br2.readLine();
         		
-        		BufferedReader br = new BufferedReader(new InputStreamReader(in));
-        		playerMessage = br.readLine();
-        		String response = parsePlayerResponse(playerMessage);
+        		String responsep1 = parsePlayerResponse(player1Message);
+        		String responsep2 = parsePlayerResponse(player2Message);
         		
-        		outputP1.write(response.getBytes());
-        		outputP2.write(response.getBytes());
+        		try {
+        			
+        			outputP1.write(responsep1.getBytes());
+        			System.out.println("Player " + this.getPlayer1Name());
+        			outputP2.write(responsep2.getBytes());
+        			System.out.println("Player " + this.getPlayer2Name());
+        			
+        		}catch(Exception e) {
+        			System.out.println("Player 2 is not yet connected.");
+        		}
         		
         	}
-        }catch(IOException e) {
+        }catch(Exception e) {
     		e.printStackTrace();
     	}finally {
     		try {
-    			in.close();
-    			outputP1.close();
-    			outputP2.close();
+    			inP1.close();
     			player1.close();
     			player2.close();
+    			if(outputP1 != null)
+    				outputP1.close();
+    			if(outputP2 != null)
+    				outputP2.close();
     		}catch(Exception e) {
-    			e.printStackTrace();
     		}
     	}
     }
@@ -250,13 +346,20 @@ public class Server extends Thread{
 	public void setY(int y) {
 		this.y = y;
 	}
-    
-    public String boardToString() {
-    	String result = "";
-    	for(char[] b: getBoard())
-    		for(char c: b)
-    			result += c;
-    	
-    	return result;
-    }
+    public String getPlayer1Name() {
+		return player1Name;
+	}
+
+	public void setPlayer1Name(String player1Name) {
+		this.player1Name = player1Name;
+	}
+
+	public String getPlayer2Name() {
+		return player2Name;
+	}
+
+	public void setPlayer2Name(String player2Name) {
+		this.player2Name = player2Name;
+	}
+
 }
