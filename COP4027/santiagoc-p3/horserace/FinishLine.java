@@ -9,8 +9,8 @@ package horserace;
  */
 
 public class FinishLine {
-	int finishline;
-	int winner;
+	private int finishline;
+	private int winner;
 
 	/**
 	 * @param finishline
