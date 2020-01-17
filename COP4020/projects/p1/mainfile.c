@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 
 #define ID 300
 #define NUM 301
@@ -13,7 +14,7 @@ int lexan();
 
 typedef struct variable{
     char* value;
-    int type;
+    int tokenType;
 }variable;
 
 FILE* file;
@@ -33,15 +34,9 @@ int main(int argc, char** argv)
     }
 
     printf("%s\n", filepath);
-    while((lookahead = fgetc(file)) != EOF){
-        if(lookahead == ' ' || lookahead == '\t');
-        else if(lookahead == '\n')
-            linenum++;
-        else if(lookahead >= '0' && lookahead <= '9')
-        {
+    
+    lexan();
 
-        }
-    }
     return 0;
 }
 
@@ -61,6 +56,7 @@ int match(int t)
 int lexan()
 {
     int ch;
+    char* token = "";
     while((ch = getchar()) != EOF)
     {
         if(ch == ' ' || ch == '\t');
@@ -73,6 +69,8 @@ int lexan()
         }
         else if(ch >= 'a' && ch <= 'Z')
         {
+            char temp = ch;
+            strcat(token, &temp);
             int type = ERR;
             return type;
         }
