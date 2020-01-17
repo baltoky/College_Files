@@ -20,8 +20,8 @@ public class MusicServer extends Thread implements NetworkLink{
 	
 	private Socket user;
 	private boolean connected;
-    InputStream input;
-    OutputStream output;
+    private InputStream input;
+    private OutputStream output;
 
 	/**
 	 * Constructor for the Music Server class which gets a user connection,

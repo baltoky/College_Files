@@ -47,7 +47,7 @@ public class Client implements NetworkLink{
 	 * @param command - request to send to the server.
 	 * @return res - response received from the server.
 	 */
-	public String sendAndRecieve(String command){
+	public String sendAndReceive(String command){
 		String res = new String();
 		boolean EOR = false; // End of Response. An EOR char should be given by the server.
 		String temp = "";

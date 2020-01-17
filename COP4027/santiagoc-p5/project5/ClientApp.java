@@ -129,7 +129,7 @@ public class ClientApp extends Application{
 						+ costField.getText() + "," 
 						+ locationChoice.getSelectionModel().getSelectedItem();
 				System.out.println("Sending request to server: " + req);
-				res += client.sendAndRecieve(req);
+				res += client.sendAndReceive(req);
 				res = res.trim().replaceAll("^ +| +$|( )+", "$1");
 				a.setTitle("Database Request");
 				a.setHeaderText("Musical Instruments Requested");
