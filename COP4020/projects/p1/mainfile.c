@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 #define ID 300
@@ -8,14 +9,22 @@
 #define ERR 404
 #define DONE 500
 
-int getchar();
-int match(int t);
-int lexan();
+
+typedef struct section* sectionP;
+typedef struct section{
+    char* value;
+    struct section *next;
+}section;
 
 typedef struct variable{
     char* value;
     int tokenType;
 }variable;
+
+int getchar();
+int match(int t);
+int lexan();
+sectionP parseFile();
 
 FILE* file;
 int lookahead;
@@ -78,4 +87,23 @@ int lexan()
             return ch;
     }
     return DONE;
+}
+
+sectionP parseFile()
+{
+    int temp = 0;
+    sectionP head = malloc(sizeof(section));
+    sectionP curr = head;
+    curr->next = NULL;
+    while((temp = getchar()) != EOF)
+    {
+        if(temp >= 'a' && temp <= 'Z')
+        {
+        }
+        if(temp == '=')
+        {
+
+        }
+    }
+    return 0;
 }
