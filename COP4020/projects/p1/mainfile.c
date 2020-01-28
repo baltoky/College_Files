@@ -10,12 +10,6 @@
 #define DONE 500
 
 
-typedef struct section* sectionP;
-typedef struct section{
-    char* value;
-    struct section *next;
-}section;
-
 typedef struct variable{
     char* value;
     int tokenType;
@@ -24,11 +18,13 @@ typedef struct variable{
 int getchar();
 int match(int t);
 int lexan();
-sectionP parseFile();
+int program();
+int statements();
+int statement();
 
 FILE* file;
 int lookahead;
-int linenum = 0;
+int linenum = 1;
 
 int main(int argc, char** argv)
 {
@@ -46,6 +42,8 @@ int main(int argc, char** argv)
     
     lexan();
 
+    fclose(file);
+
     return 0;
 }
 
@@ -59,51 +57,115 @@ int match(int t)
 {
     if(lookahead == t)
         lookahead = lexan();
-    return ERR;
+    return 0;
+}
+
+int printAndRefresh(char* token, int size){
+    printf(" <token> (%s) ", token);
+    bzero(token, size);
+    return 0;
 }
 
 int lexan()
 {
     int ch;
-    char* token = "";
+    const int tokenSize = 32;
+    char* token = malloc(tokenSize);
+    printf("begining read\n");
     while((ch = getchar()) != EOF)
     {
         if(ch == ' ' || ch == '\t');
-        else if(ch == '\n')
+        else if(ch == '~')
+        {
+            while(ch != '\n' || ch != EOF) ch = getchar();
             linenum++;
+        }
+        else if(ch == '\n')
+        {
+            printf(" --Line number: %d", linenum);
+            linenum++;
+        }
         else if(ch >= '0' && ch <= '9')
         {
-            //Get the number into the numLexeme
-            return NUM;
+            char tmp;
+            while(ch >= '0' && ch <= '9')
+            {
+                tmp = ch;
+                strncat(token, &tmp, 1);
+                ch = getchar();
+            }
+            printAndRefresh(token, tokenSize);
+            //return NUM;
         }
-        else if(ch >= 'a' && ch <= 'Z')
+        else if((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z'))
         {
-            char temp = ch;
-            strcat(token, &temp);
-            int type = ERR;
-            return type;
+            char tmp;
+            while((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z') || ch == '_')
+            {
+                tmp = ch;
+                strncat(token, &tmp, 1);
+                ch = getchar();
+            }
+            /*
+            if(strcmp(token, "begin")) 
+            {
+                return BEGIN;
+            }
+            else if (strcmp(token, "end"))
+            {
+                return END;  
+            } 
+            else
+            {
+                return ID;
+            }
+            */
+            printAndRefresh(token, tokenSize);
         }
-        else
-            return ch;
+        //else
+            // return ch;
+        printf("%c", ch);
     }
+    free(token);
     return DONE;
 }
 
-sectionP parseFile()
+int program()
 {
-    int temp = 0;
-    sectionP head = malloc(sizeof(section));
-    sectionP curr = head;
-    curr->next = NULL;
-    while((temp = getchar()) != EOF)
-    {
-        if(temp >= 'a' && temp <= 'Z')
-        {
-        }
-        if(temp == '=')
-        {
+    match(BEGIN);
+    return statements();
+}
 
-        }
+int statements()
+{
+    statement();
+    if(match(END)) return END;
+    return statements();
+}
+
+int statement()
+{
+    match(ID);
+    match('=');
+    expression();
+    return 0;
+}
+
+int expression()
+{
+    if(match(NUM)) return 0;
+    else if(match(ID))
+    {
+        term();
+        match(';');
     }
     return 0;
 }
+
+int term()
+{
+    if(match('+') || match('-')) return 0;
+    return ERR;
+}
+
+
