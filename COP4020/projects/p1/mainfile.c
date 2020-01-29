@@ -18,13 +18,16 @@ typedef struct variable{
 int getchar();
 int match(int t);
 int lexan();
-int program();
-int statements();
-int statement();
+int scope();
+int stmtList();
+int stmt();
+int expr();
+int term();
 
 FILE* file;
 int lookahead;
 int linenum = 1;
+int feedback = 0;
 
 int main(int argc, char** argv)
 {
@@ -40,7 +43,16 @@ int main(int argc, char** argv)
 
     printf("%s\n", filepath);
     
-    lexan();
+    //lexan();
+
+    if(scope() == END)
+    {
+        printf("\nProgram is legal.");
+    }
+    else
+    {
+        printf("\nProgram is illegal.");
+    }
 
     fclose(file);
 
@@ -56,13 +68,26 @@ int getchar()
 int match(int t)
 {
     if(lookahead == t)
+    {
         lookahead = lexan();
+        return 1;
+    }
     return 0;
 }
 
-int printAndRefresh(char* token, int size){
+void printTok(char* token, int size)
+{
     printf(" <token> (%s) ", token);
+}
+
+void refreshTok(char* token, int size)
+{
     bzero(token, size);
+}
+
+int printAndRefresh(char* token, int size){
+    printTok(token, size);
+    refreshTok(token, size);
     return 0;
 }
 
@@ -71,9 +96,9 @@ int lexan()
     int ch;
     const int tokenSize = 32;
     char* token = malloc(tokenSize);
-    printf("begining read\n");
     while((ch = getchar()) != EOF)
     {
+        refreshTok(token, tokenSize);
         if(ch == ' ' || ch == '\t');
         else if(ch == '~')
         {
@@ -94,8 +119,10 @@ int lexan()
                 strncat(token, &tmp, 1);
                 ch = getchar();
             }
+
             printAndRefresh(token, tokenSize);
-            //return NUM;
+
+            return NUM;
         }
         else if((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z'))
         {
@@ -106,65 +133,123 @@ int lexan()
                 strncat(token, &tmp, 1);
                 ch = getchar();
             }
-            /*
-            if(strcmp(token, "begin")) 
+            printTok(token, tokenSize);
+            
+            if(strncmp(token, "begin", 5) == 0) 
             {
+                printf(" \n <Began Scope> \n");
+                refreshTok(token, tokenSize);
+                free(token);
                 return BEGIN;
             }
-            else if (strcmp(token, "end"))
+            else if (strncmp(token, "end", 3) == 0)
             {
+                printf(" \n <Ended Scope> \n ");
+                refreshTok(token, tokenSize);
+                free(token);
                 return END;  
             } 
             else
             {
+                refreshTok(token, tokenSize);
+                free(token);
                 return ID;
             }
-            */
-            printAndRefresh(token, tokenSize);
         }
-        //else
-            // return ch;
-        printf("%c", ch);
+        else
+        {
+            printf("%c", ch);
+            return ch;
+        }
     }
-    free(token);
     return DONE;
 }
 
-int program()
+int scope()
 {
-    match(BEGIN);
-    return statements();
-}
-
-int statements()
-{
-    statement();
-    if(match(END)) return END;
-    return statements();
-}
-
-int statement()
-{
-    match(ID);
-    match('=');
-    expression();
+    printf(" -- In scope");
+    lookahead = lexan();
+    printf("%d", lookahead);
+    if(match(BEGIN))
+    {
+        if(stmtList() == END) return END;
+        else return ERR;
+    }
+    else return ERR;
     return 0;
 }
 
-int expression()
+int stmtList()
 {
-    if(match(NUM)) return 0;
-    else if(match(ID))
+    printf(" -- In stmtList");
+    if(match(END)) 
+    {
+        return END;
+    }
+    else{
+        stmt();
+        stmt();
+        //return stmtList();
+    }
+    return ERR;
+}
+
+int stmt()
+{
+    printf(" -- In stmt");
+    if(match(ID))
+    {
+        if(match('='))
+        {
+            expr();
+        }
+        else;
+        
+        if(match(';'))
+        {
+            return 0;
+        }
+        else
+        {
+            return ERR;
+        }
+    }
+    return 0;
+}
+
+int expr()
+{
+    printf(" -- In expr");
+    if(match('('))
     {
         term();
-        match(';');
+        if(match(')'))
+            return 0;
+        else return ERR;
     }
+    else term();
     return 0;
 }
 
 int term()
 {
-    if(match('+') || match('-')) return 0;
+    printf(" -- In temp");
+    if(match(NUM)) 
+    {
+        if(match('+') || match('-'))
+        {
+            return expr();
+        }
+        else return 0;
+    }
+    else if(match(ID))
+    {
+        if(match('+') || match('-'))
+        {
+            return expr();
+        }
+        else return 0;
+    }
     return ERR;
 }
 
