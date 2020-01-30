@@ -10,8 +10,6 @@
 #define ERR 404
 #define DONE 500
 
-#define VAR_REGEX "^[a-zA-Z]+(_?[a-zA-Z0-9]+)*" 
-#define NUM_REGEX "^[0-9]+(\.?[0-9]+)*"
 
 typedef struct variable{
     char* value;
@@ -21,11 +19,13 @@ typedef struct variable{
 int getchar();
 int match(int t);
 int lexan();
+
 int scope();
 int stmtList();
 int stmt();
 int expr();
 int term();
+int opr();
 
 FILE* file;
 int lookahead;
@@ -87,7 +87,8 @@ void refreshTok(char* token, int size)
     bzero(token, size);
 }
 
-int printAndRefresh(char* token, int size){
+int printAndRefresh(char* token, int size)
+{
     printTok(token, size);
     refreshTok(token, size);
     return 0;
@@ -98,13 +99,33 @@ int readBack(int i)
     return fseek(file, -i, SEEK_CUR);
 }
 
-int checkValidID(char* token)
+int checkValidNUM(char* token, int size)
 {
-    regex_t reg;
-    int matchVal = 0;
-    matchVal = regcomp(&reg, VAR_REGEX, 0);
-    matchVal = regexec(&reg, token, 0, NULL, 0);
-    return matchVal;
+    int i;
+    int dec = 0;
+    if(token[size] == '.')
+        return ERR;
+    for(i = 0; i < size; i++)
+    {
+        if(dec == 1 && token[i] == '.')
+            return ERR;
+        if(token[i] == '.')
+            dec = 1;
+    }
+    return 1;
+}
+
+int checkValidID(char* token, int size)
+{
+    int i;
+    if(token[size - 1] == '_')
+        return ERR;
+    for(i = 1; i < size; i++)
+    {
+        if(token[i] == '_' && token[i + 1] == '_')
+            return ERR;
+    }
+    return 1;
 }
 
 int lexan()
@@ -117,7 +138,7 @@ int lexan()
         if(ch == ' ' || ch == '\t');
         else if(ch == '~')
         {
-            while(ch != '\n' || ch != EOF) ch = getchar();
+            printf("comment\n");
             linenum++;
         }
         else if(ch == '\n')
@@ -136,14 +157,16 @@ int lexan()
             }
             readBack(1);
 
-            printAndRefresh(token, tokenSize);
+            if(checkValidNUM(token, strlen(token)) == ERR)
+                return ERR;
 
+            printAndRefresh(token, tokenSize);
             return NUM;
         }
         else if((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z'))
         {
             char tmp;
-            while((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z') || ch == '_')
+            while((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z') || ch == '_' || (ch >= '0' && ch <= '9'))
             {
                 tmp = ch;
                 strncat(token, &tmp, 1);
@@ -155,21 +178,19 @@ int lexan()
             
             if(strncmp(token, "begin", 5) == 0) 
             {
-                printf(" \n <Began Scope> \n");
                 refreshTok(token, tokenSize);
                 free(token);
                 return BEGIN;
             }
             else if (strncmp(token, "end", 3) == 0)
             {
-                printf(" \n <Ended Scope> \n ");
                 refreshTok(token, tokenSize);
                 free(token);
                 return END;  
             } 
             else
             {
-                if(checkValidID(token) == REG_NOMATCH)
+                if(checkValidID(token, strlen(token)) == ERR)
                 {
                     return ERR;
                 }
@@ -194,96 +215,71 @@ int lexan()
 
 int scope()
 {
-    printf(" -- In scope");
     lookahead = lexan();
-    printf("%d", lookahead);
     if(match(BEGIN))
     {
         if(stmtList() == END) return END;
         else return ERR;
     }
-    else return ERR;
-    return 0;
+    return ERR;
 }
 
 int stmtList()
 {
-    printf(" -- In stmtList");
-
-    for(int i = 0; i < 3; i++){
-        if(match(END)) 
-        {
-            return END;
-        }
-        else{
-            if(stmt() == ERR)
-            {
-                return ERR;
-            }
-            //return stmtList();
-        }
-    }
-    return ERR;
+    if(match(END))
+        return END;
+    if(stmt() == ERR)
+        return ERR;
+    return stmtList();
 }
 
 int stmt()
 {
-    printf(" -- In stmt");
     if(match(ID))
     {
         if(match('='))
-        {
-            expr();
-        }
-        else;
-        
-        if(match(';'))
-        {
-            printf(" semicolon ");
-            return DONE;
-        }
-        else
-        {
+            if(expr() == ERR)
+                return ERR;
+        if(!match(';'))
             return ERR;
-        }
     }
-    return DONE;
+    else if(match(ERR))
+        return ERR;
+    return 0;
 }
 
 int expr()
 {
-    printf(" -- In expr");
     if(match('('))
     {
         term();
-        if(match(')'))
-            return 0;
-        else return ERR;
+        if(!match(')'))
+            return ERR;
     }
-    else term();
-    return 0;
+    return term();
 }
 
 int term()
 {
-    printf(" -- In temp");
     if(match(NUM)) 
     {
-        if(match('+') || match('-'))
-        {
-            return expr();
-        }
-        else return 0;
+        return opr();
     }
     else if(match(ID))
     {
-        if(match('+') || match('-'))
-        {
-            return expr();
-        }
-        else return 0;
+        return opr();
     }
+    else 
+        return opr();
     return ERR;
 }
 
+int opr()
+{
+    if(match('+') || match('-') || match('/') || match('*'))
+    {
+        return expr();
+    }
+    else return 0;
+}
 
