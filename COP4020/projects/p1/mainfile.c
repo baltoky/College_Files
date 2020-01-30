@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <regex.h>
 
 #define ID 300
 #define NUM 301
@@ -9,6 +10,8 @@
 #define ERR 404
 #define DONE 500
 
+#define VAR_REGEX "^[a-zA-Z]+(_?[a-zA-Z0-9]+)*" 
+#define NUM_REGEX "^[0-9]+(\.?[0-9]+)*"
 
 typedef struct variable{
     char* value;
@@ -90,6 +93,20 @@ int printAndRefresh(char* token, int size){
     return 0;
 }
 
+int readBack(int i)
+{
+    return fseek(file, -i, SEEK_CUR);
+}
+
+int checkValidID(char* token)
+{
+    regex_t reg;
+    int matchVal = 0;
+    matchVal = regcomp(&reg, VAR_REGEX, 0);
+    matchVal = regexec(&reg, token, 0, NULL, 0);
+    return matchVal;
+}
+
 int lexan()
 {
     const int tokenSize = 32;
@@ -117,6 +134,7 @@ int lexan()
                 strncat(token, &tmp, 1);
                 ch = getchar();
             }
+            readBack(1);
 
             printAndRefresh(token, tokenSize);
 
@@ -131,7 +149,9 @@ int lexan()
                 strncat(token, &tmp, 1);
                 ch = getchar();
             }
+            
             printTok(token, tokenSize);
+            readBack(1);
             
             if(strncmp(token, "begin", 5) == 0) 
             {
@@ -149,6 +169,10 @@ int lexan()
             } 
             else
             {
+                if(checkValidID(token) == REG_NOMATCH)
+                {
+                    return ERR;
+                }
                 refreshTok(token, tokenSize);
                 free(token);
                 return ID;
