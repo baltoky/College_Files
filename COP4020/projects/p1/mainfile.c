@@ -28,6 +28,7 @@ FILE* file;
 int lookahead;
 int linenum = 1;
 int feedback = 0;
+int ch;
 
 int main(int argc, char** argv)
 {
@@ -42,8 +43,6 @@ int main(int argc, char** argv)
     }
 
     printf("%s\n", filepath);
-    
-    //lexan();
 
     if(scope() == END)
     {
@@ -93,7 +92,6 @@ int printAndRefresh(char* token, int size){
 
 int lexan()
 {
-    int ch;
     const int tokenSize = 32;
     char* token = malloc(tokenSize);
     while((ch = getchar()) != EOF)
@@ -107,7 +105,7 @@ int lexan()
         }
         else if(ch == '\n')
         {
-            printf(" --Line number: %d", linenum);
+            printf(" --Line number: %d\n", linenum);
             linenum++;
         }
         else if(ch >= '0' && ch <= '9')
@@ -156,9 +154,14 @@ int lexan()
                 return ID;
             }
         }
+        else if(ch == ';')
+        {
+            printf(" <operator> (%c)", ch);
+            return ch;
+        }
         else
         {
-            printf("%c", ch);
+            printf(" <operator> (%c)", ch);
             return ch;
         }
     }
@@ -182,14 +185,19 @@ int scope()
 int stmtList()
 {
     printf(" -- In stmtList");
-    if(match(END)) 
-    {
-        return END;
-    }
-    else{
-        stmt();
-        stmt();
-        //return stmtList();
+
+    for(int i = 0; i < 3; i++){
+        if(match(END)) 
+        {
+            return END;
+        }
+        else{
+            if(stmt() == ERR)
+            {
+                return ERR;
+            }
+            //return stmtList();
+        }
     }
     return ERR;
 }
@@ -207,14 +215,15 @@ int stmt()
         
         if(match(';'))
         {
-            return 0;
+            printf(" semicolon ");
+            return DONE;
         }
         else
         {
             return ERR;
         }
     }
-    return 0;
+    return DONE;
 }
 
 int expr()
