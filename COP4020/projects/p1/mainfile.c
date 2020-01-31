@@ -139,6 +139,7 @@ int lexan()
         else if(ch == '~')
         {
             printf("comment\n");
+	    while((ch = getchar()) != '\n');
             linenum++;
         }
         else if(ch == '\n')
@@ -252,7 +253,7 @@ int expr()
 {
     if(match('('))
     {
-        term();
+        expr();
         if(!match(')'))
             return ERR;
     }
@@ -261,17 +262,11 @@ int expr()
 
 int term()
 {
-    if(match(NUM)) 
+    if(match(NUM) || match(ID)) 
     {
         return opr();
     }
-    else if(match(ID))
-    {
-        return opr();
-    }
-    else 
-        return opr();
-    return ERR;
+    return opr();
 }
 
 int opr()
@@ -280,6 +275,6 @@ int opr()
     {
         return expr();
     }
-    else return 0;
+    return 0;
 }
 
