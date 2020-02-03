@@ -16,27 +16,96 @@ typedef struct variable{
     int tokenType;
 }variable;
 
+/*
+ * Reads from the file alloted in the file pointer.
+ * @returns character from file in the form of an integer.
+ * */
 int getchar();
+
+/*
+ * Attempts to match the lookahead with the input parameter.
+ *      If a match is true then it will prompt to read the
+ *      next token in the file and set it as lookahead.
+ *      Otherwise it returns false.
+ * @returns true if a match happens, false otherwise.
+ * */
 int match(int t);
+
+/*
+ * Seeks the file pointer backwards the amount of chars
+ *      dictated in the parameter.
+ * @param int i is the amount of chars it will seek back.
+ * @returns true if it could seek back, false otherwise.
+ * */
+int readBack(int i);
+
+/*
+ * Reads through the file for the next token and returns it.
+ * @returns the next token in the form of it's identifier code
+ *      from the defines above. Or it may return a single char
+ *      in the form of an int.
+ * */
 int lexan();
 
+/*
+ * First function on the recursive context free matcher.
+ *      Will try to match begin, if that happens then it
+ *      passes on the matching to stmtList(). After which
+ *      will match end or return an err. Or it will return
+ *      an error if it could not match begin.
+ * @returns an identifier code in the form of END or ERR
+ *      depends on how it matches the file.
+ * */
 int scope();
+
+/*
+ * A recursive function that calls stmt and then itself.
+ * @returns an identifier depending on how stmt behaves.
+ * */
 int stmtList();
+
+/*
+ * A recursive function that checks for an ID identifier
+ *      from lexan.
+ * @returns an identifier depending on matching an ID.
+ * */
 int stmt();
+
+/*
+ * Recursive function that checks for parenthesis interaction
+ *      via matching and then goes to a term.
+ * @returns an identifier depending on how term behaves.
+ * */
 int expr();
+
+/*
+ * Recursive function that checks for an ID or a NUM for
+ *      this CFG. Goes into operator if necessary.
+ * @returns an identifier.
+ * */
 int term();
+
+/*
+ * Matches an operator char in the form of
+ *      + - / * returns depending on that match.
+ * @returns an identifier depending on whether it matches
+ *      an operator.
+ * */
 int opr();
 
 FILE* file;
 int lookahead;
 int linenum = 1;
-int feedback = 0;
 int ch;
+char* errStack;
 
 int main(int argc, char** argv)
 {
-    char* filepath = NULL;
+    char* filepath = NULL; // Setting the string filepath to null.
+    errStack = ""; // Setting the error stack to an empty string.
 
+    // Checks if the program recieves external arguments and takes
+    //      The first argument as the filepath.
     if(argc > 1){
         filepath = argv[1];
         file = fopen(filepath, "r");
@@ -45,17 +114,21 @@ int main(int argc, char** argv)
         file = NULL;
     }
 
-    printf("%s\n", filepath);
-
-    if(scope() == END)
+    // Starts the recursive loop with the scope function.
+    // If the program reaches the end the it is legal
+    //      Otherwise it is illegal.
+    int id = scope();
+    if(id == END)
     {
         printf("\nProgram is legal.");
     }
-    else
+    else if(id == ERR)
     {
-        printf("\nProgram is illegal.");
+        printf("\nProgram is illegal.\n");
+        printf("Error Stack identified the following: \n%s", errStack);
     }
 
+    // Closes the file stream.
     fclose(file);
 
     return 0;
@@ -63,23 +136,34 @@ int main(int argc, char** argv)
 
 int getchar()
 {
+    // Reads a byte from the code and returns it.
     int ch = fgetc(file);
     return ch;
 }
 
 int match(int t)
 {
+    // checks if the lookahead matches t.
     if(lookahead == t)
     {
+        // If it matched then read the next lookahead.
+        // and return true.
         lookahead = lexan();
         return 1;
     }
+    // Otherwise return false.
     return 0;
+}
+
+void addToErrorStack(const char* err)
+{
+    strcat(errStack, err);
+    strcat(errStack, "\n");
 }
 
 void printTok(char* token, int size)
 {
-    printf(" <token> (%s) ", token);
+    printf("%s", token);
 }
 
 void refreshTok(char* token, int size)
@@ -104,11 +188,17 @@ int checkValidNUM(char* token, int size)
     int i;
     int dec = 0;
     if(token[size] == '.')
+    {
+        addToErrorStack("A number cannot end in a '.' token.");
         return ERR;
+    }
     for(i = 0; i < size; i++)
     {
         if(dec == 1 && token[i] == '.')
+        {
+            addToErrorStack("A number cannot have multiple '.' tokens in a row.");
             return ERR;
+        }
         if(token[i] == '.')
             dec = 1;
     }
@@ -138,13 +228,13 @@ int lexan()
         if(ch == ' ' || ch == '\t');
         else if(ch == '~')
         {
-            printf("comment\n");
-	    while((ch = getchar()) != '\n');
+            printf("%c", ch);
+	        while((ch = getchar()) != '\n') printf("%c", ch);
             linenum++;
         }
         else if(ch == '\n')
         {
-            printf(" --Line number: %d\n", linenum);
+            printf("%c", ch);
             linenum++;
         }
         else if(ch >= '0' && ch <= '9')
@@ -174,8 +264,8 @@ int lexan()
                 ch = getchar();
             }
             
-            printTok(token, tokenSize);
             readBack(1);
+            printTok(token, tokenSize);
             
             if(strncmp(token, "begin", 5) == 0) 
             {
@@ -200,14 +290,9 @@ int lexan()
                 return ID;
             }
         }
-        else if(ch == ';')
-        {
-            printf(" <operator> (%c)", ch);
-            return ch;
-        }
         else
         {
-            printf(" <operator> (%c)", ch);
+            printf("%c", ch);
             return ch;
         }
     }
