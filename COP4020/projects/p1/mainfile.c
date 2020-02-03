@@ -40,6 +40,12 @@ int match(int t);
 int readBack(int i);
 
 /*
+ * Adds the parameter error to the error stack in the program.
+ * @params err a contant char that will be added to the error stack.
+ * */
+void addToErrorStack(const char* err);
+
+/*
  * Reads through the file for the next token and returns it.
  * @returns the next token in the form of it's identifier code
  *      from the defines above. Or it may return a single char
@@ -347,6 +353,9 @@ int expr()
 
 int term()
 {
+    // Attempts to find an ID or NUM
+    //      If it happens then lookahead will roll
+    //      otherwise it goes onto finding an operator.
     if(match(NUM) || match(ID)) 
     {
         return opr();
@@ -356,7 +365,9 @@ int term()
 
 int opr()
 {
-    if(match('+') || match('-') || match('/') || match('*'))
+    // Attempts to match an operator and if it does then it
+    //      goes to another expression.
+    if(match('+') || match('-') || match('/') || match('*')) 
     {
         return expr();
     }
