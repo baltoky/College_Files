@@ -209,12 +209,11 @@ void addToErrorStack(const char* err)
 void addToTable(char* token, int tokIdent)
 {
     variable v = {token, tokIdent};
-    variable* temp;
+    printf("\nTable size: %d", tokenTable->size);
     if(tokenTable->curr == tokenTable->size - 1)
     {
         (*tokenTable).size = tokenTable->size * 2;
-        temp = realloc(tokenTable->vars, sizeof(variable) * tokenTable->size);
-        memcpy((*tokenTable).vars, temp, tokenTable->size);
+        (*tokenTable).vars = realloc(tokenTable->vars, sizeof(variable) * tokenTable->size);
     }
     (*tokenTable).vars[tokenTable->curr].value = v.value;
     (*tokenTable).vars[tokenTable->curr].tokenType = v.tokenType;
@@ -229,6 +228,7 @@ int findTokenInTable(char* token)
         printf("\ntable: %s, token: %s\n", tokenTable->vars[i].value, token);
         if(strcmp(token, tokenTable->vars[i].value) == 0)
         {
+            printf("HERE");
             return i;
         }
     }
