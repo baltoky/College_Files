@@ -11,10 +11,18 @@
 #define DONE 500
 
 
-typedef struct variable{
+typedef struct variable
+{
     char* value;
     int tokenType;
 }variable;
+
+typedef struct table
+{
+    variable* vars;
+    int curr;
+    int size;
+}table;
 
 /*
  * Reads from the file alloted in the file pointer.
@@ -41,9 +49,30 @@ int readBack(int i);
 
 /*
  * Adds the parameter error to the error stack in the program.
- * @params err a contant char that will be added to the error stack.
+ * @param err a contant char that will be added to the error stack.
  * */
 void addToErrorStack(const char* err);
+
+/*
+ * Adds the token to the token table in the form of a variable.
+ * @param token is the char that describes the lexeme name of the variable.
+ * @param tokIdent is the identity of the token as described by the defines
+ *      above.
+ * */
+void addToTable(char* token, int tokIdent);
+
+/*
+ * Simple seach function that looks for an id that has the same string
+ *      as the input token.
+ * @param token a string to look for in the table.
+ * @returns the index in the array where the strings matched.
+ * */
+int findTokenInTable(char* token);
+
+/*
+ * Simple loop to print the array into the console.
+ * */
+void printTable();
 
 /*
  * Reads through the file for the next token and returns it.
@@ -104,11 +133,16 @@ int lookahead;
 int linenum = 1;
 int ch;
 char* errStack;
+table* tokenTable;
 
 int main(int argc, char** argv)
 {
     char* filepath = NULL; // Setting the string filepath to null.
-    errStack = ""; // Setting the error stack to an empty string.
+    errStack = malloc(200); // Setting the error stack to an empty string.
+    tokenTable = malloc(sizeof(tokenTable));
+    (*tokenTable).vars = malloc(sizeof(variable));
+    (*tokenTable).size = 1;
+    (*tokenTable).curr = 0;
 
     // Checks if the program recieves external arguments and takes
     //      The first argument as the filepath.
@@ -134,8 +168,13 @@ int main(int argc, char** argv)
         printf("Error Stack identified the following: \n%s", errStack);
     }
 
+    printTable();
+
     // Closes the file stream.
     fclose(file);
+    free(errStack);
+    free(tokenTable->vars);
+    free(tokenTable);
 
     return 0;
 }
@@ -165,6 +204,47 @@ void addToErrorStack(const char* err)
 {
     strcat(errStack, err);
     strcat(errStack, "\n");
+}
+
+void addToTable(char* token, int tokIdent)
+{
+    variable v = {token, tokIdent};
+    variable* temp;
+    if(tokenTable->curr == tokenTable->size - 1)
+    {
+        (*tokenTable).size = tokenTable->size * 2;
+        temp = realloc(tokenTable->vars, sizeof(variable) * tokenTable->size);
+        memcpy((*tokenTable).vars, temp, tokenTable->size);
+    }
+    (*tokenTable).vars[tokenTable->curr].value = v.value;
+    (*tokenTable).vars[tokenTable->curr].tokenType = v.tokenType;
+    (*tokenTable).curr++;
+}
+
+int findTokenInTable(char* token)
+{
+    int i;
+    for(i = 0; i < tokenTable->curr; i++)
+    {
+        printf("\ntable: %s, token: %s\n", tokenTable->vars[i].value, token);
+        if(strcmp(token, tokenTable->vars[i].value) == 0)
+        {
+            return i;
+        }
+    }
+    return -1;
+}
+
+void printTable()
+{
+    int i;
+    printf("\nContents of the token table:");
+    for(i = 0; i < tokenTable->curr; i++)
+    {
+        printf("\nValue: %s, Type: %d", 
+                tokenTable->vars[i].value,
+                tokenTable->vars[i].tokenType);
+    }
 }
 
 void printTok(char* token, int size)
@@ -215,11 +295,17 @@ int checkValidID(char* token, int size)
 {
     int i;
     if(token[size - 1] == '_')
+    {
+        addToErrorStack("An ID cannot end on a '_'.");
         return ERR;
+    }
     for(i = 1; i < size; i++)
     {
         if(token[i] == '_' && token[i + 1] == '_')
+        {
+            addToErrorStack("An ID cannot have multiple '_' in a row.");
             return ERR;
+        }
     }
     return 1;
 }
@@ -255,7 +341,10 @@ int lexan()
             readBack(1);
 
             if(checkValidNUM(token, strlen(token)) == ERR)
+            {
+                addToErrorStack("Invalid number.");
                 return ERR;
+            }
 
             printAndRefresh(token, tokenSize);
             return NUM;
@@ -275,12 +364,14 @@ int lexan()
             
             if(strncmp(token, "begin", 5) == 0) 
             {
+                addToTable(token, BEGIN);
                 refreshTok(token, tokenSize);
                 free(token);
                 return BEGIN;
             }
             else if (strncmp(token, "end", 3) == 0)
             {
+                addToTable(token, END);
                 refreshTok(token, tokenSize);
                 free(token);
                 return END;  
@@ -289,8 +380,11 @@ int lexan()
             {
                 if(checkValidID(token, strlen(token)) == ERR)
                 {
+                    addToErrorStack("Invalid ID composition.");
                     return ERR;
                 }
+                if(findTokenInTable(token) >= 0)
+                    addToTable(token, ID);
                 refreshTok(token, tokenSize);
                 free(token);
                 return ID;
@@ -311,13 +405,23 @@ int scope()
     if(match(BEGIN))
     {
         if(stmtList() == END) return END;
-        else return ERR;
+        else 
+        {
+            addToErrorStack("Program does not end the scope with an end statement.");
+            return ERR;
+        }
     }
+    addToErrorStack("Program does not start the scope with a begin statement.");
     return ERR;
 }
 
 int stmtList()
 {
+    // Attempts to match the end identifier
+    //      After which it will return end
+    //      otherwise goes into stmt until an error
+    //      happens.
+    //      otherwise it goes into a stmtList recursive call.
     if(match(END))
         return END;
     if(stmt() == ERR)
@@ -327,13 +431,21 @@ int stmtList()
 
 int stmt()
 {
+    // Attempts to find an ID
+    //      if successful it will try to match
+    //      an equal sign and go into expression.
+    //      After which it will try to match a semicolon.
+    //      Else it will check for an error and return.
     if(match(ID))
     {
         if(match('='))
             if(expr() == ERR)
                 return ERR;
         if(!match(';'))
+        {
+            addToErrorStack("The statement does not end with a semicolon.");
             return ERR;
+        }
     }
     else if(match(ERR))
         return ERR;
@@ -342,11 +454,19 @@ int stmt()
 
 int expr()
 {
+    // Attempts to find a '('
+    //      if successful then it rolls into expr()
+    //      and tries to match ')' if it does not
+    //      succeed then it returns an error otherwise
+    //      it goes into term.
     if(match('('))
     {
         expr();
         if(!match(')'))
+        {
+            addToErrorStack("Expression does not reach an end parenthesis.");
             return ERR;
+        }
     }
     return term();
 }
