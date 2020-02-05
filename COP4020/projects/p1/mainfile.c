@@ -53,13 +53,17 @@ int readBack(int i);
  * */
 void addToErrorStack(const char* err);
 
+void initTable(int initialSize);
+
 /*
  * Adds the token to the token table in the form of a variable.
  * @param token is the char that describes the lexeme name of the variable.
  * @param tokIdent is the identity of the token as described by the defines
  *      above.
  * */
-void addToTable(char* token, int tokIdent);
+void addToTable(variable v);
+
+void freeArray();
 
 /*
  * Simple seach function that looks for an id that has the same string
@@ -139,10 +143,7 @@ int main(int argc, char** argv)
 {
     char* filepath = NULL; // Setting the string filepath to null.
     errStack = malloc(200); // Setting the error stack to an empty string.
-    tokenTable = malloc(sizeof(tokenTable));
-    (*tokenTable).vars = malloc(sizeof(variable));
-    (*tokenTable).size = 1;
-    (*tokenTable).curr = 0;
+    initTable(2);
 
     // Checks if the program recieves external arguments and takes
     //      The first argument as the filepath.
@@ -165,7 +166,7 @@ int main(int argc, char** argv)
     else if(id == ERR)
     {
         printf("\nProgram is illegal.\n");
-        printf("Error Stack identified the following: \n%s", errStack);
+        printf("Line %d contains the following errors: \n%s", linenum, errStack);
     }
 
     printTable();
@@ -173,8 +174,7 @@ int main(int argc, char** argv)
     // Closes the file stream.
     fclose(file);
     free(errStack);
-    free(tokenTable->vars);
-    free(tokenTable);
+    freeArray();
 
     return 0;
 }
@@ -206,18 +206,29 @@ void addToErrorStack(const char* err)
     strcat(errStack, "\n");
 }
 
-void addToTable(char* token, int tokIdent)
+void initTable(int initialSize)
 {
-    variable v = {token, tokIdent};
+    tokenTable = (table*)malloc(sizeof(tokenTable));
+    tokenTable->vars = (variable*)malloc(initialSize * sizeof(variable));
+    tokenTable->curr = 0;
+    tokenTable->size = initialSize;
+}
+
+void addToTable(variable v)//char* token, int tokIdent
+{
     printf("\nTable size: %d", tokenTable->size);
-    if(tokenTable->curr == tokenTable->size - 1)
+    if(tokenTable->curr == tokenTable->size)
     {
-        (*tokenTable).size = tokenTable->size * 2;
-        (*tokenTable).vars = realloc(tokenTable->vars, sizeof(variable) * tokenTable->size);
+        (*tokenTable).size *= 2;
+        (*tokenTable).vars = (variable*)realloc(tokenTable->vars, sizeof(variable) * tokenTable->size);
     }
-    (*tokenTable).vars[tokenTable->curr].value = v.value;
-    (*tokenTable).vars[tokenTable->curr].tokenType = v.tokenType;
-    (*tokenTable).curr++;
+    tokenTable->vars[tokenTable->curr++] = v;
+}
+
+void freeArray()
+{
+    free(tokenTable->vars);
+    free(tokenTable);
 }
 
 int findTokenInTable(char* token)
@@ -364,14 +375,14 @@ int lexan()
             
             if(strncmp(token, "begin", 5) == 0) 
             {
-                addToTable(token, BEGIN);
+                addToTable((variable){token, BEGIN});
                 refreshTok(token, tokenSize);
                 free(token);
                 return BEGIN;
             }
             else if (strncmp(token, "end", 3) == 0)
             {
-                addToTable(token, END);
+                addToTable((variable){token, END});
                 refreshTok(token, tokenSize);
                 free(token);
                 return END;  
@@ -383,8 +394,8 @@ int lexan()
                     addToErrorStack("Invalid ID composition.");
                     return ERR;
                 }
-                if(findTokenInTable(token) >= 0)
-                    addToTable(token, ID);
+                if(!(findTokenInTable(token) >= 0))
+                    addToTable((variable){token, ID});
                 refreshTok(token, tokenSize);
                 free(token);
                 return ID;
