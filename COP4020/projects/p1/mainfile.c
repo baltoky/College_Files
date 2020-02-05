@@ -214,19 +214,25 @@ void initTable(int initialSize)
     tokenTable->size = initialSize;
 }
 
-void addToTable(variable v)//char* token, int tokIdent
+void addToTable(variable v)
 {
-    printf("\nTable size: %d", tokenTable->size);
     if(tokenTable->curr == tokenTable->size)
     {
         (*tokenTable).size *= 2;
         (*tokenTable).vars = (variable*)realloc(tokenTable->vars, sizeof(variable) * tokenTable->size);
     }
-    tokenTable->vars[tokenTable->curr++] = v;
+    tokenTable->vars[tokenTable->curr].value = (char*)malloc(1);
+    strcpy(tokenTable->vars[tokenTable->curr].value, v.value);
+    tokenTable->vars[tokenTable->curr++].tokenType = v.tokenType;
 }
 
 void freeArray()
 {
+    int i;
+    for(i = 0; i <= tokenTable->curr; i++)
+    {
+        free(tokenTable->vars[i].value);
+    }
     free(tokenTable->vars);
     free(tokenTable);
 }
