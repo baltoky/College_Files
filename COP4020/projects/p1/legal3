@@ -3,6 +3,6 @@
 
 begin
   a = b+c+d+e+f+ghijk;
-b = ((c+hello) * (a - 5))*(e_tt-45678);
+  b = ((c+hello) * (a - 5))*(e_tt-45678);
 end.
 
