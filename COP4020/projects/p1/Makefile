@@ -2,7 +2,7 @@ CC = gcc
 
 TAGS = -Wall -g
 
-TARG = Project1.exe
+TARG = Project1
 
 SRC = mainfile.c\
 	  table.c

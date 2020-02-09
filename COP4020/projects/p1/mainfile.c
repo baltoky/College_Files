@@ -28,12 +28,12 @@ int main(int argc, char** argv)
     int id = scope();
     if(id == END)
     {
-        printf("\nProgram is legal.");
+        printf("\nProgram is legal.\n\n");
     }
     else if(id == ERR)
     {
         printf("\nProgram is illegal.\n");
-        printf("Line %d contains the following errors: \n%s", linenum, errStack);
+        printf("Line %d contains the following errors: \n%s\n\n", linenum, errStack);
     }
 
     //printTable();
