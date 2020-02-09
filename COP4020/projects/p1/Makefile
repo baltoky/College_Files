@@ -5,8 +5,7 @@ TAGS = -Wall -g
 TARG = Project1.exe
 
 SRC = mainfile.c\
-	  table.c\
-	  lexicon.c
+	  table.c
 
 OBJ = $(SRC:.c=.o)
 
