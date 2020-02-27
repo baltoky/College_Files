@@ -110,9 +110,14 @@ int stmt()
     {
         if(match(ID))
         {
-            if(match(';'))
+            if(match(';'));
+            if(match(','))
             {
-
+                while(match(ID))
+                {
+                    if(match(';')) break;
+                    else if(match(','));
+                }
             }
         }
     }
@@ -310,20 +315,24 @@ int lexan()
             
             if(strncmp(token, "begin", 5) == 0) 
             {
-                addToTable((variable){token, BEGIN});
+                printf("\tAdding begin to the table.\n");
+                printTable(tokenTable);
+                addToTable(tokenTable, (variable){token, BEGIN});
                 refreshTok(token, tokenSize);
                 free(token);
                 return BEGIN;
             }
             else if (strncmp(token, "end", 3) == 0)
             {
-                addToTable((variable){token, END});
+                addToTable(tokenTable, (variable){token, END});
                 refreshTok(token, tokenSize);
                 free(token);
                 return END;  
             } 
             else if(strncmp(token, "int", 3) == 0)
             {
+                printf("\tDeclaring int.\n");
+                declToggle = 1;
                 refreshTok(token, tokenSize);
                 return INT;
             }
@@ -332,14 +341,41 @@ int lexan()
                 if(checkValidID(token, strlen(token)) == ERR)
                 {
                     addToErrorStack("Invalid ID composition.");
+                    refreshTok(token, tokenSize);
+                    free(token);
                     return ERR;
                 }
-                if(!(findTokenInTable(token) >= 0))
-                    addToTable((variable){token, ID});
-                refreshTok(token, tokenSize);
-                free(token);
-                return ID;
+                if(!(findTokenInTable(tokenTable, token) >= 0) && declToggle == 1)
+                {
+                    printf("\t\tAdding int to table\n");
+                    addToTable(tokenTable, (variable){token, ID});
+                    refreshTok(token, tokenSize);
+                    free(token);
+                    return ID;
+                }
+                else if(findTokenInTable(tokenTable, token) >=0 && declToggle == 1)
+                {
+                    addToErrorStack("Attempting to declared an already declared variable.");
+                    refreshTok(token, tokenSize);
+                    free(token);
+                    return ERR;
+                }
+                else if(findTokenInTable(tokenTable, token) >= 0 && declToggle == 0)
+                {
+                    printf("\t\tFound declared int.\n");
+                    refreshTok(token, tokenSize);
+                    free(token);
+                    return ID;
+                }
+                else{
+                    return ERR;
+                }
             }
+        }
+        else if(ch == ';')
+        {
+            declToggle = 0;
+            return ch;
         }
         else
         {

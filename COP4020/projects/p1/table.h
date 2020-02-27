@@ -1,16 +1,7 @@
 #ifndef TABLE_H
 #define TABLE_H
 
-/*
- * Type variable that defines the information needed to store
- *      each variable token in the table.
- * */
-typedef struct variable* variableP;
-typedef struct variable
-{
-    char* value;
-    int tokenType;
-}variable;
+#include "core.h"
 
 /*
  * Type table that defines the information that will
@@ -22,18 +13,20 @@ typedef struct table
     variableP vars;
     int curr;
     int size;
+    int head;
 }table;
 
 /*
  * Global table of variables.
  * */
 tableP tokenTable;
+tableP postfixArray;
 
 /*
  * Initializes the table with a size given as input.
  * @param initialSize is the size used to initialize the variable.
  * */
-void initTable(int initialSize);
+void initTable(tableP* array, int initialSize);
 
 /*
  * Adds the token to the token table in the form of a variable.
@@ -41,18 +34,18 @@ void initTable(int initialSize);
  * @param tokIdent is the identity of the token as described by the defines
  *      above.
  * */
-void addToTable(variable v);
+void addToTable(tableP array, variable v);
 
 /*
  * Garbage collection mechanism that frees the memory that was used by
  *      the table*;
  * */
-void freeArray();
+void freeArray(tableP* array);
 
 /*
  * Simple loop to print the array into the console.
  * */
-void printTable();
+void printTable(tableP array);
 
 /*
  * Simple seach function that looks for an id that has the same string
@@ -60,19 +53,10 @@ void printTable();
  * @param token a string to look for in the table.
  * @returns the index in the array where the strings matched.
  * */
-int findTokenInTable(char* token);
+int findTokenInTable(tableP array, char* token);
 
-/*
- * Creates an access to the table in a stack data structure manner.
- *      Will push the variable to the array as a stack.
- * @param v is a variable type to add to the stack.
- * */
-int pushToStack(variable v);
+int enqueue(tableP array, variable v);
 
-/*
- * Removes items from the stack structure.
- * @returns variable as the item that was removed.
- * */
-variable* pullFromStack();
+int dequeue(tableP array, variable v);
 
 #endif

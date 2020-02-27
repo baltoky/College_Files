@@ -11,8 +11,9 @@ int main(int argc, char** argv)
 {
     char* filepath = NULL; // Setting the string filepath to null.
     errStack = (char*)malloc(ERROR_STACK_SIZE); // Setting the error stack to an empty string.
-    initTable(2);
+    initTable(&tokenTable, 2);
     linenum = 1;
+    declToggle = 0;
 
     // Checks if the program recieves external arguments and takes
     //      The first argument as the filepath.
@@ -38,13 +39,13 @@ int main(int argc, char** argv)
         printf("Error line %d: %s\n", linenum, errStack);
     }
 
-    printTable();
+    printTable(tokenTable);
     printf("\n");
 
     // Closes the file stream.
     fclose(file);
     free(errStack);
-    freeArray();
+    freeArray(&tokenTable);
 
     return 0;
 }

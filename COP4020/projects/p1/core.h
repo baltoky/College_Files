@@ -19,6 +19,19 @@ int lookahead;
 int linenum;
 int ch;
 char* errStack;
+int declToggle;
+
+/*
+ * Type variable that defines the information needed to store
+ *      each variable token in the table.
+ * */
+typedef struct variable* variableP;
+typedef struct variable
+{
+    char* value;
+    int tokenType;
+}variable;
+
 
 /*
  * Reads from the file alloted in the file pointer.
