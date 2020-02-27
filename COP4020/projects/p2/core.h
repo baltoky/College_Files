@@ -116,4 +116,21 @@ int term();
  * */
 int opr();
 
+/*
+ * Prints the token that is input.
+ * @param token a char string to print to the console.
+ * @param size the size of the string.
+ * */
+void printTok(char* token, int size);
+
+void refreshTok(char* token, int size);
+
+int printAndRefresh(char* token, int size);
+
+int readBack(int i);
+
+int checkValidNUM(char* token, int size);
+
+int checkValidID(char* token, int size);
+
 #endif

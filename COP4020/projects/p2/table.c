@@ -82,3 +82,18 @@ void printTable(tableP array)
     }
 }
 
+/*
+ * Reads and returns the value stored at that index location on the array.
+ * @param array is the table from which to read.
+ * @param index is the index at which it should read from the table.
+ * @returns the values stored in the variable at the index given of the
+ *      array given.
+ * */
+variable readTableAt(tableP array, int index)
+{
+    variable v = {NULL, 0};
+    v = array->vars[index];
+    return v;
+}
+
+

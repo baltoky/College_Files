@@ -195,6 +195,11 @@ int opr()
     return 0;
 }
 
+/*
+ * Prints the token that is input.
+ * @param token a char string to print to the console.
+ * @param size the size of the string.
+ * */
 void printTok(char* token, int size)
 {
     printf("%s", token);
@@ -202,7 +207,7 @@ void printTok(char* token, int size)
 
 void refreshTok(char* token, int size)
 {
-    bzero(token, size);
+    memset(token, 0, sizeof(char) * size);
 }
 
 int printAndRefresh(char* token, int size)
@@ -315,7 +320,7 @@ int lexan()
             
             if(strncmp(token, "begin", 5) == 0) 
             {
-                printf("\tAdding begin to the table.\n");
+                printf("Adding begin to the table.\n");
                 printTable(tokenTable);
                 addToTable(tokenTable, (variable){token, BEGIN});
                 refreshTok(token, tokenSize);
