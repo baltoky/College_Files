@@ -7,6 +7,7 @@
 #define ID 300
 #define NUM 301
 #define INT 302
+#define OPR 303
 #define BEGIN 400
 #define END 401
 #define ERR 404
@@ -117,20 +118,33 @@ int term();
 int opr();
 
 /*
- * Prints the token that is input.
- * @param token a char string to print to the console.
+ * Sets the memory in the char array all to 0.
+ * @param token a char string.
  * @param size the size of the string.
  * */
-void printTok(char* token, int size);
-
 void refreshTok(char* token, int size);
 
-int printAndRefresh(char* token, int size);
-
+/*
+ * Reads back a certain amount of characters.
+ * @param i is the amount of characters to read back.
+ * @returns if it could read back or not.
+ * */
 int readBack(int i);
 
+/*
+ * Checks if a number token is valid.
+ * @param token the token to check as a number.
+ * @param size the size of the token string.
+ * @returns 
+ * */
 int checkValidNUM(char* token, int size);
 
+/*
+ * Checks if the id token is valid.
+ * @param token is the token to check as a valid id.
+ * @param size is the size of the token string.
+ * @returns true as a 1 or false as a 0.
+ * */
 int checkValidID(char* token, int size);
 
 #endif

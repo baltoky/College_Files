@@ -106,8 +106,10 @@ int stmt()
     //      an equal sign and go into expression.
     //      After which it will try to match a semicolon.
     //      Else it will check for an error and return.
+    initTable(&postfixStack, 2);
     if(match(INT))
     {
+        freeArray(&postfixStack);
         if(match(ID))
         {
             if(match(';'));
@@ -131,6 +133,10 @@ int stmt()
             addToErrorStack("The statement does not end with a semicolon.");
             return ERR;
         }
+        printf("\nPostfix Stack: \n");
+        printTable(postfixStack);
+        printf("\n");
+        freeArray(&postfixStack);
     }
     else if(match(ERR))
         return ERR;
@@ -190,38 +196,39 @@ int opr()
     //      goes to another expression.
     if(match('+') || match('-') || match('/') || match('*')) 
     {
-        return expr();
+        int ex = expr();
+        addToTable(postfixStack, (variable){"+", OPR});
+        return ex;
     }
     return 0;
 }
 
 /*
- * Prints the token that is input.
- * @param token a char string to print to the console.
+ * Sets the memory in the char array all to 0.
+ * @param token a char string.
  * @param size the size of the string.
  * */
-void printTok(char* token, int size)
-{
-    printf("%s", token);
-}
-
 void refreshTok(char* token, int size)
 {
     memset(token, 0, sizeof(char) * size);
 }
 
-int printAndRefresh(char* token, int size)
-{
-    printTok(token, size);
-    refreshTok(token, size);
-    return 0;
-}
-
+/*
+ * Reads back a certain amount of characters.
+ * @param i is the amount of characters to read back.
+ * @returns if it could read back or not.
+ * */
 int readBack(int i)
 {
     return fseek(file, -i, SEEK_CUR);
 }
 
+/*
+ * Checks if a number token is valid.
+ * @param token the token to check as a number.
+ * @param size the size of the token string.
+ * @returns 
+ * */
 int checkValidNUM(char* token, int size)
 {
     int i;
@@ -244,6 +251,12 @@ int checkValidNUM(char* token, int size)
     return 1;
 }
 
+/*
+ * Checks if the id token is valid.
+ * @param token is the token to check as a valid id.
+ * @param size is the size of the token string.
+ * @returns true as a 1 or false as a 0.
+ * */
 int checkValidID(char* token, int size)
 {
     int i;
@@ -271,21 +284,32 @@ int checkValidID(char* token, int size)
  * */
 int lexan()
 {
-    const int tokenSize = 32;
+    const int tokenSize = 1; // Standard initial size fo the size of the token. 
     char* token = malloc(tokenSize);
+
+    // Loops to gather character strings
+    //-----------------------------------
     while((ch = getchar()) != EOF)
     {
-        refreshTok(token, tokenSize);
+        // Refreshes the token to 0s
+        refreshTok(token, strlen(token));
+
+        // If the ch is an empty space excluding a return then do nothing.
         if(ch == ' ' || ch == '\t') ;
+        // Else if you get a return char then increase the line number.
+        else if(ch == '\n')
+        {
+            linenum++;
+        }
+        // Else if you get a comment char then loop though the line and up line number.
         else if(ch == '~')
         {
 	        while((ch = getchar()) != '\n');
             linenum++;
         }
-        else if(ch == '\n')
-        {
-            linenum++;
-        }
+        // Else if you find a number 0 - 9 then create a number token
+        //      Check if the token is a valid number depending on the language specified.
+        //      then free token and return the NUM identifier.
         else if(ch >= '0' && ch <= '9')
         {
             char tmp;
@@ -300,12 +324,19 @@ int lexan()
             if(checkValidNUM(token, strlen(token)) == ERR)
             {
                 addToErrorStack("Invalid number.");
+                free(token);
                 return ERR;
             }
 
-            refreshTok(token, tokenSize);
+            refreshTok(token, strlen(token));
+            free(token);
             return NUM;
         }
+        // Else if you find another character in the alphabet then create a 
+        //      ID token and check if it's valid. If it is not valid then return 
+        //      the ERR identifier. Else check if it is a declaration, if so add
+        //      it to the tokenTable, else check if it is an ID expression if so
+        //      add it to the postfixStack, else return ERR.
         else if((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z'))
         {
             char tmp;
@@ -316,29 +347,29 @@ int lexan()
                 ch = getchar();
             }
             
-            readBack(1);
+            readBack(1); // Reads back in the file by one character.
             
-            if(strncmp(token, "begin", 5) == 0) 
+            if(strncmp(token, "begin", strlen("begin")) == 0) // Compares the first 5 chars of token to begin.
             {
                 printf("Adding begin to the table.\n");
-                printTable(tokenTable);
                 addToTable(tokenTable, (variable){token, BEGIN});
-                refreshTok(token, tokenSize);
+                refreshTok(token, strlen(token));
                 free(token);
                 return BEGIN;
             }
-            else if (strncmp(token, "end", 3) == 0)
+            else if (strncmp(token, "end", strlen("end")) == 0) // Compares the first 3 chars of token to end.
             {
                 addToTable(tokenTable, (variable){token, END});
-                refreshTok(token, tokenSize);
+                refreshTok(token, strlen(token));
                 free(token);
                 return END;  
             } 
-            else if(strncmp(token, "int", 3) == 0)
+            else if(strncmp(token, "int", strlen("int")) == 0) // Compares the first 3 chars of token to int.
             {
                 printf("\tDeclaring int.\n");
-                declToggle = 1;
-                refreshTok(token, tokenSize);
+                declToggle = !declToggle;
+                refreshTok(token, strlen(token));
+                free(token);
                 return INT;
             }
             else
@@ -346,7 +377,7 @@ int lexan()
                 if(checkValidID(token, strlen(token)) == ERR)
                 {
                     addToErrorStack("Invalid ID composition.");
-                    refreshTok(token, tokenSize);
+                    refreshTok(token, strlen(token));
                     free(token);
                     return ERR;
                 }
@@ -354,21 +385,22 @@ int lexan()
                 {
                     printf("\t\tAdding int to table\n");
                     addToTable(tokenTable, (variable){token, ID});
-                    refreshTok(token, tokenSize);
+                    refreshTok(token, strlen(token));
                     free(token);
                     return ID;
                 }
                 else if(findTokenInTable(tokenTable, token) >=0 && declToggle == 1)
                 {
                     addToErrorStack("Attempting to declared an already declared variable.");
-                    refreshTok(token, tokenSize);
+                    refreshTok(token, strlen(token));
                     free(token);
                     return ERR;
                 }
                 else if(findTokenInTable(tokenTable, token) >= 0 && declToggle == 0)
                 {
                     printf("\t\tFound declared int.\n");
-                    refreshTok(token, tokenSize);
+                    addToTable(postfixStack, (variable){token, ID});
+                    refreshTok(token, strlen(token));
                     free(token);
                     return ID;
                 }

@@ -12,6 +12,7 @@ int main(int argc, char** argv)
     char* filepath = NULL; // Setting the string filepath to null.
     errStack = (char*)malloc(ERROR_STACK_SIZE); // Setting the error stack to an empty string.
     initTable(&tokenTable, 2);
+    initTable(&postfixStack, 2);
     linenum = 1;
     declToggle = 0;
 
@@ -41,11 +42,15 @@ int main(int argc, char** argv)
 
     printTable(tokenTable);
     printf("\n");
+    printf("\nPostfix Table:\n");
+    printTable(postfixStack);
+    printf("\n");
 
     // Closes the file stream.
     fclose(file);
     free(errStack);
     freeArray(&tokenTable);
+    freeArray(&postfixStack);
 
     return 0;
 }
