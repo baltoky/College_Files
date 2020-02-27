@@ -111,11 +111,18 @@ int term();
 
 /*
  * Matches an operator char in the form of
- *      + - / * returns depending on that match.
+ *      * or / returns depending on that match.
  * @returns an identifier depending on whether it matches
  *      an operator.
  * */
 int opr();
+
+/*
+ * Matches the operator char in the form of
+ *      + or - renturns depending on that match.
+ * @returns an identifier depending on whether it matches.
+ * */
+int mult();
 
 /*
  * Sets the memory in the char array all to 0.

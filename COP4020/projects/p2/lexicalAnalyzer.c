@@ -106,10 +106,8 @@ int stmt()
     //      an equal sign and go into expression.
     //      After which it will try to match a semicolon.
     //      Else it will check for an error and return.
-    initTable(&postfixStack, 2);
     if(match(INT))
     {
-        freeArray(&postfixStack);
         if(match(ID))
         {
             if(match(';'));
@@ -126,20 +124,23 @@ int stmt()
     else if(match(ID))
     {
         if(match('='))
+        {
             if(expr() == ERR)
+            {
                 return ERR;
+            }
+        }
+        addToTable(postfixStack, (variable){"dud", DONE});
         if(!match(';'))
         {
             addToErrorStack("The statement does not end with a semicolon.");
             return ERR;
         }
-        printf("\nPostfix Stack: \n");
-        printTable(postfixStack);
-        printf("\n");
-        freeArray(&postfixStack);
     }
     else if(match(ERR))
         return ERR;
+    //freeArray(&postfixStack);
+    //initTable(&postfixStack, 2);
     return 0;
 }
 
@@ -194,10 +195,42 @@ int opr()
 {
     // Attempts to match an operator and if it does then it
     //      goes to another expression.
-    if(match('+') || match('-') || match('/') || match('*')) 
+    if(match('*')) 
+    {
+        int ex = expr();
+        addToTable(postfixStack, (variable){"*", OPR});
+        return ex;
+    }
+    else if(match('/'))
+    {
+        int ex = expr();
+        addToTable(postfixStack, (variable){"/", OPR});
+        return ex;
+    }
+    else 
+    {
+        return mult();
+    }
+    return 0;
+}
+
+/*
+ * Matches the operator char in the form of
+ *      + or - renturns depending on that match.
+ * @returns an identifier depending on whether it matches.
+ * */
+int mult()
+{
+    if(match('+')) 
     {
         int ex = expr();
         addToTable(postfixStack, (variable){"+", OPR});
+        return ex;
+    }
+    else if(match('-'))
+    {
+        int ex = expr();
+        addToTable(postfixStack, (variable){"-", OPR});
         return ex;
     }
     return 0;
