@@ -144,6 +144,8 @@ int stmt()
     return 0;
 }
 
+char* oprBuffer = "";
+
 /*
  * Recursive function that checks for parenthesis interaction
  *      via matching and then goes to a term.
@@ -180,6 +182,8 @@ int term()
     //      otherwise it goes onto finding an operator.
     if(match(NUM) || match(ID)) 
     {
+        //if(strlen(oprBuffer) == 0)
+            addToTable(postfixStack, (variable){oprBuffer, OPR});
         return opr();
     }
     return opr();
@@ -198,13 +202,19 @@ int opr()
     if(match('*')) 
     {
         int ex = expr();
-        addToTable(postfixStack, (variable){"*", OPR});
+        memset(oprBuffer, 0, 2);
+        strcpy(oprBuffer, "*");
+
+        printf("Found operator: %s", oprBuffer);
+        //addToTable(postfixStack, (variable){"*", OPR});
         return ex;
     }
     else if(match('/'))
     {
         int ex = expr();
-        addToTable(postfixStack, (variable){"/", OPR});
+        memset(oprBuffer, 0, 2);
+        strcpy(oprBuffer, "/");
+        //addToTable(postfixStack, (variable){"/", OPR});
         return ex;
     }
     else 
@@ -224,13 +234,17 @@ int mult()
     if(match('+')) 
     {
         int ex = expr();
-        addToTable(postfixStack, (variable){"+", OPR});
+        memset(oprBuffer, 0, 2);
+        strcpy(oprBuffer, "+");
+        //addToTable(postfixStack, (variable){"+", OPR});
         return ex;
     }
     else if(match('-'))
     {
         int ex = expr();
-        addToTable(postfixStack, (variable){"-", OPR});
+        memset(oprBuffer, 0, 2);
+        strcpy(oprBuffer, "-");
+        //addToTable(postfixStack, (variable){"-", OPR});
         return ex;
     }
     return 0;
@@ -361,6 +375,8 @@ int lexan()
                 return ERR;
             }
 
+            printf("\t\tFound declared number.\n");
+            addToTable(postfixStack, (variable){token, NUM});
             refreshTok(token, strlen(token));
             free(token);
             return NUM;

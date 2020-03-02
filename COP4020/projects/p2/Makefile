@@ -2,7 +2,7 @@ CC = gcc
 
 TAGS = -Wall -g
 
-TARG = Project1
+TARG = Project2
 
 SRC = mainfile.c\
 	  table.c\
@@ -25,4 +25,5 @@ $(TARG): $(OBJ)
 
 clean:
 	rm *.o
+	rm $(TARG)
 
