@@ -76,6 +76,8 @@ int scope()
     return ERR;
 }
 
+
+
 /*
  * A recursive function that calls stmt and then itself.
  * @returns an identifier depending on how stmt behaves.
@@ -144,7 +146,6 @@ int stmt()
     return 0;
 }
 
-char* oprBuffer = "";
 
 /*
  * Recursive function that checks for parenthesis interaction
@@ -182,8 +183,7 @@ int term()
     //      otherwise it goes onto finding an operator.
     if(match(NUM) || match(ID)) 
     {
-        //if(strlen(oprBuffer) == 0)
-            addToTable(postfixStack, (variable){oprBuffer, OPR});
+        //addToTable(postfixStack, (variable){oprBuffer, OPR});
         return opr();
     }
     return opr();
@@ -202,18 +202,12 @@ int opr()
     if(match('*')) 
     {
         int ex = expr();
-        memset(oprBuffer, 0, 2);
-        strcpy(oprBuffer, "*");
-
-        printf("Found operator: %s", oprBuffer);
         //addToTable(postfixStack, (variable){"*", OPR});
         return ex;
     }
     else if(match('/'))
     {
         int ex = expr();
-        memset(oprBuffer, 0, 2);
-        strcpy(oprBuffer, "/");
         //addToTable(postfixStack, (variable){"/", OPR});
         return ex;
     }
@@ -234,16 +228,12 @@ int mult()
     if(match('+')) 
     {
         int ex = expr();
-        memset(oprBuffer, 0, 2);
-        strcpy(oprBuffer, "+");
         //addToTable(postfixStack, (variable){"+", OPR});
         return ex;
     }
     else if(match('-'))
     {
         int ex = expr();
-        memset(oprBuffer, 0, 2);
-        strcpy(oprBuffer, "-");
         //addToTable(postfixStack, (variable){"-", OPR});
         return ex;
     }
