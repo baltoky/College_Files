@@ -2,11 +2,10 @@ CC = gcc
 
 TAGS = -Wall -g
 
-TARG = Project2
+TARG = Project1
 
 SRC = mainfile.c\
-	  table.c\
-	  lexicalAnalyzer.c
+	  table.c
 
 OBJ = $(SRC:.c=.o)
 
@@ -25,5 +24,4 @@ $(TARG): $(OBJ)
 
 clean:
 	rm *.o
-	rm $(TARG)
 
