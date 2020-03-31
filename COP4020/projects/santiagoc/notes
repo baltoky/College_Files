@@ -1,8 +1,0 @@
-PROGRAM => begin BODY end.
-BODY => <STATEMENT><STATEMENTS>
-     => lambda
-STATEMENT => <ID> = <OPERATION>;
-          => <ID>;
-
-ID => <LETTERS>
-   =>
