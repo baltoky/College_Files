@@ -7,7 +7,7 @@ import sys
 
 #Name: Cesar Santiago
 #Course: COP4020
-#Project 3
+#Project 4
 #Date: 03/22/2020
 #Description: A program that gives a graphical interpretation of an FSA as described
 #	In a file input by the user. It will also run an input string through the FSA
@@ -23,9 +23,9 @@ class Scene(Frame):
 	def initUI(self):
 		rad = 25 # Constant for the radius of the automata
 		scale = 1 # Constant for the scale of the size of the automata
-		global spacing = 75
 		self.master.title("Final State Automata")
 		self.pack(fill=BOTH, expand=1)
+		
 		#Reading in the files as described in the arguments passed in by the console
 		if(len(sys.argv) == 1):
 			f = open("fsa.txt", "r")
@@ -33,8 +33,11 @@ class Scene(Frame):
 		else:
 			f = open(sys.argv[1], "r")
 			testF = open(sys.argv[2], "r")
+			
 		testString = testF.read()
 		tokens = f.read()
+		testF.close()
+		f.close()
 		tokenList = re.split(';', tokens) #Split all of the tokens by the delimiter ;
 		canvas = Canvas(self)
 		#Creating empty arrays for the Relations and the Automata
@@ -51,8 +54,8 @@ class Scene(Frame):
 		
 		#Creates the automata.
 		for num in range(numOfA):
-			x = spacing * scale
-			y = spacing * scale
+			x = 50 * scale
+			y = 50 * scale
 			scale += 1
 			automata.append(Automata(radius = rad, position = Vector(x, y), canvasInput = canvas, token = str(num)))
 			
@@ -76,10 +79,31 @@ class Scene(Frame):
 			aStates = re.split(':', language)
 			tok = aStates[2]
 			r = Relation(initialVector = automata[int(aStates[0])], finalVector = automata[int(aStates[1])],
-			canvasInput = canvas, initalState = int(aStates[0]), finalState = int(aStates[1]), radius = automata[int(aStates[0])].rad, token = tok)
+			canvasInput = canvas, initialState = int(aStates[0]), finalState = int(aStates[1]), radius = automata[int(aStates[0])].rad, token = tok)
 			r.draw()
 			relations.append(r)
 			stateCount += 1
+		
+		theString = "(defun demo()\n\t(setq fp (open \"theString.txt\" :direction :input)) \n"
+		theString += "\t(setq l (read fp \"done\")) \n\t(princ \"processing \") \n\t(princ l) \n\t(fsa l)\n)\n(defun fsa(l)\n"
+		theString += "\t(cond ((null l) \"illegal empty string\")\n\t\t(t (state0 l))\n\t)\n)\n"
+	
+		for c in automata:
+			theString += "(defun State" + c.tok + "(l)\n\t(cond\n"
+			if(c.end):
+				theString += "\t\t((null l) \"legal state\"\n"
+			else:
+				theString += "\t\t((null l) \"illegal state\"\n"
+			for r in relations:
+				print("State: " + c.tok + " Transition: " + str(r.i))
+				if(c.tok == str(r.i)):
+					theString += "\t\t((equal (car l) '" + r.tok + ") (State" + str(r.f) + "(cdr l)))\n"
+			theString += "\t\t(t \"Illegal character in the state\")\n\t)\n)\n"
+		
+		print(theString)
+		lispFile = open("part2.lsp", "w+")
+		lispFile.write(theString)
+		lispFile.close()
 		
 		#Reading the viability of an input string on the FSA
 		currentA = int(tokenList[3])
@@ -103,6 +127,17 @@ class Scene(Frame):
 				print("Legal string.") #If the string is legal then output this
 		
 		canvas.pack(fill=BOTH, expand=1)
+		
+'''
+(defun stateX(l)
+    (cond ((null l) "illegal: state 0 is an accept state")
+		((equal (car l) 'X) (stateX(cdr l)))
+		((equal (car l) 'X) (stateY(cdr l)))
+		(princ "accept\n")
+		(t "illegal character in State 0")
+    )
+)
+'''
 
 def main():
 	root = Tk()
@@ -152,9 +187,9 @@ class Automata:
 
 #Relation: A relation between one Automata class to another.
 class Relation:
-	def __init__(self, initialVector, finalVector, initalState, finalState, canvasInput, radius, token):
+	def __init__(self, initialVector, finalVector, initialState, finalState, canvasInput, radius, token):
 		self.rad = radius
-		self.i = initalState
+		self.i = initialState
 		self.f = finalState
 		self.vector = Vector(initialVector.x, initialVector.y, finalVector.x, finalVector.y)
 		self.canvas = canvasInput
@@ -170,7 +205,7 @@ class Relation:
 			#Draw the token of the state change on a point of the previous line
 			self.canvas.create_text(self.vector.x + self.rad + 10, self.vector.y - self.rad - 10, anchor = W, font = "Comic", text = self.tok)
 			
-		elif(self.vector.getMagnitude() > spacing):
+		elif(self.vector.getMagnitude() > 75):
 			#Create a line from the left of an Automata to the other with an arc the lentgth of the radius times three
 			self.canvas.create_line(self.vector.x - self.rad * math.cos(math.pi/4), self.vector.y + self.rad * math.sin(math.pi/4),
 			(self.vector.x + self.vector.t_x) / 2 - self.rad * 3, (self.vector.y + self.vector.t_y) / 2 + self.rad * 3,

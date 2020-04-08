@@ -23,7 +23,6 @@ class Scene(Frame):
 	def initUI(self):
 		rad = 25 # Constant for the radius of the automata
 		scale = 1 # Constant for the scale of the size of the automata
-		global spacing = 75
 		self.master.title("Final State Automata")
 		self.pack(fill=BOTH, expand=1)
 		#Reading in the files as described in the arguments passed in by the console
@@ -52,8 +51,8 @@ class Scene(Frame):
 		
 		#Creates the automata.
 		for num in range(numOfA):
-			x = spacing * scale
-			y = spacing * scale
+			x = 50 * scale
+			y = 50 * scale
 			scale += 1
 			automata.append(Automata(radius = rad, position = Vector(x, y), canvasInput = canvas, token = str(num)))
 			
@@ -171,7 +170,7 @@ class Relation:
 			#Draw the token of the state change on a point of the previous line
 			self.canvas.create_text(self.vector.x + self.rad + 10, self.vector.y - self.rad - 10, anchor = W, font = "Comic", text = self.tok)
 			
-		elif(self.vector.getMagnitude() > spacing):
+		elif(self.vector.getMagnitude() > 75):
 			#Create a line from the left of an Automata to the other with an arc the lentgth of the radius times three
 			self.canvas.create_line(self.vector.x - self.rad * math.cos(math.pi/4), self.vector.y + self.rad * math.sin(math.pi/4),
 			(self.vector.x + self.vector.t_x) / 2 - self.rad * 3, (self.vector.y + self.vector.t_y) / 2 + self.rad * 3,

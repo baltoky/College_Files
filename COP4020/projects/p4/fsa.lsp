@@ -1,23 +1,51 @@
-(defconstant DFA
-	'((ALPHABET        (a b))
-	(STATES (1 2 3 4 5))
-	(INITIAL-STATE 1)
-	(FINAL-STATES (4))
-	(TRANSITIONS ((1 a 2) (1 b 5)
-				(2 a 4) (2 b 3)
-				(3 a 5) (3 b 2)
-				(4 a 5) (4 b 5)
-				(5 a 5) (5 b 5))))
-	"A deterministic finite-state automaton that accepts the language
-	{(a b^n a), n is an even number}, i.e. {(a a), (a b b a), (a b b
-	b b a), ...}."
+(defun demo()
+	(setq fp (open "theString.txt" :direction :input)) 
+	(setq l (read fp "done")) 
+	(princ "processing ") 
+	(princ l) 
+	(fsa l)
 )
-
-(defun accepts(state str)
-	(cond(NULL str) NIL
-		(
+(defun fsa(l)
+	(cond ((null l) "illegal empty string")
+		(t (state0 l))
+	)
 )
-
-(defun transition (state token)
-	(find DFA-TRANSITIONS
+(defun State0(l)
+	(cond
+		((null l) "illegal state"
+		((equal (car l) 'x) (State0(cdr l)))
+		((equal (car l) 'y) (State1(cdr l)))
+		(t "Illegal character in the state")
+	)
+)
+(defun State1(l)
+	(cond
+		((null l) "legal state"
+		((equal (car l) 'x) (State2(cdr l)))
+		(t "Illegal character in the state")
+	)
+)
+(defun State2(l)
+	(cond
+		((null l) "illegal state"
+		((equal (car l) 'x) (State2(cdr l)))
+		((equal (car l) 'y) (State3(cdr l)))
+		(t "Illegal character in the state")
+	)
+)
+(defun State3(l)
+	(cond
+		((null l) "legal state"
+		((equal (car l) 'x) (State3(cdr l)))
+		((equal (car l) 'z) (State4(cdr l)))
+		(t "Illegal character in the state")
+	)
+)
+(defun State4(l)
+	(cond
+		((null l) "illegal state"
+		((equal (car l) 'x) (State4(cdr l)))
+		((equal (car l) 'a) (State1(cdr l)))
+		(t "Illegal character in the state")
+	)
 )
