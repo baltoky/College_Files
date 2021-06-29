@@ -84,16 +84,16 @@ class Scene(Frame):
 			relations.append(r)
 			stateCount += 1
 		
-		theString = "(defun demo()\n\t(setq fp (open \"theString.txt\" :direction :input)) \n"
+		theString = "(defun demo()\n\t(setq fp (open \"" + sys.argv[2] + "\" :direction :input)) \n"
 		theString += "\t(setq l (read fp \"done\")) \n\t(princ \"processing \") \n\t(princ l) \n\t(fsa l)\n)\n(defun fsa(l)\n"
-		theString += "\t(cond ((null l) \"illegal empty string\")\n\t\t(t (state0 l))\n\t)\n)\n"
+		theString += "\t(cond ((null l) \"illegal empty string\")\n\t\t(t (State0 l))\n\t)\n)\n"
 	
 		for c in automata:
 			theString += "(defun State" + c.tok + "(l)\n\t(cond\n"
 			if(c.end):
-				theString += "\t\t((null l) \"legal state\"\n"
+				theString += "\t\t((null l) \"legal state\")\n"
 			else:
-				theString += "\t\t((null l) \"illegal state\"\n"
+				theString += "\t\t((null l) \"illegal state\")\n"
 			for r in relations:
 				print("State: " + c.tok + " Transition: " + str(r.i))
 				if(c.tok == str(r.i)):
@@ -127,17 +127,7 @@ class Scene(Frame):
 				print("Legal string.") #If the string is legal then output this
 		
 		canvas.pack(fill=BOTH, expand=1)
-		
-'''
-(defun stateX(l)
-    (cond ((null l) "illegal: state 0 is an accept state")
-		((equal (car l) 'X) (stateX(cdr l)))
-		((equal (car l) 'X) (stateY(cdr l)))
-		(princ "accept\n")
-		(t "illegal character in State 0")
-    )
-)
-'''
+
 
 def main():
 	root = Tk()
