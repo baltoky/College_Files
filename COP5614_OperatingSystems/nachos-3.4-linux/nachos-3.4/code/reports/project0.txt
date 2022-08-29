@@ -1,0 +1,15 @@
+Cesar Santiago Report
+    1- My experience concisted of creating a vm using Hyper-V to run a linux distro of Ubuntu, downloading and extracting the nachos .tar,
+    installing the multilib c compilers and make, and finally using make on the /nachos-3.4/code directory.
+
+    2- Tested the /thread/nachos executable and obtained similar results to the output given.
+    Tested the /test/helt test with the command from /userprog ./nachos -x ../text/halt, the output matches the documentation which reports that the
+    program shuts down the OS.
+    Tested the /test/halt test with the command from /userprg ./nachos -s -x ../text/halt, the output was all 12 steps from step 11 to 22 of the 
+    halting operation with the logging of the registers on each step.
+
+    3- The Thread class defines a thread data structure as well as the functionality attached to creating, synchronizing and destroying a thread.
+    The thread definition shows a constructor to define a thread record stack and to save to a machine state as well as defining required registries.
+    The file defines a destructor as well. The other function calls are Fork - to run the thread, Yield - to relinquish CPU time for other threads to run
+    for a cycle, Sleep - to relinquish CPU time for some specified time, and Finish - to end thread execution. Other definitions include logging such as
+    Print, getName, setStatus and CheckOverflow.
